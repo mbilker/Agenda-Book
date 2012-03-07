@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  PlayersViewController.h
 //  Agenda Book
 //
 //  Created by Matt Bilker on 3/6/12.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface PlayersViewController : UITableViewController
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, strong) NSMutableArray *players;
 
 @end
