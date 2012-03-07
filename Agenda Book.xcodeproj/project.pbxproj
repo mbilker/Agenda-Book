@@ -1,0 +1,281 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841551506ED9900C6B779 /* UIKit.framework */; };
+		65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841571506ED9900C6B779 /* Foundation.framework */; };
+		65A8415A1506ED9900C6B779 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841591506ED9900C6B779 /* CoreGraphics.framework */; };
+		65A841601506ED9900C6B779 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65A8415E1506ED9900C6B779 /* InfoPlist.strings */; };
+		65A841621506ED9900C6B779 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841611506ED9900C6B779 /* main.m */; };
+		65A841661506ED9900C6B779 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841651506ED9900C6B779 /* AppDelegate.m */; };
+		65A841691506ED9900C6B779 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65A841671506ED9900C6B779 /* MainStoryboard.storyboard */; };
+		65A8416C1506ED9900C6B779 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A8416B1506ED9900C6B779 /* ViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		65A841511506ED9900C6B779 /* Agenda Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agenda Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		65A841551506ED9900C6B779 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		65A841571506ED9900C6B779 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		65A841591506ED9900C6B779 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		65A8415D1506ED9900C6B779 /* Agenda Book-Info.plist */ = {isa = PBXFileReference; path = "Agenda Book-Info.plist"; sourceTree = "<group>"; };
+		65A8415F1506ED9900C6B779 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		65A841611506ED9900C6B779 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		65A841631506ED9900C6B779 /* Agenda Book-Prefix.pch */ = {isa = PBXFileReference; path = "Agenda Book-Prefix.pch"; sourceTree = "<group>"; };
+		65A841641506ED9900C6B779 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		65A841651506ED9900C6B779 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		65A841681506ED9900C6B779 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		65A8416A1506ED9900C6B779 /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		65A8416B1506ED9900C6B779 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		65A8414E1506ED9900C6B779 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */,
+				65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */,
+				65A8415A1506ED9900C6B779 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		65A841461506ED9900C6B779 = {
+			isa = PBXGroup;
+			children = (
+				65A8415B1506ED9900C6B779 /* Agenda Book */,
+				65A841541506ED9900C6B779 /* Frameworks */,
+				65A841521506ED9900C6B779 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		65A841521506ED9900C6B779 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				65A841511506ED9900C6B779 /* Agenda Book.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		65A841541506ED9900C6B779 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				65A841551506ED9900C6B779 /* UIKit.framework */,
+				65A841571506ED9900C6B779 /* Foundation.framework */,
+				65A841591506ED9900C6B779 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		65A8415B1506ED9900C6B779 /* Agenda Book */ = {
+			isa = PBXGroup;
+			children = (
+				65A841641506ED9900C6B779 /* AppDelegate.h */,
+				65A841651506ED9900C6B779 /* AppDelegate.m */,
+				65A841671506ED9900C6B779 /* MainStoryboard.storyboard */,
+				65A8416A1506ED9900C6B779 /* ViewController.h */,
+				65A8416B1506ED9900C6B779 /* ViewController.m */,
+				65A8415C1506ED9900C6B779 /* Supporting Files */,
+			);
+			path = "Agenda Book";
+			sourceTree = "<group>";
+		};
+		65A8415C1506ED9900C6B779 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				65A8415D1506ED9900C6B779 /* Agenda Book-Info.plist */,
+				65A8415E1506ED9900C6B779 /* InfoPlist.strings */,
+				65A841611506ED9900C6B779 /* main.m */,
+				65A841631506ED9900C6B779 /* Agenda Book-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		65A841501506ED9900C6B779 /* Agenda Book */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 65A8416F1506ED9900C6B779 /* Build configuration list for PBXNativeTarget "Agenda Book" */;
+			buildPhases = (
+				65A8414D1506ED9900C6B779 /* Sources */,
+				65A8414E1506ED9900C6B779 /* Frameworks */,
+				65A8414F1506ED9900C6B779 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Agenda Book";
+			productName = "Agenda Book";
+			productReference = 65A841511506ED9900C6B779 /* Agenda Book.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		65A841481506ED9900C6B779 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 65A8414B1506ED9900C6B779 /* Build configuration list for PBXProject "Agenda Book" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 65A841461506ED9900C6B779;
+			productRefGroup = 65A841521506ED9900C6B779 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				65A841501506ED9900C6B779 /* Agenda Book */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		65A8414F1506ED9900C6B779 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65A841601506ED9900C6B779 /* InfoPlist.strings in Resources */,
+				65A841691506ED9900C6B779 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		65A8414D1506ED9900C6B779 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				65A841621506ED9900C6B779 /* main.m in Sources */,
+				65A841661506ED9900C6B779 /* AppDelegate.m in Sources */,
+				65A8416C1506ED9900C6B779 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		65A8415E1506ED9900C6B779 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65A8415F1506ED9900C6B779 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		65A841671506ED9900C6B779 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				65A841681506ED9900C6B779 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		65A8416D1506ED9900C6B779 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		65A8416E1506ED9900C6B779 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		65A841701506ED9900C6B779 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
+				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		65A841711506ED9900C6B779 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
+				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		65A8414B1506ED9900C6B779 /* Build configuration list for PBXProject "Agenda Book" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65A8416D1506ED9900C6B779 /* Debug */,
+				65A8416E1506ED9900C6B779 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		65A8416F1506ED9900C6B779 /* Build configuration list for PBXNativeTarget "Agenda Book" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				65A841701506ED9900C6B779 /* Debug */,
+				65A841711506ED9900C6B779 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 65A841481506ED9900C6B779 /* Project object */;
+}
