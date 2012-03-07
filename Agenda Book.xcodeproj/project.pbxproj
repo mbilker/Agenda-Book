@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6527C31E15071551007B8F26 /* PlayerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C31D15071551007B8F26 /* PlayerCell.m */; };
+		6527C322150718FD007B8F26 /* PlayerDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C321150718FD007B8F26 /* PlayerDetailsViewController.m */; };
 		65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841551506ED9900C6B779 /* UIKit.framework */; };
 		65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841571506ED9900C6B779 /* Foundation.framework */; };
 		65A8415A1506ED9900C6B779 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841591506ED9900C6B779 /* CoreGraphics.framework */; };
@@ -44,6 +46,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6527C31C15071551007B8F26 /* PlayerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerCell.h; sourceTree = "<group>"; };
+		6527C31D15071551007B8F26 /* PlayerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerCell.m; sourceTree = "<group>"; };
+		6527C320150718FD007B8F26 /* PlayerDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDetailsViewController.h; sourceTree = "<group>"; };
+		6527C321150718FD007B8F26 /* PlayerDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDetailsViewController.m; sourceTree = "<group>"; };
 		65A841511506ED9900C6B779 /* Agenda Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agenda Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A841551506ED9900C6B779 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65A841571506ED9900C6B779 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -135,6 +141,10 @@
 				65A841641506ED9900C6B779 /* AppDelegate.h */,
 				65A841651506ED9900C6B779 /* AppDelegate.m */,
 				65A841671506ED9900C6B779 /* MainStoryboard.storyboard */,
+				6527C320150718FD007B8F26 /* PlayerDetailsViewController.h */,
+				6527C321150718FD007B8F26 /* PlayerDetailsViewController.m */,
+				6527C31C15071551007B8F26 /* PlayerCell.h */,
+				6527C31D15071551007B8F26 /* PlayerCell.m */,
 				65A841A31506F97F00C6B779 /* PlayersViewController.h */,
 				65A841A41506F97F00C6B779 /* PlayersViewController.m */,
 				65A841A61506FE5100C6B779 /* Player.h */,
@@ -279,6 +289,8 @@
 				65A8416C1506ED9900C6B779 /* ViewController.m in Sources */,
 				65A841A51506F98000C6B779 /* PlayersViewController.m in Sources */,
 				65A841A81506FE5100C6B779 /* Player.m in Sources */,
+				6527C31E15071551007B8F26 /* PlayerCell.m in Sources */,
+				6527C322150718FD007B8F26 /* PlayerDetailsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +402,7 @@
 				65A841711506ED9900C6B779 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
