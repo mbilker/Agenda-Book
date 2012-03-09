@@ -12,6 +12,6 @@
 
 @synthesize name;
 @synthesize game;
-@synthesize rating;
+@synthesize complete;
 
 @end

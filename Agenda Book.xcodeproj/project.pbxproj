@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6527C31E15071551007B8F26 /* PlayerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C31D15071551007B8F26 /* PlayerCell.m */; };
-		6527C322150718FD007B8F26 /* PlayerDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C321150718FD007B8F26 /* PlayerDetailsViewController.m */; };
+		61E2070E1508E0CB007ABD77 /* umasd.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070D1508E0CB007ABD77 /* umasd.png */; };
+		61E207101508E275007ABD77 /* Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070F1508E275007ABD77 /* Checkmark.png */; };
+		61E207121508E27F007ABD77 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E207111508E27F007ABD77 /* X.png */; };
+		6527C31E15071551007B8F26 /* SubjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C31D15071551007B8F26 /* SubjectCell.m */; };
+		6527C322150718FD007B8F26 /* SubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C321150718FD007B8F26 /* SubjectViewController.m */; };
+		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
+		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
 		65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841551506ED9900C6B779 /* UIKit.framework */; };
 		65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841571506ED9900C6B779 /* Foundation.framework */; };
 		65A8415A1506ED9900C6B779 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841591506ED9900C6B779 /* CoreGraphics.framework */; };
@@ -41,15 +46,22 @@
 		65A841A01506F66A00C6B779 /* Gestures@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65A841881506F66A00C6B779 /* Gestures@2x.png */; };
 		65A841A11506F66A00C6B779 /* Players.png in Resources */ = {isa = PBXBuildFile; fileRef = 65A841891506F66A00C6B779 /* Players.png */; };
 		65A841A21506F66A00C6B779 /* Players@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65A8418A1506F66A00C6B779 /* Players@2x.png */; };
-		65A841A51506F98000C6B779 /* PlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A41506F97F00C6B779 /* PlayersViewController.m */; };
+		65A841A51506F98000C6B779 /* ClassesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A41506F97F00C6B779 /* ClassesViewController.m */; };
 		65A841A81506FE5100C6B779 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A71506FE5100C6B779 /* Player.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6527C31C15071551007B8F26 /* PlayerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerCell.h; sourceTree = "<group>"; };
-		6527C31D15071551007B8F26 /* PlayerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerCell.m; sourceTree = "<group>"; };
-		6527C320150718FD007B8F26 /* PlayerDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDetailsViewController.h; sourceTree = "<group>"; };
-		6527C321150718FD007B8F26 /* PlayerDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDetailsViewController.m; sourceTree = "<group>"; };
+		61E2070D1508E0CB007ABD77 /* umasd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = umasd.png; sourceTree = "<group>"; };
+		61E2070F1508E275007ABD77 /* Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Checkmark.png; sourceTree = "<group>"; };
+		61E207111508E27F007ABD77 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
+		6527C31C15071551007B8F26 /* SubjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectCell.h; sourceTree = "<group>"; };
+		6527C31D15071551007B8F26 /* SubjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectCell.m; sourceTree = "<group>"; };
+		6527C320150718FD007B8F26 /* SubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectViewController.h; sourceTree = "<group>"; };
+		6527C321150718FD007B8F26 /* SubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectViewController.m; sourceTree = "<group>"; };
+		65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSubjectPickerViewController.h; sourceTree = "<group>"; };
+		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
+		6567C2451508054C00859E02 /* SubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPickerViewController.h; sourceTree = "<group>"; };
+		6567C2461508054C00859E02 /* SubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectPickerViewController.m; sourceTree = "<group>"; };
 		65A841511506ED9900C6B779 /* Agenda Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agenda Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A841551506ED9900C6B779 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65A841571506ED9900C6B779 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -87,8 +99,8 @@
 		65A841881506F66A00C6B779 /* Gestures@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gestures@2x.png"; sourceTree = "<group>"; };
 		65A841891506F66A00C6B779 /* Players.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Players.png; sourceTree = "<group>"; };
 		65A8418A1506F66A00C6B779 /* Players@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Players@2x.png"; sourceTree = "<group>"; };
-		65A841A31506F97F00C6B779 /* PlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayersViewController.h; sourceTree = "<group>"; };
-		65A841A41506F97F00C6B779 /* PlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayersViewController.m; sourceTree = "<group>"; };
+		65A841A31506F97F00C6B779 /* ClassesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassesViewController.h; sourceTree = "<group>"; };
+		65A841A41506F97F00C6B779 /* ClassesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassesViewController.m; sourceTree = "<group>"; };
 		65A841A61506FE5100C6B779 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		65A841A71506FE5100C6B779 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,15 +150,19 @@
 			isa = PBXGroup;
 			children = (
 				65A841721506F66A00C6B779 /* Images */,
-				65A841641506ED9900C6B779 /* AppDelegate.h */,
 				65A841651506ED9900C6B779 /* AppDelegate.m */,
+				65A841641506ED9900C6B779 /* AppDelegate.h */,
 				65A841671506ED9900C6B779 /* MainStoryboard.storyboard */,
-				6527C320150718FD007B8F26 /* PlayerDetailsViewController.h */,
-				6527C321150718FD007B8F26 /* PlayerDetailsViewController.m */,
-				6527C31C15071551007B8F26 /* PlayerCell.h */,
-				6527C31D15071551007B8F26 /* PlayerCell.m */,
-				65A841A31506F97F00C6B779 /* PlayersViewController.h */,
-				65A841A41506F97F00C6B779 /* PlayersViewController.m */,
+				6567C2451508054C00859E02 /* SubjectPickerViewController.h */,
+				6567C2461508054C00859E02 /* SubjectPickerViewController.m */,
+				6527C320150718FD007B8F26 /* SubjectViewController.h */,
+				6527C321150718FD007B8F26 /* SubjectViewController.m */,
+				65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */,
+				65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */,
+				6527C31C15071551007B8F26 /* SubjectCell.h */,
+				6527C31D15071551007B8F26 /* SubjectCell.m */,
+				65A841A31506F97F00C6B779 /* ClassesViewController.h */,
+				65A841A41506F97F00C6B779 /* ClassesViewController.m */,
 				65A841A61506FE5100C6B779 /* Player.h */,
 				65A841A71506FE5100C6B779 /* Player.m */,
 				65A8416A1506ED9900C6B779 /* ViewController.h */,
@@ -194,6 +210,9 @@
 				65A841881506F66A00C6B779 /* Gestures@2x.png */,
 				65A841891506F66A00C6B779 /* Players.png */,
 				65A8418A1506F66A00C6B779 /* Players@2x.png */,
+				61E207111508E27F007ABD77 /* X.png */,
+				61E2070F1508E275007ABD77 /* Checkmark.png */,
+				61E2070D1508E0CB007ABD77 /* umasd.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -274,6 +293,9 @@
 				65A841A01506F66A00C6B779 /* Gestures@2x.png in Resources */,
 				65A841A11506F66A00C6B779 /* Players.png in Resources */,
 				65A841A21506F66A00C6B779 /* Players@2x.png in Resources */,
+				61E2070E1508E0CB007ABD77 /* umasd.png in Resources */,
+				61E207101508E275007ABD77 /* Checkmark.png in Resources */,
+				61E207121508E27F007ABD77 /* X.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,10 +309,12 @@
 				65A841621506ED9900C6B779 /* main.m in Sources */,
 				65A841661506ED9900C6B779 /* AppDelegate.m in Sources */,
 				65A8416C1506ED9900C6B779 /* ViewController.m in Sources */,
-				65A841A51506F98000C6B779 /* PlayersViewController.m in Sources */,
+				65A841A51506F98000C6B779 /* ClassesViewController.m in Sources */,
 				65A841A81506FE5100C6B779 /* Player.m in Sources */,
-				6527C31E15071551007B8F26 /* PlayerCell.m in Sources */,
-				6527C322150718FD007B8F26 /* PlayerDetailsViewController.m in Sources */,
+				6527C31E15071551007B8F26 /* SubjectCell.m in Sources */,
+				6527C322150718FD007B8F26 /* SubjectViewController.m in Sources */,
+				6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */,
+				65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

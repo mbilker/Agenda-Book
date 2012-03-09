@@ -1,11 +1,15 @@
+//
+//  AddSubjectPickerViewController.m
+//  Agenda Book
+//
+//  Created by Matt Bilker on 3/8/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
 
-#import "PlayersViewController.h"
-#import "Player.h"
-#import "PlayerCell.h"
+#import "AddSubjectPickerViewController.h"
 
-@implementation PlayersViewController
 
-@synthesize players;
+@implementation AddSubjectPickerViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -70,67 +74,42 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-	if ([segue.identifier isEqualToString:@"AddPlayer"])
-	{
-		UINavigationController *navigationController = segue.destinationViewController;
-		PlayerDetailsViewController *playerDetailsViewController = [[navigationController viewControllers] objectAtIndex:0];
-		playerDetailsViewController.delegate = self;
-	}
-}
-
 #pragma mark - Table view data source
-
+/*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return 1;
+#warning Potentially incomplete method implementation.
+    // Return the number of sections.
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [self.players count];
-}
-
-- (UIImage *)imageForRating:(int)rating
-{
-	switch (rating)
-	{
-		case 1: return [UIImage imageNamed:@"1StarSmall.png"];
-		case 2: return [UIImage imageNamed:@"2StarsSmall.png"];
-		case 3: return [UIImage imageNamed:@"3StarsSmall.png"];
-		case 4: return [UIImage imageNamed:@"4StarsSmall.png"];
-		case 5: return [UIImage imageNamed:@"5StarsSmall.png"];
-	}
-	return nil;
+#warning Incomplete method implementation.
+    // Return the number of rows in the section.
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	PlayerCell *cell = (PlayerCell *)[tableView dequeueReusableCellWithIdentifier:@"PlayerCell"];
-	Player *player = [self.players objectAtIndex:indexPath.row];
-	cell.nameLabel.text = player.name;
-	cell.gameLabel.text = player.game;
-	cell.ratingImageView.image = [self imageForRating:player.rating];
+    static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    // Configure the cell...
+    
     return cell;
 }
+*/
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-}
-
-#pragma mark - PlayerDetailsViewControllerDelegate
-
-- (void)playerDetailsViewControllerDidCancel:(PlayerDetailsViewController *)controller
-{
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)playerDetailsViewControllerDidSave:(PlayerDetailsViewController *)controller
-{
-	[self dismissViewControllerAnimated:YES completion:nil];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

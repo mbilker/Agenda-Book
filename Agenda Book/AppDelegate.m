@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Player.h"
-#import "PlayersViewController.h"
+#import "ClassesViewController.h"
 
 @implementation AppDelegate {
     NSMutableArray *players;
@@ -21,27 +21,27 @@
     players = [NSMutableArray arrayWithCapacity:20];
     
 	Player *player = [[Player alloc] init];
-	player.name = @"Bill Evans";
-	player.game = @"Tic-Tac-Toe";
-	player.rating = 4;
+	player.name = @"Mrs. Murray";
+	player.game = @"Math";
+	player.complete = TRUE;
 	[players addObject:player];
     
 	player = [[Player alloc] init];
-	player.name = @"Oscar Peterson";
-	player.game = @"Spin the Bottle";
-	player.rating = 5;
+	player.name = @"Mr. Quenzer";
+	player.game = @"Science";
+	player.complete = TRUE;
 	[players addObject:player];
     
 	player = [[Player alloc] init];
-	player.name = @"Dave Brubeck";
-	player.game = @"Texas Hold’em Poker";
-	player.rating = 2;
+	player.name = @"Ms. Koerper";
+	player.game = @"Social Studies";
+	player.complete = FALSE;
 	[players addObject:player];
     
 	UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
 	UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:0];
-	PlayersViewController *playersViewController = [[navigationController viewControllers] objectAtIndex:0];
-	playersViewController.players = players;
+	ClassesViewController *classesViewController = [[navigationController viewControllers] objectAtIndex:0];
+	classesViewController.players = players;
     return YES;
 }
 

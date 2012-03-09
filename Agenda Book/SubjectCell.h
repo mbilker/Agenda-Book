@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlayerCell : UITableViewCell
+@interface SubjectCell : UITableViewCell
 
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *gameLabel;
-@property (nonatomic, strong) IBOutlet UIImageView *ratingImageView;
+@property (nonatomic, strong) IBOutlet UIImageView *assignmentsImageView;
 
 @end
