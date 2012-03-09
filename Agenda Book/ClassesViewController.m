@@ -3,9 +3,25 @@
 #import "Player.h"
 #import "SubjectCell.h"
 
+#import <Twitter/Twitter.h>
+
 @implementation ClassesViewController
 
 @synthesize players;
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	if ((self = [super initWithCoder:aDecoder]))
+	{
+		NSLog(@"init ClassesViewController");
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	NSLog(@"dealloc ClassesViewController");
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -78,6 +94,18 @@
 		SubjectViewController *subjectViewController = [[navigationController viewControllers] objectAtIndex:0];
 		subjectViewController.delegate = self;
 	}
+}
+
+- (IBAction)tweet:(id)sender
+{
+    if ([TWTweetComposeViewController canSendTweet]) {
+        TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
+        [tweetSheet setInitialText:@"I'm using @mbilker's agenda book app for @TheQuenz"];
+        [tweetSheet setTitle:@"Hello World"];
+	    [self presentModalViewController:tweetSheet animated:YES];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"No Twitter" message:@"Twitter is not available" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
 }
 
 #pragma mark - Table view data source

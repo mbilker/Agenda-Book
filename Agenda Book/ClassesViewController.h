@@ -5,4 +5,6 @@
 
 @property (nonatomic, strong) NSMutableArray *players;
 
+- (IBAction)tweet:(id)sender;
+
 @end

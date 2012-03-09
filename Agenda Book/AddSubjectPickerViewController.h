@@ -10,4 +10,6 @@
 
 @interface AddSubjectPickerViewController : UITableViewController
 
+@property (strong, nonatomic) IBOutlet UITextField *subjectTextField;
+
 @end

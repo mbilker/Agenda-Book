@@ -16,6 +16,20 @@
 @synthesize delegate;
 @synthesize subject;
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	if ((self = [super initWithCoder:aDecoder]))
+	{
+		NSLog(@"init SubjectPickerViewController");
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	NSLog(@"dealloc SubjectPickerViewController");
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -111,7 +125,7 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	cell.accessoryType = UITableViewCellAccessoryCheckmark;
 	NSString *theSubject = [subjects objectAtIndex:indexPath.row];
-	[self.delegate subjectPickerViewController:self didSelectGame:theSubject];
+	[self.delegate subjectPickerViewController:self didSelectSubject:theSubject];
 }
 
 @end

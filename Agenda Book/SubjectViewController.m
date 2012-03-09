@@ -23,7 +23,7 @@
 	if ((self = [super initWithCoder:aDecoder]))
 	{
 		NSLog(@"init SubjectViewController");
-		subject = @"Science";
+		subject = @"Not Chosen";
 	}
 	return self;
 }
@@ -87,6 +87,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.teacherTextField becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -112,14 +113,14 @@
 
 - (IBAction)done:(id)sender
 {
-    if ([self.teacherTextField hasText]) {
+    if ([self.teacherTextField hasText] && subject != @"Not Chosen") {
         Player *player = [[Player alloc] init];
         player.name = self.teacherTextField.text;
         player.game = subject;
         player.complete = TRUE;
         [self.delegate subjectViewController:self didAddPlayer:player];
     } else {
-        NSLog(@"Empty");
+        NSLog(@"Empty and did not choose subject");
     }
 }
 
@@ -132,9 +133,8 @@
 
 #pragma mark - SubjectPickerViewControllerDelegate
 
-- (void)subjectPickerViewController:(SubjectPickerViewController *)controller didSelectGame:(NSString *)theSubject
+- (void)subjectPickerViewController:(SubjectPickerViewController *)controller didSelectSubject:(NSString *)theSubject
 {
-    NSLog(@"Ran");
 	subject = theSubject;
 	self.detailLabel.text = subject;
 	[self.navigationController popViewControllerAnimated:YES];

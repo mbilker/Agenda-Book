@@ -11,7 +11,7 @@
 @class SubjectPickerViewController;
 
 @protocol SubjectPickerViewControllerDelegate <NSObject>
-- (void)subjectPickerViewController:(SubjectPickerViewController *)controller didSelectGame:(NSString *)game;
+- (void)subjectPickerViewController:(SubjectPickerViewController *)controller didSelectSubject:(NSString *)game;
 @end
 
 @interface SubjectPickerViewController : UITableViewController
