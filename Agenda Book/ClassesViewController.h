@@ -1,9 +1,9 @@
 
-#import "SubjectViewController.h"
+#import "NewClassViewController.h"
 
-@interface ClassesViewController : UITableViewController <SubjectViewControllerDelegate>
+@interface ClassesViewController : UITableViewController <NewClassViewControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *players;
+@property (nonatomic, strong) NSMutableArray *classes;
 
 - (IBAction)tweet:(id)sender;
 

@@ -6,10 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "SubjectViewController.h"
-#import "Player.h"
+#import "NewClassViewController.h"
+#import "Info.h"
 
-@implementation SubjectViewController
+@implementation NewClassViewController
 {
 	NSString *subject;
 }
@@ -22,7 +22,7 @@
 {
 	if ((self = [super initWithCoder:aDecoder]))
 	{
-		NSLog(@"init SubjectViewController");
+		NSLog(@"init NewClassViewController");
 		subject = @"Not Chosen";
 	}
 	return self;
@@ -30,7 +30,7 @@
 
 - (void)dealloc
 {
-	NSLog(@"dealloc SubjectViewController");
+	NSLog(@"dealloc NewClassViewController");
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -108,17 +108,17 @@
 
 - (IBAction)cancel:(id)sender
 {
-	[self.delegate subjectViewControllerDidCancel:self];
+	[self.delegate newClassViewControllerDidCancel:self];
 }
 
 - (IBAction)done:(id)sender
 {
     if ([self.teacherTextField hasText] && subject != @"Not Chosen") {
-        Player *player = [[Player alloc] init];
-        player.name = self.teacherTextField.text;
-        player.game = subject;
-        player.complete = TRUE;
-        [self.delegate subjectViewController:self didAddPlayer:player];
+        Info *info = [[Info alloc] init];
+        info.teacher = self.teacherTextField.text;
+        info.subject = subject;
+        info.complete = TRUE;
+        [self.delegate newClassViewController:self didAddInfo:info];
     } else {
         NSLog(@"Empty and did not choose subject");
     }

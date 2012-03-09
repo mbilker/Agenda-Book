@@ -7,41 +7,47 @@
 //
 
 #import "AppDelegate.h"
-#import "Player.h"
+#import "Info.h"
 #import "ClassesViewController.h"
 
 @implementation AppDelegate {
-    NSMutableArray *players;
+    NSMutableArray *classes;
 }
 
 @synthesize window = _window;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    players = [NSMutableArray arrayWithCapacity:20];
+    classes = [NSMutableArray arrayWithCapacity:20];
     
-	Player *player = [[Player alloc] init];
-	player.name = @"Mrs. Murray";
-	player.game = @"Math";
-	player.complete = TRUE;
-	[players addObject:player];
+	Info *info = [[Info alloc] init];
+	info.teacher = @"Mrs. Murray";
+	info.subject = @"Math";
+	info.complete = TRUE;
+	[classes addObject:info];
     
-	player = [[Player alloc] init];
-	player.name = @"Mr. Quenzer";
-	player.game = @"Science";
-	player.complete = TRUE;
-	[players addObject:player];
+	info = [[Info alloc] init];
+	info.teacher = @"Mr. Quenzer";
+	info.subject = @"Science";
+	info.complete = TRUE;
+	[classes addObject:info];
     
-	player = [[Player alloc] init];
-	player.name = @"Ms. Koerper";
-	player.game = @"Social Studies";
-	player.complete = FALSE;
-	[players addObject:player];
+	info = [[Info alloc] init];
+	info.teacher = @"Ms. Koerper";
+	info.subject = @"Social Studies";
+	info.complete = FALSE;
+	[classes addObject:info];
+    
+    info = [[Info alloc] init];
+	info.teacher = @"Mr. Cullen";
+	info.subject = @"Tech Ed";
+	info.complete = TRUE;
+	[classes addObject:info];
     
 	UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
 	UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:0];
 	ClassesViewController *classesViewController = [[navigationController viewControllers] objectAtIndex:0];
-	classesViewController.players = players;
+	classesViewController.classes = classes;
     return YES;
 }
 

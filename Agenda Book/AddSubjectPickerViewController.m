@@ -1,16 +1,9 @@
-//
-//  AddSubjectPickerViewController.m
-//  Agenda Book
-//
-//  Created by Matt Bilker on 3/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import "AddSubjectPickerViewController.h"
 
-
 @implementation AddSubjectPickerViewController
 
+@synthesize delegate;
 @synthesize subjectTextField;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -83,6 +76,16 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (IBAction)done:(id)sender
+{
+    [self.delegate addSubjectPickerViewController:self subject:self.subjectTextField.text];
+}
+
+- (IBAction)cancel:(id)sender
+{
+    [self.delegate addSubjectPickerViewControllerDidCancel:self];
 }
 
 #pragma mark - Table view delegate

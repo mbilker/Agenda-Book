@@ -1,13 +1,13 @@
 
 #import "ClassesViewController.h"
-#import "Player.h"
+#import "Info.h"
 #import "SubjectCell.h"
 
 #import <Twitter/Twitter.h>
 
 @implementation ClassesViewController
 
-@synthesize players;
+@synthesize classes;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -91,8 +91,8 @@
 	if ([segue.identifier isEqualToString:@"AddSubject"])
 	{
 		UINavigationController *navigationController = segue.destinationViewController;
-		SubjectViewController *subjectViewController = [[navigationController viewControllers] objectAtIndex:0];
-		subjectViewController.delegate = self;
+		NewClassViewController *newClassViewController = [[navigationController viewControllers] objectAtIndex:0];
+		newClassViewController.delegate = self;
 	}
 }
 
@@ -100,8 +100,7 @@
 {
     if ([TWTweetComposeViewController canSendTweet]) {
         TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
-        [tweetSheet setInitialText:@"I'm using @mbilker's agenda book app for @TheQuenz"];
-        [tweetSheet setTitle:@"Hello World"];
+        [tweetSheet setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %d subjects.",[classes count]]];
 	    [self presentModalViewController:tweetSheet animated:YES];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"No Twitter" message:@"Twitter is not available" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -117,7 +116,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [self.players count];
+	return [self.classes count];
 }
 
 - (UIImage *)imageForAssignment:(BOOL)complete
@@ -133,12 +132,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Row: %d",indexPath.row);
 	SubjectCell *cell = (SubjectCell *)[tableView dequeueReusableCellWithIdentifier:@"SubjectCell"];
-	Player *player = [self.players objectAtIndex:indexPath.row];
-	cell.nameLabel.text = player.name;
-	cell.gameLabel.text = player.game;
-	cell.assignmentsImageView.image = [self imageForAssignment:player.complete];
+	Info *info = [self.classes objectAtIndex:indexPath.row];
+	cell.nameLabel.text = info.teacher;
+	cell.gameLabel.text = info.subject;
+	cell.assignmentsImageView.image = [self imageForAssignment:info.complete];
     return cell;
 }
 
@@ -146,7 +144,7 @@
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete)
 	{
-		[self.players removeObjectAtIndex:indexPath.row];
+		[self.classes removeObjectAtIndex:indexPath.row];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}   
 }
@@ -160,15 +158,15 @@
 
 #pragma mark - PlayerDetailsViewControllerDelegate
 
-- (void)subjectViewControllerDidCancel:(ClassesViewController *)controller
+- (void)newClassViewControllerDidCancel:(ClassesViewController *)controller
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)subjectViewController:(ClassesViewController *)controller didAddPlayer:(Player *)player
+- (void)newClassViewController:(ClassesViewController *)controller didAddInfo:(Info *)player
 {
-	[self.players addObject:player];
-	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.players count] - 1 inSection:0];
+	[self.classes addObject:player];
+	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
 	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

@@ -1,15 +1,19 @@
-//
-//  AddSubjectPickerViewController.h
-//  Agenda Book
-//
-//  Created by Matt Bilker on 3/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 
+@class AddSubjectPickerViewController;
+
+@protocol AddSubjectPickerViewControllerDelegate <NSObject>
+- (void)addSubjectPickerViewControllerDidCancel:(AddSubjectPickerViewController *)controller;
+- (void)addSubjectPickerViewController:(AddSubjectPickerViewController *)controller subject:(NSString *)newSubject;
+@end
+
 @interface AddSubjectPickerViewController : UITableViewController
 
+@property (nonatomic, weak) id <AddSubjectPickerViewControllerDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UITextField *subjectTextField;
+
+- (IBAction)done:(id)sender;
+- (IBAction)cancel:(id)sender;
 
 @end
