@@ -3,8 +3,9 @@
 
 @interface ClassesViewController : UITableViewController <NewClassViewControllerDelegate>
 
-@property (atomic, retain) NSMutableArray *classes;
+@property (nonatomic, strong) NSMutableArray *classes;
 
+- (IBAction)editNavButtonPressed:(id)sender;
 - (IBAction)tweet:(id)sender;
 
 @end

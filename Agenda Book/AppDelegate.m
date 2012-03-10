@@ -19,8 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     classes = [NSMutableArray arrayWithCapacity:20];
-    UITabBarController *tabBarController = (UITabBarController *)self.window.rootViewController;
-	UINavigationController *navigationController = [[tabBarController viewControllers] objectAtIndex:0];
+	UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
 	ClassesViewController *classesViewController = [[navigationController viewControllers] objectAtIndex:0];
 	classesViewController.classes = classes;
     return YES;

@@ -40,13 +40,26 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (BOOL)checkIfExists:(Info *)info
+{
+    for (int i = 0; i < [self.classes count]; i++)
+    {
+        Info *currentClass = [self.classes objectAtIndex:i];
+        if ([info.teacher isEqual:currentClass.teacher]) {
+            NSLog(@"Found %@ already exists",info.teacher);
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (void)saveClasses
 {
     NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithCapacity:20];
     for (int i = 0; i < [self.classes count]; i++)
     {
         Info *details = [self.classes objectAtIndex:i];
-        NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
+        //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
         [tempDict setObject:[NSArray arrayWithObjects:details.teacher,details.subject,[NSNumber numberWithBool:details.complete], nil] forKey:[NSString stringWithFormat:@"%d",i]];
     }
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -62,7 +75,22 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Classes.plist"];
     NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
-    self.classes = [subjectsDict valueForKey:@"Classes"];
+    for (int i = 0; i < [subjectsDict count]; i++)
+    {
+        NSArray *tempArray = [subjectsDict objectForKey:[NSString stringWithFormat:@"%d",i]];
+        Info *info = [[Info alloc] init];
+        info.teacher = [tempArray objectAtIndex:0];
+        info.subject = [tempArray objectAtIndex:1];
+        info.complete = [[tempArray objectAtIndex:2] boolValue];
+        //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",info.teacher,info.subject,info.complete ? @"TRUE" : @"FALSE");
+        if (![self checkIfExists:info]) {
+            [self.classes addObject:info];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
+            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        
+    }
+    //self.classes = [subjectsDict valueForKey:@"Classes"];
 }
 
 #pragma mark - View lifecycle
@@ -121,7 +149,7 @@
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Classes.plist"];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
         NSLog(@"File Exists");
-        //[self loadClasses];
+        [self loadClasses];
     }
     [super viewDidAppear:animated];
 }
@@ -163,6 +191,12 @@
     }
 }
 
+-(IBAction)editNavButtonPressed:(id)sender
+{
+    BOOL editing = !self.tableView.editing;
+    [self.tableView setEditing:editing animated:YES];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -186,6 +220,8 @@
 	return nil;
 }
 
+#pragma mark - Table view delegate
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	SubjectCell *cell = (SubjectCell *)[tableView dequeueReusableCellWithIdentifier:@"SubjectCell"];
@@ -205,11 +241,31 @@
 	}   
 }
 
-#pragma mark - Table view delegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{    
+    Info *classToMove = [self.classes objectAtIndex:sourceIndexPath.row];
+    NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",classToMove.teacher,classToMove.subject,classToMove.complete ? @"TRUE" : @"FALSE");
+    [self.classes removeObjectAtIndex:sourceIndexPath.row];
+    [self.classes insertObject:classToMove atIndex:destinationIndexPath.row];
+    [self.tableView reloadData];
+    NSLog(@"End");
+    [self saveClasses];
+    
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{
+    return proposedDestinationIndexPath;
 }
 
 #pragma mark - PlayerDetailsViewControllerDelegate
@@ -227,12 +283,10 @@
             [[[UIAlertView alloc] initWithTitle:@"Other Teacher Exists" message:@"Another Teacher with that name exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
             NSLog(@"FOUND");
             return;
-        } else {
-            NSLog(@"Not found at index %d, string1 %@, string2 %@",i,info.teacher,newClass.teacher);
         }
     }
-    [self saveClasses];
     [self.classes addObject:newClass];
+    [self saveClasses];
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
 	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self dismissViewControllerAnimated:YES completion:nil];
