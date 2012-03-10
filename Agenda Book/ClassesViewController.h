@@ -3,7 +3,7 @@
 
 @interface ClassesViewController : UITableViewController <NewClassViewControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *classes;
+@property (atomic, retain) NSMutableArray *classes;
 
 - (IBAction)tweet:(id)sender;
 

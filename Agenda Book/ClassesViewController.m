@@ -40,6 +40,31 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)saveClasses
+{
+    NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithCapacity:20];
+    for (int i = 0; i < [self.classes count]; i++)
+    {
+        Info *details = [self.classes objectAtIndex:i];
+        NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
+        [tempDict setObject:[NSArray arrayWithObjects:details.teacher,details.subject,[NSNumber numberWithBool:details.complete], nil] forKey:[NSString stringWithFormat:@"%d",i]];
+    }
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Classes.plist"];
+    [tempDict writeToFile:path atomically:YES];
+    //NSLog(@"Classes array: %@", tempDict);
+}
+
+- (void)loadClasses
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Classes.plist"];
+    NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    self.classes = [subjectsDict valueForKey:@"Classes"];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -62,11 +87,42 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    /*
+	Info *info = [[Info alloc] init];
+	info.teacher = @"Mrs. Murray";
+	info.subject = @"Math";
+	info.complete = TRUE;
+	[classes addObject:info];
+    
+	info = [[Info alloc] init];
+	info.teacher = @"Mr. Quenzer";
+	info.subject = @"Science";
+	info.complete = TRUE;
+	[classes addObject:info];
+    
+	info = [[Info alloc] init];
+	info.teacher = @"Ms. Koerper";
+	info.subject = @"Social Studies";
+	info.complete = FALSE;
+	[classes addObject:info];
+    
+    info = [[Info alloc] init];
+	info.teacher = @"Mr. Cullen";
+	info.subject = @"Tech Ed";
+	info.complete = TRUE;
+	[classes addObject:info]; */
     [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Classes.plist"];
+    if ([[NSFileManager alloc] fileExistsAtPath:path]) {
+        NSLog(@"File Exists");
+        //[self loadClasses];
+    }
     [super viewDidAppear:animated];
 }
 
@@ -100,7 +156,7 @@
 {
     if ([TWTweetComposeViewController canSendTweet]) {
         TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
-        [tweetSheet setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %d subjects.",[classes count]]];
+        [tweetSheet setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %d subjects.",[self.classes count]]];
 	    [self presentModalViewController:tweetSheet animated:YES];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"No Twitter" message:@"Twitter is not available" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -163,9 +219,20 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)newClassViewController:(ClassesViewController *)controller didAddInfo:(Info *)player
+- (void)newClassViewController:(ClassesViewController *)controller didAddInfo:(Info *)newClass
 {
-	[self.classes addObject:player];
+    for (int i = 0; i < [self.classes count]; i++) {
+        Info *info = [self.classes objectAtIndex:i];
+        if ([info.teacher isEqual:newClass.teacher]) {
+            [[[UIAlertView alloc] initWithTitle:@"Other Teacher Exists" message:@"Another Teacher with that name exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
+            NSLog(@"FOUND");
+            return;
+        } else {
+            NSLog(@"Not found at index %d, string1 %@, string2 %@",i,info.teacher,newClass.teacher);
+        }
+    }
+    [self saveClasses];
+    [self.classes addObject:newClass];
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
 	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self dismissViewControllerAnimated:YES completion:nil];

@@ -5,7 +5,7 @@
 
 @protocol NewClassViewControllerDelegate <NSObject>
 - (void)newClassViewControllerDidCancel:(NewClassViewController *)controller;
-- (void)newClassViewController:(NewClassViewController *)controller didAddInfo:(Info *)player;
+- (void)newClassViewController:(NewClassViewController *)controller didAddInfo:(Info *)newClass;
 @end
 
 @interface NewClassViewController : UITableViewController <SubjectPickerViewControllerDelegate>

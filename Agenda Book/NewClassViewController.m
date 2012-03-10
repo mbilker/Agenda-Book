@@ -37,7 +37,7 @@
 {
 	if ([segue.identifier isEqualToString:@"PickSubject"])
 	{
-        NSLog(@"Segue");
+        //NSLog(@"Segue");
 		SubjectPickerViewController *subjectPickerViewController = segue.destinationViewController;
 		subjectPickerViewController.delegate = self;
 		subjectPickerViewController.subject = subject;
@@ -120,7 +120,8 @@
         info.complete = TRUE;
         [self.delegate newClassViewController:self didAddInfo:info];
     } else {
-        NSLog(@"Empty and did not choose subject");
+        //NSLog(@"Empty and did not choose subject");
+        [[[UIAlertView alloc] initWithTitle:@"Selection not complete" message:@"You did not fill in the teacher or select a subject" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
     }
 }
 

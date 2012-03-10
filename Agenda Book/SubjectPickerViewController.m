@@ -34,7 +34,7 @@
 {
 	if ([segue.identifier isEqualToString:@"AddSubject"])
 	{
-        NSLog(@"Segue");
+        //NSLog(@"Segue");
 		UINavigationController *navigationController = segue.destinationViewController;
 		AddSubjectPickerViewController *addSubjectPickerViewController = [[navigationController viewControllers] objectAtIndex:0];
 		addSubjectPickerViewController.delegate = self;
@@ -66,7 +66,7 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Subjects.plist"];
     [subjectsDict writeToFile:path atomically:YES];
-    NSLog(@"Subjects array: %@", subjectsDict);
+    //NSLog(@"Subjects array: %@", subjectsDict);
 }
 
 - (void)loadSubjects
@@ -89,7 +89,7 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Subjects.plist"];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
-        NSLog(@"File Exists");
+        //NSLog(@"File Exists");
         [self loadSubjects];
     } else {
         [self saveSubjects];
@@ -156,7 +156,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Picked: %@ index", indexPath);
+    //NSLog(@"Picked: %@ index", indexPath);
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	if (selectedIndex != NSNotFound)
 	{
@@ -194,7 +194,7 @@
 
 - (void)addSubjectPickerViewControllerDidCancel:(AddSubjectPickerViewController *)controller
 {
-    NSLog(@"Dismiss");
+    //NSLog(@"Dismiss");
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
