@@ -21,10 +21,6 @@
 		65A841621506ED9900C6B779 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841611506ED9900C6B779 /* main.m */; };
 		65A841661506ED9900C6B779 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841651506ED9900C6B779 /* AppDelegate.m */; };
 		65A841691506ED9900C6B779 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65A841671506ED9900C6B779 /* MainStoryboard.storyboard */; };
-		65A8419F1506F66A00C6B779 /* Gestures.png in Resources */ = {isa = PBXBuildFile; fileRef = 65A841871506F66A00C6B779 /* Gestures.png */; };
-		65A841A01506F66A00C6B779 /* Gestures@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65A841881506F66A00C6B779 /* Gestures@2x.png */; };
-		65A841A11506F66A00C6B779 /* Players.png in Resources */ = {isa = PBXBuildFile; fileRef = 65A841891506F66A00C6B779 /* Players.png */; };
-		65A841A21506F66A00C6B779 /* Players@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65A8418A1506F66A00C6B779 /* Players@2x.png */; };
 		65A841A51506F98000C6B779 /* ClassesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A41506F97F00C6B779 /* ClassesViewController.m */; };
 		65A841A81506FE5100C6B779 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A71506FE5100C6B779 /* Info.m */; };
 		65EBA46915099EBF00064B8A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EBA46815099EBF00064B8A /* Twitter.framework */; };
@@ -53,10 +49,6 @@
 		65A841641506ED9900C6B779 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		65A841651506ED9900C6B779 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		65A841681506ED9900C6B779 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		65A841871506F66A00C6B779 /* Gestures.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gestures.png; sourceTree = "<group>"; };
-		65A841881506F66A00C6B779 /* Gestures@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gestures@2x.png"; sourceTree = "<group>"; };
-		65A841891506F66A00C6B779 /* Players.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Players.png; sourceTree = "<group>"; };
-		65A8418A1506F66A00C6B779 /* Players@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Players@2x.png"; sourceTree = "<group>"; };
 		65A841A31506F97F00C6B779 /* ClassesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassesViewController.h; sourceTree = "<group>"; };
 		65A841A41506F97F00C6B779 /* ClassesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassesViewController.m; sourceTree = "<group>"; };
 		65A841A61506FE5100C6B779 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = "<group>"; };
@@ -145,10 +137,6 @@
 		65A841721506F66A00C6B779 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				65A841871506F66A00C6B779 /* Gestures.png */,
-				65A841881506F66A00C6B779 /* Gestures@2x.png */,
-				65A841891506F66A00C6B779 /* Players.png */,
-				65A8418A1506F66A00C6B779 /* Players@2x.png */,
 				61E207111508E27F007ABD77 /* X.png */,
 				61E2070F1508E275007ABD77 /* Checkmark.png */,
 				61E2070D1508E0CB007ABD77 /* umasd.png */,
@@ -182,7 +170,7 @@
 		65A841481506ED9900C6B779 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 			};
 			buildConfigurationList = 65A8414B1506ED9900C6B779 /* Build configuration list for PBXProject "Agenda Book" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -208,10 +196,6 @@
 			files = (
 				65A841601506ED9900C6B779 /* InfoPlist.strings in Resources */,
 				65A841691506ED9900C6B779 /* MainStoryboard.storyboard in Resources */,
-				65A8419F1506F66A00C6B779 /* Gestures.png in Resources */,
-				65A841A01506F66A00C6B779 /* Gestures@2x.png in Resources */,
-				65A841A11506F66A00C6B779 /* Players.png in Resources */,
-				65A841A21506F66A00C6B779 /* Players@2x.png in Resources */,
 				61E2070E1508E0CB007ABD77 /* umasd.png in Resources */,
 				61E207101508E275007ABD77 /* Checkmark.png in Resources */,
 				61E207121508E27F007ABD77 /* X.png in Resources */,
@@ -309,6 +293,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -320,6 +305,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

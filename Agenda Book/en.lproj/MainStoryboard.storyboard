@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Z7m-U9-URt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Z7m-U9-URt">
     <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1179"/>
     </dependencies>
     <scenes>
+        <!--Classes View Controller - Classes-->
         <scene sceneID="4hu-r8-Pc4">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUq-cY-zxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -60,7 +62,14 @@
                                 <action selector="editNavButtonPressed:" destination="Sz0-VT-ff9" id="k2c-9T-DbR"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="J1N-uv-mFZ"/>
+                        <barButtonItem title="Change" id="7AL-xp-mbe"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="wrW-1T-hsH"/>
+                        <barButtonItem title="Tweet" id="NUb-N5-snH">
+                            <color key="tintColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="tweet:" destination="Sz0-VT-ff9" id="Fff-SP-gPV"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem title="About" id="v1d-f1-er3">
                             <connections>
                                 <segue destination="EMp-qE-bFn" kind="push" id="WND-ZR-tFn"/>
@@ -68,10 +77,9 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Classes" id="1TW-F7-esk">
-                        <barButtonItem key="leftBarButtonItem" title="Tweet" id="NUb-N5-snH">
-                            <color key="tintColor" red="0.66666666666666663" green="0.61910090210573743" blue="0.14139868689353574" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="leftBarButtonItem" title="Deselect" id="tHN-iF-iSy">
                             <connections>
-                                <action selector="tweet:" destination="Sz0-VT-ff9" id="Fff-SP-gPV"/>
+                                <action selector="deselect:" destination="Sz0-VT-ff9" id="9D5-Ee-DQy"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1UV-dg-86L">
@@ -85,6 +93,7 @@
             </objects>
             <point key="canvasLocation" x="1484" y="-1208"/>
         </scene>
+        <!--New Class View Controller - Add Class-->
         <scene sceneID="R00-SH-ESx">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2x-8c-PJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -173,8 +182,9 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2503" y="-1236"/>
+            <point key="canvasLocation" x="2487" y="-1208"/>
         </scene>
+        <!--Subject Picker View Controller - Subject-->
         <scene sceneID="esE-FE-4qw">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PDd-8s-wGC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -217,8 +227,9 @@
                     </navigationItem>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2992" y="-1236"/>
+            <point key="canvasLocation" x="2976" y="-1208"/>
         </scene>
+        <!--Add Subject Picker View Controller - Add Subject-->
         <scene sceneID="CmK-YY-DTB">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6jE-5R-3uR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -273,8 +284,9 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="4022" y="-1236"/>
+            <point key="canvasLocation" x="4016" y="-1208"/>
         </scene>
+        <!--View Controller - About-->
         <scene sceneID="qMp-Vr-K4v">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPr-sJ-WPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -316,6 +328,7 @@
             </objects>
             <point key="canvasLocation" x="1992" y="-598"/>
         </scene>
+        <!--Navigation Controller - Classes-->
         <scene sceneID="w1B-H0-act">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MM1-hA-4hT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -339,6 +352,7 @@
             </objects>
             <point key="canvasLocation" x="958" y="-1208"/>
         </scene>
+        <!--Navigation Controller-->
         <scene sceneID="OUa-jf-JNn">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmp-ro-jH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -356,6 +370,7 @@
             </objects>
             <point key="canvasLocation" x="1992" y="-1208"/>
         </scene>
+        <!--Navigation Controller-->
         <scene sceneID="z8B-uv-2Vk">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kkU-qI-egy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -371,7 +386,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="3496" y="-1236"/>
+            <point key="canvasLocation" x="3480" y="-1208"/>
         </scene>
     </scenes>
     <resources>

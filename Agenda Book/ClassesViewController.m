@@ -5,6 +5,8 @@
 
 #import <Twitter/Twitter.h>
 
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+
 @implementation ClassesViewController
 
 @synthesize classes;
@@ -98,19 +100,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -139,6 +133,15 @@
 	info.subject = @"Tech Ed";
 	info.complete = TRUE;
 	[classes addObject:info]; */
+    
+    dispatch_async(kBgQueue, ^{
+        NSString *class = @"1";
+        NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://agendabookserver.appspot.com/class/%@",class]]];
+        NSError* error;
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+        NSArray* scienceArray = [json objectForKey:@"0"];
+        NSLog(@"%@: %@", [scienceArray objectAtIndex:1], scienceArray);
+    });
     [super viewWillAppear:animated];
 }
 
@@ -191,10 +194,19 @@
     }
 }
 
--(IBAction)editNavButtonPressed:(id)sender
+- (IBAction)editNavButtonPressed:(id)sender
 {
-    BOOL editing = !self.tableView.editing;
-    [self.tableView setEditing:editing animated:YES];
+    BOOL isEditing = !self.tableView.editing;
+    [self.tableView setEditing:isEditing animated:YES];
+}
+
+- (IBAction)deselect:(id)sender
+{
+    for (int i = 0; i < [self.classes count]; i++)
+    {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    }
 }
 
 #pragma mark - Table view data source
@@ -237,13 +249,14 @@
 	if (editingStyle == UITableViewCellEditingStyleDelete)
 	{
 		[self.classes removeObjectAtIndex:indexPath.row];
+        [self saveClasses];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-	}   
+	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
@@ -254,11 +267,11 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {    
     Info *classToMove = [self.classes objectAtIndex:sourceIndexPath.row];
-    NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",classToMove.teacher,classToMove.subject,classToMove.complete ? @"TRUE" : @"FALSE");
+    //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",classToMove.teacher,classToMove.subject,classToMove.complete ? @"TRUE" : @"FALSE");
     [self.classes removeObjectAtIndex:sourceIndexPath.row];
     [self.classes insertObject:classToMove atIndex:destinationIndexPath.row];
     [self.tableView reloadData];
-    NSLog(@"End");
+    //NSLog(@"End");
     [self saveClasses];
     
 }
