@@ -6,5 +6,5 @@ A simple electronic agenda book for a school project. base idea by @TheQuenz (my
 Credits
 -------
 
-<a href="http://twitter.com/mbilker">@mbilker</a> - developer and designer
+<a href="http://twitter.com/mbilker">@mbilker</a> - developer and designer<br>
 <a href="http://twitter.com/TheQuenz">@TheQuenz</a> - designer
