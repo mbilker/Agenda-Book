@@ -5,8 +5,6 @@
 
 #import <Twitter/Twitter.h>
 
-#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-
 @implementation ClassesViewController
 
 @synthesize classes;
@@ -134,14 +132,6 @@
 	info.complete = TRUE;
 	[classes addObject:info]; */
     
-    dispatch_async(kBgQueue, ^{
-        NSString *class = @"1";
-        NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://agendabookserver.appspot.com/class/%@",class]]];
-        NSError* error;
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        NSArray* scienceArray = [json objectForKey:@"0"];
-        NSLog(@"%@: %@", [scienceArray objectAtIndex:1], scienceArray);
-    });
     [super viewWillAppear:animated];
 }
 
@@ -221,13 +211,13 @@
 	return [self.classes count];
 }
 
-- (UIImage *)imageForAssignment:(BOOL)complete
+- (UIColor *)colorForAssignment:(BOOL)complete
 {
     //NSLog(@"Selection: %@", (complete ? @"TRUE" : @"FALSE"));
 	switch (complete)
 	{
-        case FALSE: return [UIImage imageNamed:@"X.png"];
-        case TRUE: return [UIImage imageNamed:@"Checkmark.png"];
+        case FALSE: return [UIColor colorWithRed:1 green:.5 blue:0.5 alpha:0.5];
+        case TRUE: return [UIColor colorWithRed:.5 green:1 blue:.5 alpha:0.5];
 	}
 	return nil;
 }
@@ -240,7 +230,16 @@
 	Info *info = [self.classes objectAtIndex:indexPath.row];
 	cell.nameLabel.text = info.teacher;
 	cell.gameLabel.text = info.subject;
-	cell.assignmentsImageView.image = [self imageForAssignment:info.complete];
+    
+    UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    backgroundView.backgroundColor = [self colorForAssignment:info.complete];
+    cell.backgroundView = backgroundView;
+    /* for ( UIView* view in cell.contentView.subviews ) 
+    {
+        view.backgroundColor = [ UIColor clearColor ];
+    } */
+
+    //cell.contentView.backgroundColor = [self colorForAssignment:info.complete];
     return cell;
 }
 

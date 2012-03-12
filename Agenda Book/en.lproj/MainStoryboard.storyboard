@@ -11,16 +11,16 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUq-cY-zxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="Sz0-VT-ff9" customClass="ClassesViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="9Ye-Qk-dzs">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsMultipleSelection="YES" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="9Ye-Qk-dzs">
                         <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="SubjectCell" rowHeight="55" id="utU-Kp-Dz5" customClass="SubjectCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="SubjectCell" rowHeight="55" id="utU-Kp-Dz5" customClass="SubjectCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="54"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" text="Class" lineBreakMode="tailTruncation" minimumFontSize="10" id="9xW-Ct-hGd">
@@ -37,17 +37,14 @@
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" tag="102" contentMode="scaleToFill" id="0nQ-dn-6zy">
-                                            <rect key="frame" x="272" y="6" width="41" height="41"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <connections>
-                                    <outlet property="assignmentsImageView" destination="0nQ-dn-6zy" id="7iq-ia-ktb"/>
                                     <outlet property="gameLabel" destination="5c9-Fm-TVH" id="bLN-BY-Xdd"/>
                                     <outlet property="nameLabel" destination="9xW-Ct-hGd" id="JkV-qT-gbp"/>
+                                    <segue destination="Fv7-CW-pO6" kind="push" id="pOf-S7-LAD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -352,6 +349,48 @@
             </objects>
             <point key="canvasLocation" x="958" y="-1208"/>
         </scene>
+        <!--Assignments View Controller - Assignments-->
+        <scene sceneID="Gme-qj-f8a">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mer-xc-bOI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="Fv7-CW-pO6" customClass="AssignmentsViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="ulZ-JS-C6W">
+                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AssignmentCell" id="KqI-bb-wnm" customClass="AssignmentCell">
+                                <rect key="frame" x="0.0" y="22" width="320" height="55"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" text="Assignment" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KGZ-ze-roS">
+                                            <rect key="frame" x="20" y="5" width="280" height="43"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="assignment" destination="KGZ-ze-roS" id="vDf-Eb-oD9"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Fv7-CW-pO6" id="cOd-PT-0jf"/>
+                            <outlet property="delegate" destination="Fv7-CW-pO6" id="Cex-h9-kMI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Assignments" id="Hic-c1-0Uq"/>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1992" y="-1814"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="OUa-jf-JNn">
             <objects>
@@ -402,6 +441,15 @@
                 <relationship kind="outlet" name="subjectTextField" candidateClass="UITextField"/>
             </relationships>
         </class>
+        <class className="AssignmentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="assignment" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="AssignmentsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentsViewController.h"/>
+        </class>
         <class className="ClassesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ClassesViewController.h"/>
             <relationships>
@@ -421,7 +469,6 @@
         <class className="SubjectCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SubjectCell.h"/>
             <relationships>
-                <relationship kind="outlet" name="assignmentsImageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="gameLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
             </relationships>

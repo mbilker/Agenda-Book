@@ -10,6 +10,8 @@
 		61E2070E1508E0CB007ABD77 /* umasd.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070D1508E0CB007ABD77 /* umasd.png */; };
 		61E207101508E275007ABD77 /* Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070F1508E275007ABD77 /* Checkmark.png */; };
 		61E207121508E27F007ABD77 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E207111508E27F007ABD77 /* X.png */; };
+		65199926150D4DE6007FD5A6 /* AssignmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199925150D4DE6007FD5A6 /* AssignmentCell.m */; };
+		6519992A150D4F4B007FD5A6 /* AssignmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */; };
 		6527C31E15071551007B8F26 /* SubjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C31D15071551007B8F26 /* SubjectCell.m */; };
 		6527C322150718FD007B8F26 /* NewClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C321150718FD007B8F26 /* NewClassViewController.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
@@ -30,6 +32,10 @@
 		61E2070D1508E0CB007ABD77 /* umasd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = umasd.png; sourceTree = "<group>"; };
 		61E2070F1508E275007ABD77 /* Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Checkmark.png; sourceTree = "<group>"; };
 		61E207111508E27F007ABD77 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
+		65199924150D4DE6007FD5A6 /* AssignmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentCell.h; sourceTree = "<group>"; };
+		65199925150D4DE6007FD5A6 /* AssignmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentCell.m; sourceTree = "<group>"; };
+		65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentsViewController.h; sourceTree = "<group>"; };
+		65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentsViewController.m; sourceTree = "<group>"; };
 		6527C31C15071551007B8F26 /* SubjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectCell.h; sourceTree = "<group>"; };
 		6527C31D15071551007B8F26 /* SubjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectCell.m; sourceTree = "<group>"; };
 		6527C320150718FD007B8F26 /* NewClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewClassViewController.h; sourceTree = "<group>"; };
@@ -106,16 +112,20 @@
 				65A841641506ED9900C6B779 /* AppDelegate.h */,
 				65A841651506ED9900C6B779 /* AppDelegate.m */,
 				65A841671506ED9900C6B779 /* MainStoryboard.storyboard */,
-				6567C2451508054C00859E02 /* SubjectPickerViewController.h */,
-				6567C2461508054C00859E02 /* SubjectPickerViewController.m */,
-				6527C320150718FD007B8F26 /* NewClassViewController.h */,
-				6527C321150718FD007B8F26 /* NewClassViewController.m */,
-				65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */,
-				65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */,
-				6527C31C15071551007B8F26 /* SubjectCell.h */,
-				6527C31D15071551007B8F26 /* SubjectCell.m */,
 				65A841A31506F97F00C6B779 /* ClassesViewController.h */,
 				65A841A41506F97F00C6B779 /* ClassesViewController.m */,
+				6527C320150718FD007B8F26 /* NewClassViewController.h */,
+				6527C321150718FD007B8F26 /* NewClassViewController.m */,
+				6567C2451508054C00859E02 /* SubjectPickerViewController.h */,
+				6567C2461508054C00859E02 /* SubjectPickerViewController.m */,
+				6527C31C15071551007B8F26 /* SubjectCell.h */,
+				6527C31D15071551007B8F26 /* SubjectCell.m */,
+				65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */,
+				65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */,
+				65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */,
+				65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */,
+				65199924150D4DE6007FD5A6 /* AssignmentCell.h */,
+				65199925150D4DE6007FD5A6 /* AssignmentCell.m */,
 				65A841A61506FE5100C6B779 /* Info.h */,
 				65A841A71506FE5100C6B779 /* Info.m */,
 				65A8415C1506ED9900C6B779 /* Supporting Files */,
@@ -217,6 +227,8 @@
 				6527C322150718FD007B8F26 /* NewClassViewController.m in Sources */,
 				6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */,
 				65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */,
+				65199926150D4DE6007FD5A6 /* AssignmentCell.m in Sources */,
+				6519992A150D4F4B007FD5A6 /* AssignmentsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

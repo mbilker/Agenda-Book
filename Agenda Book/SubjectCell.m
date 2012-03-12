@@ -4,6 +4,5 @@
 
 @synthesize nameLabel;
 @synthesize gameLabel;
-@synthesize assignmentsImageView;
 
 @end
