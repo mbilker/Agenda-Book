@@ -2,10 +2,13 @@
 #import "ClassesViewController.h"
 #import "Info.h"
 #import "SubjectCell.h"
+#import "AssignmentsViewController.h"
 
 #import <Twitter/Twitter.h>
 
-@implementation ClassesViewController
+@implementation ClassesViewController {
+    NSMutableArray *_assignments;
+}
 
 @synthesize classes;
 
@@ -170,7 +173,13 @@
 		UINavigationController *navigationController = segue.destinationViewController;
 		NewClassViewController *newClassViewController = [[navigationController viewControllers] objectAtIndex:0];
 		newClassViewController.delegate = self;
-	}
+	} else if ([segue.identifier isEqualToString:@"ShowAssignments"])
+    {
+        _assignments = [NSMutableArray arrayWithCapacity:20];
+        AssignmentsViewController *assignmentsViewController = segue.destinationViewController;
+        assignmentsViewController.assignments = _assignments;
+        
+    }
 }
 
 - (IBAction)tweet:(id)sender

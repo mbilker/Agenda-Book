@@ -44,7 +44,7 @@
                                 <connections>
                                     <outlet property="gameLabel" destination="5c9-Fm-TVH" id="bLN-BY-Xdd"/>
                                     <outlet property="nameLabel" destination="9xW-Ct-hGd" id="JkV-qT-gbp"/>
-                                    <segue destination="Fv7-CW-pO6" kind="push" id="pOf-S7-LAD"/>
+                                    <segue destination="Fv7-CW-pO6" kind="push" identifier="ShowAssignments" id="pOf-S7-LAD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -323,7 +323,7 @@
                     <navigationItem key="navigationItem" title="About" id="rFH-Cm-26r"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1992" y="-598"/>
+            <point key="canvasLocation" x="1992" y="-588"/>
         </scene>
         <!--Navigation Controller - Classes-->
         <scene sceneID="w1B-H0-act">
@@ -366,12 +366,13 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="54"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" text="Assignment" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="KGZ-ze-roS">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Assignment" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="none" minimumFontSize="10" id="KGZ-ze-roS">
                                             <rect key="frame" x="20" y="5" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="15"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="shadowOffset" width="1" height="2"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -386,10 +387,95 @@
                             <outlet property="delegate" destination="Fv7-CW-pO6" id="Cex-h9-kMI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Assignments" id="Hic-c1-0Uq"/>
+                    <toolbarItems>
+                        <barButtonItem title="Load List" id="9Tj-G4-x7G">
+                            <connections>
+                                <action selector="loadRemote:" destination="Fv7-CW-pO6" id="VBo-ez-u66"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Load Local" id="bhz-H2-My4">
+                            <connections>
+                                <action selector="loadPlist:" destination="Fv7-CW-pO6" id="4OM-3P-C0w"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Save" id="hhD-7G-gRI">
+                            <connections>
+                                <action selector="savePlist:" destination="Fv7-CW-pO6" id="36P-Z2-onW"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Reset" id="MkT-65-kEK">
+                            <connections>
+                                <action selector="reset:" destination="Fv7-CW-pO6" id="GFA-x2-dQ9"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Assignments" id="Hic-c1-0Uq">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="nnc-xL-K0j">
+                            <connections>
+                                <segue destination="Qng-hb-dfC" kind="modal" identifier="AddAssignment" id="f6D-gl-7PY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1992" y="-1814"/>
+        </scene>
+        <!--New Assignment View Controller - Add Assignment-->
+        <scene sceneID="ZOe-Z4-3ii">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lmc-tz-PxT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="xMz-Jo-cSN" customClass="NewAssignmentViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="BLo-in-jGt">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Assignment" id="Dbo-aG-WPA">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Hiq-QA-TOu">
+                                        <rect key="frame" x="0.0" y="46" width="320" height="46"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="Wz9-Lc-NFT">
+                                                    <rect key="frame" x="20" y="6" width="260" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="xMz-Jo-cSN" id="ogR-cF-s9v"/>
+                            <outlet property="delegate" destination="xMz-Jo-cSN" id="Oq5-0i-aRF"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add Assignment" id="19x-Ev-LAc">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Wqm-mC-8yX">
+                            <connections>
+                                <action selector="cancel:" destination="xMz-Jo-cSN" id="4sE-p8-n4B"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="peP-ai-iH5">
+                            <connections>
+                                <action selector="done:" destination="xMz-Jo-cSN" id="jfz-3W-0BY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="assignmentField" destination="Wz9-Lc-NFT" id="DmD-Cj-XwR"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="2976" y="-1814"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OUa-jf-JNn">
@@ -427,6 +513,24 @@
             </objects>
             <point key="canvasLocation" x="3480" y="-1208"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="FNR-8W-Lu9">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bcP-4m-Qd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="Qng-hb-dfC" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ObO-dp-yBu">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xMz-Jo-cSN" kind="relationship" relationship="rootViewController" id="qc3-ix-SSj"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="2487" y="-1814"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Players.png" width="30" height="30"/>
@@ -449,12 +553,26 @@
         </class>
         <class className="AssignmentsViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="loadPlist:"/>
+                <relationship kind="action" name="loadRemote:"/>
+                <relationship kind="action" name="reset:"/>
+                <relationship kind="action" name="savePlist:"/>
+            </relationships>
         </class>
         <class className="ClassesViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ClassesViewController.h"/>
             <relationships>
                 <relationship kind="action" name="editNavButtonPressed:"/>
                 <relationship kind="action" name="tweet:"/>
+            </relationships>
+        </class>
+        <class className="NewAssignmentViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NewAssignmentViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="done:"/>
+                <relationship kind="outlet" name="assignmentField" candidateClass="UITextField"/>
             </relationships>
         </class>
         <class className="NewClassViewController" superclassName="UITableViewController">

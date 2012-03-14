@@ -14,6 +14,7 @@
 		6519992A150D4F4B007FD5A6 /* AssignmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */; };
 		6527C31E15071551007B8F26 /* SubjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C31D15071551007B8F26 /* SubjectCell.m */; };
 		6527C322150718FD007B8F26 /* NewClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C321150718FD007B8F26 /* NewClassViewController.m */; };
+		652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 652859F4150ED19900296718 /* NSString-truncateToWidth.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
 		65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841551506ED9900C6B779 /* UIKit.framework */; };
@@ -25,6 +26,8 @@
 		65A841691506ED9900C6B779 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65A841671506ED9900C6B779 /* MainStoryboard.storyboard */; };
 		65A841A51506F98000C6B779 /* ClassesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A41506F97F00C6B779 /* ClassesViewController.m */; };
 		65A841A81506FE5100C6B779 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A71506FE5100C6B779 /* Info.m */; };
+		65D5716E150EAB7400B9F47E /* Assignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D5716D150EAB7400B9F47E /* Assignment.m */; };
+		65D57172150EAE4C00B9F47E /* NewAssignmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */; };
 		65EBA46915099EBF00064B8A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EBA46815099EBF00064B8A /* Twitter.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +43,8 @@
 		6527C31D15071551007B8F26 /* SubjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectCell.m; sourceTree = "<group>"; };
 		6527C320150718FD007B8F26 /* NewClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewClassViewController.h; sourceTree = "<group>"; };
 		6527C321150718FD007B8F26 /* NewClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewClassViewController.m; sourceTree = "<group>"; };
+		652859F4150ED19900296718 /* NSString-truncateToWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-truncateToWidth.m"; sourceTree = "<group>"; };
+		652859F7150ED1B200296718 /* NSString-truncateToWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-truncateToWidth.h"; sourceTree = "<group>"; };
 		65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSubjectPickerViewController.h; sourceTree = "<group>"; };
 		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
 		6567C2451508054C00859E02 /* SubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPickerViewController.h; sourceTree = "<group>"; };
@@ -59,6 +64,10 @@
 		65A841A41506F97F00C6B779 /* ClassesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassesViewController.m; sourceTree = "<group>"; };
 		65A841A61506FE5100C6B779 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = "<group>"; };
 		65A841A71506FE5100C6B779 /* Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Info.m; sourceTree = "<group>"; };
+		65D5716C150EAB7400B9F47E /* Assignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Assignment.h; sourceTree = "<group>"; };
+		65D5716D150EAB7400B9F47E /* Assignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Assignment.m; sourceTree = "<group>"; };
+		65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAssignmentViewController.h; sourceTree = "<group>"; };
+		65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAssignmentViewController.m; sourceTree = "<group>"; };
 		65EBA46815099EBF00064B8A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -124,8 +133,14 @@
 				65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */,
 				65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */,
 				65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */,
+				652859F7150ED1B200296718 /* NSString-truncateToWidth.h */,
+				652859F4150ED19900296718 /* NSString-truncateToWidth.m */,
+				65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */,
+				65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */,
 				65199924150D4DE6007FD5A6 /* AssignmentCell.h */,
 				65199925150D4DE6007FD5A6 /* AssignmentCell.m */,
+				65D5716C150EAB7400B9F47E /* Assignment.h */,
+				65D5716D150EAB7400B9F47E /* Assignment.m */,
 				65A841A61506FE5100C6B779 /* Info.h */,
 				65A841A71506FE5100C6B779 /* Info.m */,
 				65A8415C1506ED9900C6B779 /* Supporting Files */,
@@ -229,6 +244,9 @@
 				65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */,
 				65199926150D4DE6007FD5A6 /* AssignmentCell.m in Sources */,
 				6519992A150D4F4B007FD5A6 /* AssignmentsViewController.m in Sources */,
+				65D5716E150EAB7400B9F47E /* Assignment.m in Sources */,
+				65D57172150EAE4C00B9F47E /* NewAssignmentViewController.m in Sources */,
+				652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
