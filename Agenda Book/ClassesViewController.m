@@ -175,10 +175,12 @@
 		newClassViewController.delegate = self;
 	} else if ([segue.identifier isEqualToString:@"ShowAssignments"])
     {
+        Info *i = [self.classes objectAtIndex:[[self.tableView indexPathForCell:sender] row]];
+        //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",i.teacher,i.subject,i.complete ? @"TRUE" : @"FALSE");
         _assignments = [NSMutableArray arrayWithCapacity:20];
         AssignmentsViewController *assignmentsViewController = segue.destinationViewController;
         assignmentsViewController.assignments = _assignments;
-        
+        assignmentsViewController.info = i;
     }
 }
 
@@ -264,6 +266,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //_transferInfo = [self.classes objectAtIndex:indexPath.row];
+    //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",_transferInfo.teacher,_transferInfo.subject,_transferInfo.complete ? @"TRUE" : @"FALSE");
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

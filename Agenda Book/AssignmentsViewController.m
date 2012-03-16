@@ -4,13 +4,15 @@
 #import "Assignment.h"
 #import "NewAssignmentViewController.h"
 #import "NSString-truncateToWidth.h"
+// #import "Info.h"
 
 /* #define server @"localhost:8080" */
-#define server @"8.classes.mbilker.us"
+#define server @"9.classes.mbilker.us"
 
 @implementation AssignmentsViewController
 
 @synthesize assignments;
+@synthesize info;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -81,6 +83,7 @@
                 [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }
+        [self saveAssignments];
         //NSArray* scienceArray = [json objectForKey:@"0"];
         //NSLog(@"%@: %@", [scienceArray objectAtIndex:1], scienceArray);
     } else {
@@ -136,6 +139,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [self loadFromPlist];
+    NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",self.info.teacher,self.info.subject,self.info.complete ? @"TRUE" : @"FALSE");
+    NSString *completion = [NSString stringWithFormat:@"%@",self.info.complete ? @"YES" : @"NO"];
+    [[[UIAlertView alloc] initWithTitle:self.info.teacher message:self.info.subject delegate:self cancelButtonTitle:completion otherButtonTitles:nil] show];
     [super viewDidAppear:animated];
 }
 
