@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Z7m-U9-URt">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="10K549" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Z7m-U9-URt">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
+        <deployment defaultVersion="1280" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1179"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
     </dependencies>
     <scenes>
-        <!--Classes View Controller - Classes-->
         <scene sceneID="4hu-r8-Pc4">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUq-cY-zxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -86,7 +85,6 @@
             </objects>
             <point key="canvasLocation" x="1484" y="-1208"/>
         </scene>
-        <!--New Class View Controller - Add Class-->
         <scene sceneID="R00-SH-ESx">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2x-8c-PJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -153,7 +151,7 @@
                                         <rect key="frame" x="0.0" y="157" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Class ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="np0-PV-aWS">
@@ -164,7 +162,7 @@
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XYg-aX-8JH">
-                                                    <rect key="frame" x="226" y="11" width="44" height="21"/>
+                                                    <rect key="frame" x="241" y="11" width="29" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.21960784310000001" green="0.3294117647" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -206,7 +204,6 @@
             </objects>
             <point key="canvasLocation" x="2487" y="-1208"/>
         </scene>
-        <!--Subject Picker View Controller - Subject-->
         <scene sceneID="esE-FE-4qw">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PDd-8s-wGC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -251,7 +248,6 @@
             </objects>
             <point key="canvasLocation" x="2976" y="-1208"/>
         </scene>
-        <!--Table View Controller - Class ID-->
         <scene sceneID="qq2-ZP-wgY">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7S-Ru-6HR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -293,7 +289,6 @@
             </objects>
             <point key="canvasLocation" x="2976" y="-588"/>
         </scene>
-        <!--Add Subject Picker View Controller - Add Subject-->
         <scene sceneID="CmK-YY-DTB">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6jE-5R-3uR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -350,7 +345,6 @@
             </objects>
             <point key="canvasLocation" x="4016" y="-1208"/>
         </scene>
-        <!--About View Controller - About-->
         <scene sceneID="qMp-Vr-K4v">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPr-sJ-WPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -392,7 +386,6 @@
             </objects>
             <point key="canvasLocation" x="1992" y="-588"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="w1B-H0-act">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MM1-hA-4hT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -415,7 +408,6 @@
             </objects>
             <point key="canvasLocation" x="958" y="-1208"/>
         </scene>
-        <!--Assignments View Controller - Assignments-->
         <scene sceneID="Gme-qj-f8a">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mer-xc-bOI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -454,24 +446,14 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem title="Load List" id="9Tj-G4-x7G">
+                        <barButtonItem title="Load Online" id="9Tj-G4-x7G">
                             <connections>
                                 <action selector="loadRemote:" destination="Fv7-CW-pO6" id="VBo-ez-u66"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem title="Load Local" id="bhz-H2-My4">
-                            <connections>
-                                <action selector="loadPlist:" destination="Fv7-CW-pO6" id="4OM-3P-C0w"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem title="Save" id="hhD-7G-gRI">
                             <connections>
                                 <action selector="savePlist:" destination="Fv7-CW-pO6" id="36P-Z2-onW"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem title="Reset" id="MkT-65-kEK">
-                            <connections>
-                                <action selector="reset:" destination="Fv7-CW-pO6" id="GFA-x2-dQ9"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -487,7 +469,6 @@
             </objects>
             <point key="canvasLocation" x="1992" y="-1814"/>
         </scene>
-        <!--New Assignment View Controller - Add Assignment-->
         <scene sceneID="ZOe-Z4-3ii">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lmc-tz-PxT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -543,7 +524,6 @@
             </objects>
             <point key="canvasLocation" x="2976" y="-1814"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="OUa-jf-JNn">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmp-ro-jH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -561,7 +541,6 @@
             </objects>
             <point key="canvasLocation" x="1992" y="-1208"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="z8B-uv-2Vk">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kkU-qI-egy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -579,7 +558,6 @@
             </objects>
             <point key="canvasLocation" x="3480" y="-1208"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="FNR-8W-Lu9">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcP-4m-Qd0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -624,7 +602,6 @@
             <relationships>
                 <relationship kind="action" name="loadPlist:"/>
                 <relationship kind="action" name="loadRemote:"/>
-                <relationship kind="action" name="reset:"/>
                 <relationship kind="action" name="savePlist:"/>
             </relationships>
         </class>

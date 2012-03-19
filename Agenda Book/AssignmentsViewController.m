@@ -36,17 +36,20 @@
 
 - (void)saveAssignments
 {
-    NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithCapacity:20];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Assignments.plist"];
+    NSMutableDictionary *currentDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    
+    NSMutableDictionary *teacherDict = [NSMutableDictionary dictionaryWithCapacity:20];
     for (int i = 0; i < [self.assignments count]; i++)
     {
         //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
         Assignment *saving = [self.assignments objectAtIndex:i];
-        [tempDict setObject:[NSArray arrayWithObjects:saving.assignmentText, nil] forKey:[NSString stringWithFormat:@"%d",i]];
+        [teacherDict setObject:[NSArray arrayWithObjects:saving.assignmentText, nil] forKey:[NSString stringWithFormat:@"%d",i]];
     }
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Assignments.plist"];
-    [tempDict writeToFile:path atomically:YES];
+    [currentDict setObject:teacherDict forKey:info.teacher];
+    [currentDict writeToFile:path atomically:YES];
     //NSLog(@"Classes array: %@", tempDict);
 }
 
@@ -114,7 +117,7 @@
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Assignments.plist"];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
         NSLog(@"File Exists");
-        NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+        NSMutableDictionary *subjectsDict = [[NSMutableDictionary dictionaryWithContentsOfFile:path] objectForKey:info.teacher];
         for (int i = 0; i < [subjectsDict count]; i++)
         {
             NSArray *assignmentFromPlist = [subjectsDict objectForKey:[NSString stringWithFormat:@"%d",i]];
@@ -133,15 +136,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self loadFromPlist];
+    NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",self.info.teacher,self.info.subject,self.info.complete ? @"TRUE" : @"FALSE");
+    //NSString *completion = [NSString stringWithFormat:@"%@",self.info.complete ? @"YES" : @"NO"];
+    //[[[UIAlertView alloc] initWithTitle:self.info.teacher message:self.info.subject delegate:self cancelButtonTitle:completion otherButtonTitles:nil] show];
     [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self loadFromPlist];
-    NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",self.info.teacher,self.info.subject,self.info.complete ? @"TRUE" : @"FALSE");
-    //NSString *completion = [NSString stringWithFormat:@"%@",self.info.complete ? @"YES" : @"NO"];
-    //[[[UIAlertView alloc] initWithTitle:self.info.teacher message:self.info.subject delegate:self cancelButtonTitle:completion otherButtonTitles:nil] show];
     [super viewDidAppear:animated];
 }
 
@@ -178,25 +181,8 @@
     [self.tableView reloadData];
 }
 
-- (IBAction)loadPlist:(id)sender
-{
-    [self loadFromPlist];
-}
-
 - (IBAction)savePlist:(id)sender
 {
-    [self saveAssignments];
-}
-
-- (IBAction)reset:(id)sender
-{
-    for (int i = 0; i < [self.assignments count]; i++)
-    {
-        NSLog(@"Index: %d",i);
-        [self.assignments removeObjectAtIndex:i];
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
     [self saveAssignments];
 }
 
@@ -260,7 +246,7 @@
         Assignment *assignment = [self.assignments objectAtIndex:i];
         if ([assignment.assignmentText isEqual:newAssignment.assignmentText]) {
             [[[UIAlertView alloc] initWithTitle:@"Other Assignment Exists" message:@"Another Assignment with that text exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
-            NSLog(@"FOUND");
+            //NSLog(@"FOUND");
             return;
         }
     }
