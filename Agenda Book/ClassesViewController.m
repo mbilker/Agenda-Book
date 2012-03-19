@@ -11,6 +11,7 @@
 }
 
 @synthesize classes;
+@synthesize editButton;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -162,8 +163,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -199,14 +199,12 @@
 {
     BOOL isEditing = !self.tableView.editing;
     [self.tableView setEditing:isEditing animated:YES];
-}
-
-- (IBAction)deselect:(id)sender
-{
-    for (int i = 0; i < [self.classes count]; i++)
-    {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-        [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+    if (self.tableView.editing) {
+        [self.editButton setTitle:@"Done"];
+        self.editButton.style = UIBarButtonItemStyleDone;
+    } else {
+        [self.editButton setTitle:@"Edit"];
+        self.editButton.style = UIBarButtonItemStyleBordered;
     }
 }
 

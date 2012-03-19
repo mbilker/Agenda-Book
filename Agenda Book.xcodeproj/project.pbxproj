@@ -24,6 +24,7 @@
 		652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 652859F4150ED19900296718 /* NSString-truncateToWidth.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
+		657AA0F915159E780045148B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657AA0F815159E780045148B /* AboutViewController.m */; };
 		65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841551506ED9900C6B779 /* UIKit.framework */; };
 		65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841571506ED9900C6B779 /* Foundation.framework */; };
 		65A8415A1506ED9900C6B779 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841591506ED9900C6B779 /* CoreGraphics.framework */; };
@@ -63,6 +64,8 @@
 		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
 		6567C2451508054C00859E02 /* SubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPickerViewController.h; sourceTree = "<group>"; };
 		6567C2461508054C00859E02 /* SubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectPickerViewController.m; sourceTree = "<group>"; };
+		657AA0F715159E780045148B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		657AA0F815159E780045148B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		65A841511506ED9900C6B779 /* Agenda Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agenda Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A841551506ED9900C6B779 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65A841571506ED9900C6B779 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -142,6 +145,8 @@
 				65A841641506ED9900C6B779 /* AppDelegate.h */,
 				65A841651506ED9900C6B779 /* AppDelegate.m */,
 				65A841671506ED9900C6B779 /* MainStoryboard.storyboard */,
+				657AA0F715159E780045148B /* AboutViewController.h */,
+				657AA0F815159E780045148B /* AboutViewController.m */,
 				65A841A31506F97F00C6B779 /* ClassesViewController.h */,
 				65A841A41506F97F00C6B779 /* ClassesViewController.m */,
 				6527C320150718FD007B8F26 /* NewClassViewController.h */,
@@ -275,6 +280,7 @@
 				65D5716E150EAB7400B9F47E /* Assignment.m in Sources */,
 				65D57172150EAE4C00B9F47E /* NewAssignmentViewController.m in Sources */,
 				652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */,
+				657AA0F915159E780045148B /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,8 +328,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PROVISIONING_PROFILE = "B527B777-689A-420C-8543-D32FE65E1D6D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B527B777-689A-420C-8543-D32FE65E1D6D";
+				PROVISIONING_PROFILE = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -344,8 +350,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "B527B777-689A-420C-8543-D32FE65E1D6D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B527B777-689A-420C-8543-D32FE65E1D6D";
+				PROVISIONING_PROFILE = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

@@ -34,6 +34,22 @@
     return self;
 }
 
+- (void)saveAssignments
+{
+    NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithCapacity:20];
+    for (int i = 0; i < [self.assignments count]; i++)
+    {
+        //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
+        Assignment *saving = [self.assignments objectAtIndex:i];
+        [tempDict setObject:[NSArray arrayWithObjects:saving.assignmentText, nil] forKey:[NSString stringWithFormat:@"%d",i]];
+    }
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Assignments.plist"];
+    [tempDict writeToFile:path atomically:YES];
+    //NSLog(@"Classes array: %@", tempDict);
+}
+
 - (BOOL)checkIfOnline:(NSURL *)url
 {
     NSError *error;
@@ -115,22 +131,6 @@
     }
 }
 
-- (void)saveAssignments
-{
-    NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithCapacity:20];
-    for (int i = 0; i < [self.assignments count]; i++)
-    {
-        //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
-        Assignment *saving = [self.assignments objectAtIndex:i];
-        [tempDict setObject:[NSArray arrayWithObjects:saving.assignmentText, nil] forKey:[NSString stringWithFormat:@"%d",i]];
-    }
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Assignments.plist"];
-    [tempDict writeToFile:path atomically:YES];
-    //NSLog(@"Classes array: %@", tempDict);
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -140,8 +140,8 @@
 {
     [self loadFromPlist];
     NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",self.info.teacher,self.info.subject,self.info.complete ? @"TRUE" : @"FALSE");
-    NSString *completion = [NSString stringWithFormat:@"%@",self.info.complete ? @"YES" : @"NO"];
-    [[[UIAlertView alloc] initWithTitle:self.info.teacher message:self.info.subject delegate:self cancelButtonTitle:completion otherButtonTitles:nil] show];
+    //NSString *completion = [NSString stringWithFormat:@"%@",self.info.complete ? @"YES" : @"NO"];
+    //[[[UIAlertView alloc] initWithTitle:self.info.teacher message:self.info.subject delegate:self cancelButtonTitle:completion otherButtonTitles:nil] show];
     [super viewDidAppear:animated];
 }
 
@@ -169,7 +169,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 - (IBAction)loadRemote:(id)sender
@@ -256,7 +256,7 @@
 
 - (void)addAssignmentViewController:(AssignmentsViewController *)controller didAddAssignment:(Assignment *)newAssignment
 {
-    for (int i = [self.assignments count]; i != 0; i--) {
+    for (int i = 0; i < [self.assignments count]; i++) {
         Assignment *assignment = [self.assignments objectAtIndex:i];
         if ([assignment.assignmentText isEqual:newAssignment.assignmentText]) {
             [[[UIAlertView alloc] initWithTitle:@"Other Assignment Exists" message:@"Another Assignment with that text exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];

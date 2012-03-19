@@ -6,5 +6,6 @@
 @synthesize teacher;
 @synthesize subject;
 @synthesize complete;
+@synthesize classid;
 
 @end
