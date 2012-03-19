@@ -50,7 +50,7 @@
     {
         Info *currentClass = [self.classes objectAtIndex:i];
         if ([info.teacher isEqual:currentClass.teacher]) {
-            NSLog(@"Found %@ already exists",info.teacher);
+            //NSLog(@"Found %@ already exists",info.teacher);
             return YES;
         }
     }
@@ -145,7 +145,7 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Classes.plist"];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
-        NSLog(@"File Exists");
+        //NSLog(@"File Exists");
         [self loadClasses];
     }
     [super viewDidAppear:animated];
@@ -304,7 +304,7 @@
         Info *info = [self.classes objectAtIndex:i];
         if ([info.teacher isEqual:newClass.teacher]) {
             [[[UIAlertView alloc] initWithTitle:@"Other Teacher Exists" message:@"Another Teacher with that name exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
-            NSLog(@"FOUND");
+            //NSLog(@"FOUND");
             return;
         }
     }

@@ -74,7 +74,7 @@
     for (int i = 0; i < [self.assignments count]; i++) {
         Assignment *alreadyIn = [self.assignments objectAtIndex:i];
         if([alreadyIn.assignmentText isEqual:adding.assignmentText]) {
-            NSLog(@"Found '%@' already exists",adding.assignmentText);
+            //NSLog(@"Found '%@' already exists",adding.assignmentText);
             return YES;
         }
     }
@@ -88,7 +88,7 @@
         NSError *error;
         NSData* data = [NSData dataWithContentsOfURL:url];
         NSArray *remoteArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-        NSLog(@"JSON: %@",remoteArray);
+        //NSLog(@"JSON: %@",remoteArray);
         if ([remoteArray count] == 0) {
             [[[UIAlertView alloc] initWithTitle:@"No Assignments" message:@"Your teacher has not posted any assignments." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil] show];
             return;
@@ -116,7 +116,7 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Assignments.plist"];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
-        NSLog(@"File Exists");
+        //NSLog(@"File Exists");
         NSMutableDictionary *subjectsDict = [[NSMutableDictionary dictionaryWithContentsOfFile:path] objectForKey:info.teacher];
         for (int i = 0; i < [subjectsDict count]; i++)
         {
@@ -137,7 +137,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self loadFromPlist];
-    NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",self.info.teacher,self.info.subject,self.info.complete ? @"TRUE" : @"FALSE");
+    //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",self.info.teacher,self.info.subject,self.info.complete ? @"TRUE" : @"FALSE");
     //NSString *completion = [NSString stringWithFormat:@"%@",self.info.complete ? @"YES" : @"NO"];
     //[[[UIAlertView alloc] initWithTitle:self.info.teacher message:self.info.subject delegate:self cancelButtonTitle:completion otherButtonTitles:nil] show];
     [super viewWillAppear:animated];
