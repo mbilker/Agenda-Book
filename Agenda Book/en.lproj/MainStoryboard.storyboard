@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Z7m-U9-URt">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="10K549" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Z7m-U9-URt">
     <dependencies>
         <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1179"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
     </dependencies>
     <scenes>
-        <!--Classes View Controller - Classes-->
         <scene sceneID="4hu-r8-Pc4">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUq-cY-zxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -85,7 +84,6 @@
             </objects>
             <point key="canvasLocation" x="1484" y="-1208"/>
         </scene>
-        <!--New Class View Controller - Add Class-->
         <scene sceneID="R00-SH-ESx">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2x-8c-PJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -104,11 +102,11 @@
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="qQE-pT-x6K">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="qQE-pT-x6K">
                                                     <rect key="frame" x="20" y="6" width="260" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -152,7 +150,7 @@
                                         <rect key="frame" x="0.0" y="157" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Class ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="np0-PV-aWS">
@@ -206,7 +204,6 @@
             </objects>
             <point key="canvasLocation" x="2487" y="-1208"/>
         </scene>
-        <!--Subject Picker View Controller - Subject-->
         <scene sceneID="esE-FE-4qw">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PDd-8s-wGC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -251,7 +248,6 @@
             </objects>
             <point key="canvasLocation" x="2976" y="-1208"/>
         </scene>
-        <!--ClassID View Controller - Class ID-->
         <scene sceneID="qq2-ZP-wgY">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7S-Ru-6HR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -302,7 +298,6 @@
             </objects>
             <point key="canvasLocation" x="2976" y="-588"/>
         </scene>
-        <!--Add Subject Picker View Controller - Add Subject-->
         <scene sceneID="CmK-YY-DTB">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6jE-5R-3uR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -321,11 +316,11 @@
                                             <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="mSn-1n-N20">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="mSn-1n-N20">
                                                     <rect key="frame" x="20" y="6" width="260" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -359,7 +354,6 @@
             </objects>
             <point key="canvasLocation" x="4016" y="-1208"/>
         </scene>
-        <!--About View Controller - About-->
         <scene sceneID="qMp-Vr-K4v">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPr-sJ-WPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -401,7 +395,6 @@
             </objects>
             <point key="canvasLocation" x="1992" y="-588"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="w1B-H0-act">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MM1-hA-4hT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -424,7 +417,6 @@
             </objects>
             <point key="canvasLocation" x="958" y="-1208"/>
         </scene>
-        <!--Assignments View Controller - Assignments-->
         <scene sceneID="Gme-qj-f8a">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mer-xc-bOI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -486,7 +478,6 @@
             </objects>
             <point key="canvasLocation" x="1992" y="-1814"/>
         </scene>
-        <!--New Assignment View Controller - Add Assignment-->
         <scene sceneID="ZOe-Z4-3ii">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lmc-tz-PxT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -507,9 +498,9 @@
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="Wz9-Lc-NFT">
                                                     <rect key="frame" x="20" y="6" width="260" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -529,9 +520,9 @@
                                 <action selector="cancel:" destination="xMz-Jo-cSN" id="4sE-p8-n4B"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="peP-ai-iH5">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="Upr-Uw-iZP">
                             <connections>
-                                <action selector="done:" destination="xMz-Jo-cSN" id="jfz-3W-0BY"/>
+                                <action selector="done:" destination="xMz-Jo-cSN" id="Niq-XG-Bpo"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -542,7 +533,6 @@
             </objects>
             <point key="canvasLocation" x="2976" y="-1814"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="OUa-jf-JNn">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmp-ro-jH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -560,7 +550,6 @@
             </objects>
             <point key="canvasLocation" x="1992" y="-1208"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="z8B-uv-2Vk">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kkU-qI-egy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -578,7 +567,6 @@
             </objects>
             <point key="canvasLocation" x="3480" y="-1208"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="FNR-8W-Lu9">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcP-4m-Qd0" userLabel="First Responder" sceneMemberID="firstResponder"/>

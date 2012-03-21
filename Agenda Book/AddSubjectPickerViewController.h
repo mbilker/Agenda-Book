@@ -8,7 +8,7 @@
 - (void)addSubjectPickerViewController:(AddSubjectPickerViewController *)controller subject:(NSString *)newSubject;
 @end
 
-@interface AddSubjectPickerViewController : UITableViewController
+@interface AddSubjectPickerViewController : UITableViewController <UITextFieldDelegate>
 
 @property (nonatomic, weak) id <AddSubjectPickerViewControllerDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UITextField *subjectTextField;

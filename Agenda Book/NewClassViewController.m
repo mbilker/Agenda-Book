@@ -74,8 +74,8 @@
 
 - (void)viewDidLoad
 {
-	[super viewDidLoad];
 	self.detailLabel.text = subject;
+    [super viewDidLoad];
 }
 
 - (void)viewDidUnload
@@ -90,8 +90,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     [self.teacherTextField becomeFirstResponder];
+    self.teacherTextField.delegate = self;
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -120,18 +121,29 @@
 	[self.delegate newClassViewControllerDidCancel:self];
 }
 
-- (IBAction)done:(id)sender
+- (void)checkDone
 {
     if ([self.teacherTextField hasText] && subject != @"Not Chosen") {
         Info *info = [[Info alloc] init];
         info.teacher = self.teacherTextField.text;
         info.subject = subject;
-        info.complete = TRUE;
+        info.classid = tableClassID;
         [self.delegate newClassViewController:self didAddInfo:info];
     } else {
         //NSLog(@"Empty and did not choose subject");
         [[[UIAlertView alloc] initWithTitle:@"Selection not complete" message:@"You did not fill in the teacher or select a subject" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    //NSLog(@"Done button hit");
+    [self checkDone];
+    return NO;
+}
+
+- (IBAction)done:(id)sender
+{
+    [self checkDone];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

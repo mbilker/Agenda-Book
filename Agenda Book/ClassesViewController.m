@@ -64,7 +64,7 @@
     {
         Info *details = [self.classes objectAtIndex:i];
         //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
-        [tempDict setObject:[NSArray arrayWithObjects:details.teacher,details.subject,[NSNumber numberWithBool:details.complete], nil] forKey:[NSString stringWithFormat:@"%d",i]];
+        [tempDict setObject:[NSArray arrayWithObjects:details.teacher,details.subject,details.classid, nil] forKey:[NSString stringWithFormat:@"%d",i]];
     }
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -85,7 +85,7 @@
         Info *info = [[Info alloc] init];
         info.teacher = [tempArray objectAtIndex:0];
         info.subject = [tempArray objectAtIndex:1];
-        info.complete = [[tempArray objectAtIndex:2] boolValue];
+        info.classid = [tempArray objectAtIndex:2];
         //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",info.teacher,info.subject,info.complete ? @"TRUE" : @"FALSE");
         if (![self checkIfExists:info]) {
             [self.classes addObject:info];
@@ -217,7 +217,7 @@
 	cell.gameLabel.text = info.subject;
     
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = [self colorForAssignment:info.complete];
+    backgroundView.backgroundColor = [self colorForAssignment:FALSE];
     cell.backgroundView = backgroundView;
     /* for ( UIView* view in cell.contentView.subviews ) 
     {

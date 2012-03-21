@@ -41,8 +41,9 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     [self.subjectTextField becomeFirstResponder];
+    self.subjectTextField.delegate = self;
+    [super viewDidLoad];
 }
 
 - (void)viewDidUnload
@@ -78,9 +79,25 @@
     return YES;
 }
 
+- (void)checkDone
+{
+    if ([self.subjectTextField hasText]) {
+        [self.delegate addSubjectPickerViewController:self subject:self.subjectTextField.text];
+    } else {
+        //NSLog(@"Empty and did not choose subject");
+        [[[UIAlertView alloc] initWithTitle:@"Selection not complete" message:@"You did not enter an subject" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    //NSLog(@"Done button hit");
+    [self checkDone];
+    return NO;
+}
+
 - (IBAction)done:(id)sender
 {
-    [self.delegate addSubjectPickerViewController:self subject:self.subjectTextField.text];
+    [self checkDone];
 }
 
 - (IBAction)cancel:(id)sender

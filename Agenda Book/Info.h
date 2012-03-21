@@ -5,7 +5,6 @@
 
 @property (nonatomic, copy) NSString *teacher;
 @property (nonatomic, copy) NSString *subject;
-@property (nonatomic, assign) BOOL complete;
-@property (nonatomic, assign) int classid;
+@property (nonatomic, copy) NSString *classid;
 
 @end

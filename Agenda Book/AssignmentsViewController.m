@@ -137,9 +137,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self loadFromPlist];
-    //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",self.info.teacher,self.info.subject,self.info.complete ? @"TRUE" : @"FALSE");
-    //NSString *completion = [NSString stringWithFormat:@"%@",self.info.complete ? @"YES" : @"NO"];
-    //[[[UIAlertView alloc] initWithTitle:self.info.teacher message:self.info.subject delegate:self cancelButtonTitle:completion otherButtonTitles:nil] show];
+    
+    [[[UIAlertView alloc] initWithTitle:info.classid message:info.teacher delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil] show];
     [super viewWillAppear:animated];
 }
 
@@ -177,7 +176,7 @@
 
 - (IBAction)loadRemote:(id)sender
 {
-    [self loadJSONRemote:@"1"];
+    [self loadJSONRemote:info.classid];
     [self.tableView reloadData];
 }
 

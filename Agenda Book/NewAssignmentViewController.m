@@ -29,6 +29,7 @@
 
 - (void)viewDidLoad
 {
+    self.assignmentField.delegate = self;
     [super viewDidLoad];
 }
 
@@ -48,12 +49,7 @@
     return YES;
 }
 
-- (IBAction)cancel:(id)sender
-{
-	[self.delegate addAssignmentViewControllerDidCancel:self];
-}
-
-- (IBAction)done:(id)sender
+- (void)checkDone
 {
     if ([self.assignmentField hasText]) {
         Assignment *assignment = [[Assignment alloc] init];
@@ -61,8 +57,24 @@
         [self.delegate addAssignmentViewController:self didAddAssignment:assignment];
     } else {
         //NSLog(@"Empty and did not choose subject");
-        [[[UIAlertView alloc] initWithTitle:@"Selection not complete" message:@"You did not fill in the teacher or select a subject" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Selection not complete" message:@"You did not enter an assignment" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    //NSLog(@"Done button hit");
+    [self checkDone];
+    return NO;
+}
+
+- (IBAction)cancel:(id)sender
+{
+	[self.delegate addAssignmentViewControllerDidCancel:self];
+}
+
+- (IBAction)done:(id)sender
+{
+    [self checkDone];
 }
 
 @end

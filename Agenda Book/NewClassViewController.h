@@ -9,7 +9,7 @@
 - (void)newClassViewController:(NewClassViewController *)controller didAddInfo:(Info *)newClass;
 @end
 
-@interface NewClassViewController : UITableViewController <SubjectPickerViewControllerDelegate, ClassIDViewControllerDelegate>
+@interface NewClassViewController : UITableViewController <SubjectPickerViewControllerDelegate, ClassIDViewControllerDelegate, UITextFieldDelegate>
 
 @property (nonatomic, weak) id <NewClassViewControllerDelegate> delegate;
 @property (strong, nonatomic) IBOutlet UITextField *teacherTextField;

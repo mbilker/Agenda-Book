@@ -9,7 +9,7 @@
 - (void)addAssignmentViewController:(NewAssignmentViewController *)controller didAddAssignment:(Assignment *)newAssignment;
 @end
 
-@interface NewAssignmentViewController : UITableViewController
+@interface NewAssignmentViewController : UITableViewController <UITextFieldDelegate>
 
 @property (nonatomic, weak) id <NewAssignmentViewControllerDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UITextField *assignmentField;
