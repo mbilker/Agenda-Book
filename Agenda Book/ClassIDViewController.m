@@ -35,6 +35,7 @@
 
 - (void)viewDidLoad
 {
+    self.enteredClassID.delegate = self;
     [super viewDidLoad];
 }
 
@@ -64,19 +65,27 @@
     [super viewDidDisappear:animated];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField.text.length > 2) {
+        NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        return !([newString length] > 2);
+    }
+    return [string isEqualToString:@""] || ([string stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]].length > 0);
+}
+
 - (IBAction)done:(id)sender
 {
-    [self.delegate classIDViewController:self didAddClassID:enteredClassID.text];
+    int i = [self.enteredClassID.text intValue];
+    if (i == 0) {
+        [[[UIAlertView alloc] initWithTitle:@"No Class ID" message:@"You did not enter a Class ID" delegate:self cancelButtonTitle:@"Enter ID" otherButtonTitles:nil] show];
+        return;
+    }
+    [self.delegate classIDViewController:self didAddClassID:self.enteredClassID.text];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
-
-#pragma mark - Table view delegate
-
-
 
 @end

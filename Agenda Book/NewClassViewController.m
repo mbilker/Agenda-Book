@@ -26,6 +26,7 @@
 	{
 		NSLog(@"init NewClassViewController");
 		subject = @"Not Chosen";
+        tableClassID = @"0";
 	}
 	return self;
 }
@@ -49,16 +50,13 @@
         //NSLog(@"Segue");
 		ClassIDViewController *classIDPickerViewController = segue.destinationViewController;
 		classIDPickerViewController.delegate = self;
-		//classIDPickerViewController.enteredClassID = subject;
+		//classIDPickerViewController.enteredClassID = tableClassID;
 	}
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
     return self;
 }
 
@@ -75,6 +73,7 @@
 - (void)viewDidLoad
 {
 	self.detailLabel.text = subject;
+    self.classIDLabel.text = tableClassID;
     [super viewDidLoad];
 }
 
@@ -128,6 +127,7 @@
         info.teacher = self.teacherTextField.text;
         info.subject = subject;
         info.classid = tableClassID;
+        NSLog(@"ClassID: '%@'",info.classid);
         [self.delegate newClassViewController:self didAddInfo:info];
     } else {
         //NSLog(@"Empty and did not choose subject");

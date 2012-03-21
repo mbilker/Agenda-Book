@@ -176,7 +176,11 @@
 
 - (IBAction)loadRemote:(id)sender
 {
-    [self loadJSONRemote:info.classid];
+    if (![info.classid isEqualToString:@"0"]) {
+        [self loadJSONRemote:info.classid];
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"No Class ID" message:@"This class is not linked to an online list" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil] show];
+    }
     [self.tableView reloadData];
 }
 
