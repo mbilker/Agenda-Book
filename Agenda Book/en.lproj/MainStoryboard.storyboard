@@ -458,12 +458,13 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem title="Load Online" id="9Tj-G4-x7G">
+                        <barButtonItem title="Fetch Online" id="9Tj-G4-x7G">
                             <connections>
                                 <action selector="loadRemote:" destination="Fv7-CW-pO6" id="VBo-ez-u66"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Save" id="hhD-7G-gRI">
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="8Kz-8k-hNi"/>
+                        <barButtonItem title="Save Assignments" id="hhD-7G-gRI">
                             <connections>
                                 <action selector="savePlist:" destination="Fv7-CW-pO6" id="36P-Z2-onW"/>
                             </connections>

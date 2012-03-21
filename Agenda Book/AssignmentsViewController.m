@@ -46,7 +46,7 @@
     {
         //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
         Assignment *saving = [self.assignments objectAtIndex:i];
-        [teacherDict setObject:[NSArray arrayWithObjects:saving.assignmentText, nil] forKey:[NSString stringWithFormat:@"%d",i]];
+        [teacherDict setObject:[NSArray arrayWithObjects:saving.assignmentText, saving.complete, nil] forKey:[NSString stringWithFormat:@"%d",i]];
     }
     [currentDict setObject:teacherDict forKey:info.teacher];
     [currentDict writeToFile:path atomically:YES];
@@ -96,6 +96,7 @@
         for (NSString *string in remoteArray) {
             Assignment *adding = [[Assignment alloc] init];
             adding.assignmentText = string;
+            adding.complete = FALSE;
             if(![self checkIfExists:adding]) {
                 [self.assignments addObject:adding];
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
@@ -123,6 +124,7 @@
             NSArray *assignmentFromPlist = [subjectsDict objectForKey:[NSString stringWithFormat:@"%d",i]];
             Assignment *adding = [[Assignment alloc] init];
             adding.assignmentText = [assignmentFromPlist objectAtIndex:0];
+            adding.complete = [[assignmentFromPlist objectAtIndex:1] boolValue];
             //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",info.teacher,info.subject,info.complete ? @"TRUE" : @"FALSE");
             if (![self checkIfExists:adding]) {
                 [self.assignments addObject:adding];
@@ -177,7 +179,7 @@
     if (![info.classid isEqualToString:@"0"]) {
         [self loadJSONRemote:info.classid];
     } else {
-        [[[UIAlertView alloc] initWithTitle:@"No Class ID" message:@"This class is not linked to an online list" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"No Class ID" message:@"Class not linked to an online list" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil] show];
     }
     [self.tableView reloadData];
 }

@@ -4,5 +4,6 @@
 @implementation Assignment
 
 @synthesize assignmentText;
+@synthesize complete;
 
 @end

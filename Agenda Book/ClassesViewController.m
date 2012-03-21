@@ -207,6 +207,19 @@
 	return nil;
 }
 
+- (UIColor *)determineComplete:(Info *)info
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Assignments.plist"];
+    if ([[NSFileManager alloc] fileExistsAtPath:path]) {
+        //NSLog(@"File Exists");
+        NSMutableDictionary *subjectsDict = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:info.teacher];
+        NSLog(@"Assignments: '%@'",subjectsDict);
+    }
+    return nil;
+}
+
 #pragma mark - Table view delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -219,10 +232,6 @@
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     backgroundView.backgroundColor = [self colorForAssignment:FALSE];
     cell.backgroundView = backgroundView;
-    /* for ( UIView* view in cell.contentView.subviews ) 
-    {
-        view.backgroundColor = [ UIColor clearColor ];
-    } */
 
     //cell.contentView.backgroundColor = [self colorForAssignment:info.complete];
     return cell;

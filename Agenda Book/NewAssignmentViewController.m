@@ -54,6 +54,7 @@
     if ([self.assignmentField hasText]) {
         Assignment *assignment = [[Assignment alloc] init];
         assignment.assignmentText = self.assignmentField.text;
+        assignment.complete = FALSE;
         [self.delegate addAssignmentViewController:self didAddAssignment:assignment];
     } else {
         //NSLog(@"Empty and did not choose subject");
