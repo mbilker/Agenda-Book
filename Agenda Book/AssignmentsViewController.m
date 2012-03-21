@@ -137,8 +137,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self loadFromPlist];
-    
-    [[[UIAlertView alloc] initWithTitle:info.classid message:info.teacher delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil] show];
     [super viewWillAppear:animated];
 }
 
