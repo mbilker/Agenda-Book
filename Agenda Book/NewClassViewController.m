@@ -12,11 +12,13 @@
 @implementation NewClassViewController
 {
 	NSString *subject;
+    NSString *tableClassID;
 }
 
 @synthesize delegate;
 @synthesize teacherTextField;
 @synthesize detailLabel;
+@synthesize classIDLabel;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -41,6 +43,13 @@
 		SubjectPickerViewController *subjectPickerViewController = segue.destinationViewController;
 		subjectPickerViewController.delegate = self;
 		subjectPickerViewController.subject = subject;
+	}
+    if ([segue.identifier isEqualToString:@"setClassID"])
+	{
+        //NSLog(@"Segue");
+		ClassIDViewController *classIDPickerViewController = segue.destinationViewController;
+		classIDPickerViewController.delegate = self;
+		//classIDPickerViewController.enteredClassID = subject;
 	}
 }
 
@@ -139,6 +148,20 @@
 	subject = theSubject;
 	self.detailLabel.text = subject;
 	[self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - ClassIDViewControllerDelegate
+
+- (void)classIDViewControllerDidCancel:(ClassIDViewController *)controller
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)classIDViewController:(ClassIDViewController *)controller didAddClassID:(NSString *)classID
+{
+    tableClassID = classID;
+    self.classIDLabel.text = tableClassID;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

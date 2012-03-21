@@ -111,36 +111,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    /*
-	Info *info = [[Info alloc] init];
-	info.teacher = @"Mrs. Murray";
-	info.subject = @"Math";
-	info.complete = TRUE;
-	[classes addObject:info];
-    
-	info = [[Info alloc] init];
-	info.teacher = @"Mr. Quenzer";
-	info.subject = @"Science";
-	info.complete = TRUE;
-	[classes addObject:info];
-    
-	info = [[Info alloc] init];
-	info.teacher = @"Ms. Koerper";
-	info.subject = @"Social Studies";
-	info.complete = FALSE;
-	[classes addObject:info];
-    
-    info = [[Info alloc] init];
-	info.teacher = @"Mr. Cullen";
-	info.subject = @"Tech Ed";
-	info.complete = TRUE;
-	[classes addObject:info]; */
-    
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Classes.plist"];
@@ -148,6 +118,12 @@
         //NSLog(@"File Exists");
         [self loadClasses];
     }
+    
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
 }
 

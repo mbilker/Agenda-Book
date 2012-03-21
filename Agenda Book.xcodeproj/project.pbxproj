@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61DE21B81518EA9300C1F117 /* ClassIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61DE21B71518EA9300C1F117 /* ClassIDViewController.m */; };
 		61E2070E1508E0CB007ABD77 /* umasd.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070D1508E0CB007ABD77 /* umasd.png */; };
 		61E207101508E275007ABD77 /* Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070F1508E275007ABD77 /* Checkmark.png */; };
 		61E207121508E27F007ABD77 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E207111508E27F007ABD77 /* X.png */; };
@@ -40,6 +41,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		61DE21B61518EA9200C1F117 /* ClassIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassIDViewController.h; sourceTree = "<group>"; };
+		61DE21B71518EA9300C1F117 /* ClassIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassIDViewController.m; sourceTree = "<group>"; };
 		61E2070D1508E0CB007ABD77 /* umasd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = umasd.png; sourceTree = "<group>"; };
 		61E2070F1508E275007ABD77 /* Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Checkmark.png; sourceTree = "<group>"; };
 		61E207111508E27F007ABD77 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				6527C31D15071551007B8F26 /* SubjectCell.m */,
 				65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */,
 				65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */,
+				61DE21B61518EA9200C1F117 /* ClassIDViewController.h */,
+				61DE21B71518EA9300C1F117 /* ClassIDViewController.m */,
 				65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */,
 				65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */,
 				652859F7150ED1B200296718 /* NSString-truncateToWidth.h */,
@@ -281,6 +286,7 @@
 				65D57172150EAE4C00B9F47E /* NewAssignmentViewController.m in Sources */,
 				652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */,
 				657AA0F915159E780045148B /* AboutViewController.m in Sources */,
+				61DE21B81518EA9300C1F117 /* ClassIDViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
