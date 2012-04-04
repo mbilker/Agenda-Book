@@ -3,11 +3,15 @@
 #import "Info.h"
 #import "SubjectCell.h"
 #import "AssignmentsViewController.h"
+#import "Functions.h"
+#import "CustomAlert.h"
 
 #import <Twitter/Twitter.h>
 
 @implementation ClassesViewController {
     NSMutableArray *_assignments;
+    NSIndexPath *_rowtodelete;
+    
 }
 
 @synthesize classes;
@@ -66,19 +70,13 @@
         //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
         [tempDict setObject:[NSArray arrayWithObjects:details.teacher,details.subject,details.classid, nil] forKey:[NSString stringWithFormat:@"%d",i]];
     }
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Classes.plist"];
-    [tempDict writeToFile:path atomically:YES];
+    [tempDict writeToFile:[Functions classPath] atomically:YES];
     //NSLog(@"Classes array: %@", tempDict);
 }
 
 - (void)loadClasses
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Classes.plist"];
-    NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:[Functions classPath]];
     for (int i = 0; i < [subjectsDict count]; i++)
     {
         NSArray *tempArray = [subjectsDict objectForKey:[NSString stringWithFormat:@"%d",i]];
@@ -92,7 +90,6 @@
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-        
     }
     //self.classes = [subjectsDict valueForKey:@"Classes"];
 }
@@ -111,14 +108,12 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Classes.plist"];
-    if ([[NSFileManager alloc] fileExistsAtPath:path]) {
+    if ([[NSFileManager alloc] fileExistsAtPath:[Functions classPath]]) {
         //NSLog(@"File Exists");
         [self loadClasses];
     }
     
+    [self.tableView reloadData];
     [super viewWillAppear:animated];
 }
 
@@ -196,30 +191,6 @@
 	return [self.classes count];
 }
 
-- (UIColor *)colorForAssignment:(BOOL)complete
-{
-    //NSLog(@"Selection: %@", (complete ? @"TRUE" : @"FALSE"));
-	switch (complete)
-	{
-        case FALSE: return [UIColor colorWithRed:1 green:.5 blue:0.5 alpha:0.5];
-        case TRUE: return [UIColor colorWithRed:.5 green:1 blue:.5 alpha:0.5];
-	}
-	return nil;
-}
-
-- (UIColor *)determineComplete:(Info *)info
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Assignments.plist"];
-    if ([[NSFileManager alloc] fileExistsAtPath:path]) {
-        //NSLog(@"File Exists");
-        NSMutableDictionary *subjectsDict = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:info.teacher];
-        NSLog(@"Assignments: '%@'",subjectsDict);
-    }
-    return nil;
-}
-
 #pragma mark - Table view delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -230,10 +201,8 @@
 	cell.gameLabel.text = info.subject;
     
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = [self colorForAssignment:FALSE];
+    backgroundView.backgroundColor = [Functions determineClassComplete:info.teacher];
     cell.backgroundView = backgroundView;
-
-    //cell.contentView.backgroundColor = [self colorForAssignment:info.complete];
     return cell;
 }
 
@@ -241,9 +210,14 @@
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete)
 	{
-		[self.classes removeObjectAtIndex:indexPath.row];
-        [self saveClasses];
-		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        CustomAlert *alert = [[CustomAlert alloc] initWithTitle:@"Confirm" message:@"Are you sure you want to delete?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete",nil];
+        [alert setBackgroundColor:[UIColor colorWithRed:0.55 green:0.2 blue:0.2 alpha:1.0] withStrokeColor:[UIColor colorWithHue:0.5 saturation:0.0 brightness:0.8 alpha:0.8]];
+        [alert show];
+        _rowtodelete = indexPath;
+
+		//[self.classes removeObjectAtIndex:indexPath.row];
+        //[self saveClasses];
+		//[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }
 
@@ -274,6 +248,18 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
     return proposedDestinationIndexPath;
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    //NSLog(@"ButtonIndex: '%d'",buttonIndex);
+    if (buttonIndex == 1) {
+        [self.classes removeObjectAtIndex:_rowtodelete.row];
+        [self saveClasses];
+		[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_rowtodelete] withRowAnimation:UITableViewRowAnimationFade];
+    }
 }
 
 #pragma mark - PlayerDetailsViewControllerDelegate

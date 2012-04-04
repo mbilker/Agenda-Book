@@ -4,6 +4,7 @@
 #import "Assignment.h"
 #import "NewAssignmentViewController.h"
 #import "NSString-truncateToWidth.h"
+#import "Functions.h"
 // #import "Info.h"
 
 /* #define server @"localhost:8080" */
@@ -34,23 +35,32 @@
     return self;
 }
 
+- (void)makePlist
+{
+    if (![[NSFileManager alloc] fileExistsAtPath:[Functions assignmentPath]]) {
+        NSDictionary *d = [NSDictionary dictionary];
+        //NSLog(@"Success: '%@'",[d writeToFile:path atomically:YES] ? @"YES" : @"NO");
+        [d writeToFile:[Functions assignmentPath] atomically:YES];
+    }
+}
+
 - (void)saveAssignments
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Assignments.plist"];
+    [self makePlist];
+    NSString *path = [Functions assignmentPath];
     NSMutableDictionary *currentDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
-    
     NSMutableDictionary *teacherDict = [NSMutableDictionary dictionaryWithCapacity:20];
     for (int i = 0; i < [self.assignments count]; i++)
     {
-        //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
         Assignment *saving = [self.assignments objectAtIndex:i];
-        [teacherDict setObject:[NSArray arrayWithObjects:saving.assignmentText, saving.complete, nil] forKey:[NSString stringWithFormat:@"%d",i]];
+        NSLog(@"assignment: '%@' complete: '%@'",saving.assignmentText,saving.complete ? @"YES" : @"NO");
+        [teacherDict setObject:[NSArray arrayWithObjects:saving.assignmentText, [NSNumber numberWithBool:saving.complete], nil] forKey:[NSString stringWithFormat:@"%d",i]];
     }
     [currentDict setObject:teacherDict forKey:info.teacher];
-    [currentDict writeToFile:path atomically:YES];
-    //NSLog(@"Classes array: %@", tempDict);
+    //NSLog(@"Assignments array: '%@'", currentDict);
+    NSLog(@"Succeeded: '%@'",[currentDict writeToFile:path atomically:YES] ? @"YES" : @"NO");
+    //NSLog(@"Assignments array: %@", teacherDict);
+    //NSLog(@"Teacher: '%@'",info.teacher);
 }
 
 - (BOOL)checkIfOnline:(NSURL *)url
@@ -113,9 +123,7 @@
 
 - (void)loadFromPlist
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Assignments.plist"];
+    NSString *path = [Functions assignmentPath];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
         //NSLog(@"File Exists");
         NSMutableDictionary *subjectsDict = [[NSMutableDictionary dictionaryWithContentsOfFile:path] objectForKey:info.teacher];

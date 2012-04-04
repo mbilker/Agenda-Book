@@ -1,12 +1,6 @@
-//
-//  GamePickerViewController.m
-//  Agenda Book
-//
-//  Created by Matt Bilker on 3/7/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import "SubjectPickerViewController.h"
+#import "Functions.h"
 
 @implementation SubjectPickerViewController
 {
@@ -58,19 +52,13 @@
 - (void)saveSubjects
 {
     NSDictionary *subjectsDict = [NSDictionary dictionaryWithObject:subjects forKey:@"Subjects"];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Subjects.plist"];
-    [subjectsDict writeToFile:path atomically:YES];
+    [subjectsDict writeToFile:[Functions subjectPath] atomically:YES];
     //NSLog(@"Subjects array: %@", subjectsDict);
 }
 
 - (void)loadSubjects
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Subjects.plist"];
-    NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+    NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:[Functions subjectPath]];
     subjects = [subjectsDict valueForKey:@"Subjects"];
 }
 
@@ -81,10 +69,7 @@
 	[super viewDidLoad];
     subjects = [NSMutableArray arrayWithObjects:@"Math",@"Science",@"Social Studies",@"Language Arts",@"Spanish",@"German",@"French",@"Tech Ed",nil];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Subjects.plist"];
-    if ([[NSFileManager alloc] fileExistsAtPath:path]) {
+    if ([[NSFileManager alloc] fileExistsAtPath:[Functions subjectPath]]) {
         //NSLog(@"File Exists");
         [self loadSubjects];
     } else {

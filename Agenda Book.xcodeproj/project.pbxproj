@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61601C5B151BA0C700A81E39 /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 61601C5A151BA0C700A81E39 /* Functions.m */; };
 		61DE21B81518EA9300C1F117 /* ClassIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61DE21B71518EA9300C1F117 /* ClassIDViewController.m */; };
 		61E2070E1508E0CB007ABD77 /* umasd.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070D1508E0CB007ABD77 /* umasd.png */; };
 		61E207101508E275007ABD77 /* Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070F1508E275007ABD77 /* Checkmark.png */; };
@@ -25,6 +26,7 @@
 		652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 652859F4150ED19900296718 /* NSString-truncateToWidth.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
+		6572AF02152BD1C20049BA6E /* CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6572AF01152BD1C20049BA6E /* CustomAlert.m */; };
 		657AA0F915159E780045148B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657AA0F815159E780045148B /* AboutViewController.m */; };
 		65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841551506ED9900C6B779 /* UIKit.framework */; };
 		65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841571506ED9900C6B779 /* Foundation.framework */; };
@@ -35,12 +37,16 @@
 		65A841691506ED9900C6B779 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65A841671506ED9900C6B779 /* MainStoryboard.storyboard */; };
 		65A841A51506F98000C6B779 /* ClassesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A41506F97F00C6B779 /* ClassesViewController.m */; };
 		65A841A81506FE5100C6B779 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A71506FE5100C6B779 /* Info.m */; };
+		65B92222151BBCAC00B85CB5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B92221151BBCAC00B85CB5 /* Default.png */; };
+		65B92225151BBCB300B85CB5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B92224151BBCB300B85CB5 /* Default@2x.png */; };
 		65D5716E150EAB7400B9F47E /* Assignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D5716D150EAB7400B9F47E /* Assignment.m */; };
 		65D57172150EAE4C00B9F47E /* NewAssignmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */; };
 		65EBA46915099EBF00064B8A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EBA46815099EBF00064B8A /* Twitter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		61601C59151BA0C700A81E39 /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
+		61601C5A151BA0C700A81E39 /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		61DE21B61518EA9200C1F117 /* ClassIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassIDViewController.h; sourceTree = "<group>"; };
 		61DE21B71518EA9300C1F117 /* ClassIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassIDViewController.m; sourceTree = "<group>"; };
 		61E2070D1508E0CB007ABD77 /* umasd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = umasd.png; sourceTree = "<group>"; };
@@ -67,6 +73,8 @@
 		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
 		6567C2451508054C00859E02 /* SubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPickerViewController.h; sourceTree = "<group>"; };
 		6567C2461508054C00859E02 /* SubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectPickerViewController.m; sourceTree = "<group>"; };
+		6572AF00152BD1C20049BA6E /* CustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlert.h; sourceTree = "<group>"; };
+		6572AF01152BD1C20049BA6E /* CustomAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAlert.m; sourceTree = "<group>"; };
 		657AA0F715159E780045148B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		657AA0F815159E780045148B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		65A841511506ED9900C6B779 /* Agenda Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agenda Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +92,8 @@
 		65A841A41506F97F00C6B779 /* ClassesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassesViewController.m; sourceTree = "<group>"; };
 		65A841A61506FE5100C6B779 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = "<group>"; };
 		65A841A71506FE5100C6B779 /* Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Info.m; sourceTree = "<group>"; };
+		65B92221151BBCAC00B85CB5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		65B92224151BBCB300B85CB5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		65D5716C150EAB7400B9F47E /* Assignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Assignment.h; sourceTree = "<group>"; };
 		65D5716D150EAB7400B9F47E /* Assignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Assignment.m; sourceTree = "<group>"; };
 		65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAssignmentViewController.h; sourceTree = "<group>"; };
@@ -116,6 +126,8 @@
 				651E40FC1512D4A3000D7BCC /* Icon.png */,
 				651E40FD1512D4A3000D7BCC /* Icon@2x.png */,
 				651E40FE1512D4A3000D7BCC /* iTunesArtwork.png */,
+				65B92221151BBCAC00B85CB5 /* Default.png */,
+				65B92224151BBCB300B85CB5 /* Default@2x.png */,
 				65A8415B1506ED9900C6B779 /* Agenda Book */,
 				65A841541506ED9900C6B779 /* Frameworks */,
 				65A841521506ED9900C6B779 /* Products */,
@@ -174,6 +186,10 @@
 				65D5716D150EAB7400B9F47E /* Assignment.m */,
 				65A841A61506FE5100C6B779 /* Info.h */,
 				65A841A71506FE5100C6B779 /* Info.m */,
+				6572AF00152BD1C20049BA6E /* CustomAlert.h */,
+				6572AF01152BD1C20049BA6E /* CustomAlert.m */,
+				61601C59151BA0C700A81E39 /* Functions.h */,
+				61601C5A151BA0C700A81E39 /* Functions.m */,
 				65A8415C1506ED9900C6B779 /* Supporting Files */,
 			);
 			path = "Agenda Book";
@@ -262,6 +278,8 @@
 				651E41031512D4A3000D7BCC /* Icon.png in Resources */,
 				651E41041512D4A3000D7BCC /* Icon@2x.png in Resources */,
 				651E41051512D4A3000D7BCC /* iTunesArtwork.png in Resources */,
+				65B92222151BBCAC00B85CB5 /* Default.png in Resources */,
+				65B92225151BBCB300B85CB5 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +305,8 @@
 				652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */,
 				657AA0F915159E780045148B /* AboutViewController.m in Sources */,
 				61DE21B81518EA9300C1F117 /* ClassIDViewController.m in Sources */,
+				61601C5B151BA0C700A81E39 /* Functions.m in Sources */,
+				6572AF02152BD1C20049BA6E /* CustomAlert.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -127,7 +127,7 @@
         info.teacher = self.teacherTextField.text;
         info.subject = subject;
         info.classid = tableClassID;
-        NSLog(@"ClassID: '%@'",info.classid);
+        //NSLog(@"ClassID: '%@'",info.classid);
         [self.delegate newClassViewController:self didAddInfo:info];
     } else {
         //NSLog(@"Empty and did not choose subject");
