@@ -158,8 +158,27 @@
 - (IBAction)tweet:(id)sender
 {
     if ([TWTweetComposeViewController canSendTweet]) {
+        int d = 0;
+        for (Info *i in self.classes) {
+            if ([Functions determineClassComplete:i.teacher]) {
+                d++;
+            }
+            //NSLog(@"Teacher: '%@', Complete: '%@'",i.teacher,[Functions determineClassComplete:i.teacher] ? @"YES" : @"NO");
+        }
+        NSString *s;
+        if (!([self.classes count] == 1)) {
+            s = @"classes";
+        } else {
+            s = @"class";
+        }
+        NSString *f;
+        if (!(d == 1)) {
+            f = @"classes";
+        } else {
+            f = @"class";
+        }
         TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
-        [tweetSheet setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %d subjects.",[self.classes count]]];
+        [tweetSheet setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %d %@. Homework for %d %@ is complete.",[self.classes count],s,d,f]];
 	    [self presentModalViewController:tweetSheet animated:YES];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"No Twitter" message:@"Twitter is not available" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
