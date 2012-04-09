@@ -53,12 +53,14 @@
     for (int i = 0; i < [self.assignments count]; i++)
     {
         Assignment *saving = [self.assignments objectAtIndex:i];
-        NSLog(@"assignment: '%@' complete: '%@'",saving.assignmentText,saving.complete ? @"YES" : @"NO");
+        //NSLog(@"assignment: '%@' complete: '%@'",saving.assignmentText,saving.complete ? @"YES" : @"NO");
         [teacherDict setObject:[NSArray arrayWithObjects:saving.assignmentText, [NSNumber numberWithBool:saving.complete], nil] forKey:[NSString stringWithFormat:@"%d",i]];
     }
     [currentDict setObject:teacherDict forKey:info.teacher];
     //NSLog(@"Assignments array: '%@'", currentDict);
-    NSLog(@"Succeeded: '%@'",[currentDict writeToFile:path atomically:YES] ? @"YES" : @"NO");
+    [currentDict writeToFile:path atomically:YES];
+    //BOOL s = [currentDict writeToFile:path atomically:YES];
+    //NSLog(@"Succeeded: '%@'",s ? @"YES" : @"NO");
     //NSLog(@"Assignments array: %@", teacherDict);
     //NSLog(@"Teacher: '%@'",info.teacher);
 }
@@ -144,6 +146,20 @@
     }
 }
 
+- (void)changeComplete:(NSIndexPath *)indexPath
+{
+    //NSLog(@"Row: '%d'",indexPath.row);
+    Assignment *changing = [self.assignments objectAtIndex:indexPath.row];
+    changing.complete = !changing.complete;
+    //NSLog(@"Complete: '%@'",changing.complete ? @"YES" : @"NO");
+    
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    backgroundView.backgroundColor = [Functions colorForComplete:changing.complete];
+    cell.backgroundView = backgroundView;
+    [self saveAssignments];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [self loadFromPlist];
@@ -221,6 +237,10 @@
         [newString appendString:[token stringByTruncatingToWidth:280 withFont:cell.assignment.font]];
     }
     
+    UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    backgroundView.backgroundColor = [Functions colorForComplete:atRow.complete];
+    cell.backgroundView = backgroundView;
+    
     cell.assignment.text = newString;
     //[cell.assignment sizeToFit];
     
@@ -231,7 +251,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    //NSLog(@"Picked: %@ index", indexPath);
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self changeComplete:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath

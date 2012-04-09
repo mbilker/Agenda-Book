@@ -10,8 +10,6 @@
 		61601C5B151BA0C700A81E39 /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 61601C5A151BA0C700A81E39 /* Functions.m */; };
 		61DE21B81518EA9300C1F117 /* ClassIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61DE21B71518EA9300C1F117 /* ClassIDViewController.m */; };
 		61E2070E1508E0CB007ABD77 /* umasd.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070D1508E0CB007ABD77 /* umasd.png */; };
-		61E207101508E275007ABD77 /* Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070F1508E275007ABD77 /* Checkmark.png */; };
-		61E207121508E27F007ABD77 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E207111508E27F007ABD77 /* X.png */; };
 		65199926150D4DE6007FD5A6 /* AssignmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199925150D4DE6007FD5A6 /* AssignmentCell.m */; };
 		6519992A150D4F4B007FD5A6 /* AssignmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */; };
 		651E40FF1512D4A3000D7BCC /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 651E40F81512D4A3000D7BCC /* Icon-72.png */; };
@@ -50,8 +48,6 @@
 		61DE21B61518EA9200C1F117 /* ClassIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassIDViewController.h; sourceTree = "<group>"; };
 		61DE21B71518EA9300C1F117 /* ClassIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassIDViewController.m; sourceTree = "<group>"; };
 		61E2070D1508E0CB007ABD77 /* umasd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = umasd.png; sourceTree = "<group>"; };
-		61E2070F1508E275007ABD77 /* Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Checkmark.png; sourceTree = "<group>"; };
-		61E207111508E27F007ABD77 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
 		65199924150D4DE6007FD5A6 /* AssignmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentCell.h; sourceTree = "<group>"; };
 		65199925150D4DE6007FD5A6 /* AssignmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentCell.m; sourceTree = "<group>"; };
 		65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentsViewController.h; sourceTree = "<group>"; };
@@ -209,8 +205,6 @@
 		65A841721506F66A00C6B779 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				61E207111508E27F007ABD77 /* X.png */,
-				61E2070F1508E275007ABD77 /* Checkmark.png */,
 				61E2070D1508E0CB007ABD77 /* umasd.png */,
 			);
 			path = Images;
@@ -269,8 +263,6 @@
 				65A841601506ED9900C6B779 /* InfoPlist.strings in Resources */,
 				65A841691506ED9900C6B779 /* MainStoryboard.storyboard in Resources */,
 				61E2070E1508E0CB007ABD77 /* umasd.png in Resources */,
-				61E207101508E275007ABD77 /* Checkmark.png in Resources */,
-				61E207121508E27F007ABD77 /* X.png in Resources */,
 				651E40FF1512D4A3000D7BCC /* Icon-72.png in Resources */,
 				651E41001512D4A3000D7BCC /* Icon-Small-50.png in Resources */,
 				651E41011512D4A3000D7BCC /* Icon-Small.png in Resources */,
