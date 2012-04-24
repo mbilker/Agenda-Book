@@ -13,6 +13,7 @@
 
 @property (nonatomic, weak) id <NewAssignmentViewControllerDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UITextField *assignmentField;
+@property (nonatomic, strong) IBOutlet UIDatePicker *duePicker;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;

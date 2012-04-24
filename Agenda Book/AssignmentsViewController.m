@@ -54,13 +54,13 @@
     {
         Assignment *saving = [self.assignments objectAtIndex:i];
         //NSLog(@"assignment: '%@' complete: '%@'",saving.assignmentText,saving.complete ? @"YES" : @"NO");
-        [teacherDict setObject:[NSArray arrayWithObjects:saving.assignmentText, [NSNumber numberWithBool:saving.complete], nil] forKey:[NSString stringWithFormat:@"%d",i]];
+        [teacherDict setObject:[NSArray arrayWithObjects:saving.assignmentText, [NSNumber numberWithBool:saving.complete], saving.dueDate, nil] forKey:[NSString stringWithFormat:@"%d",i]];
     }
     [currentDict setObject:teacherDict forKey:info.teacher];
     //NSLog(@"Assignments array: '%@'", currentDict);
-    [currentDict writeToFile:path atomically:YES];
-    //BOOL s = [currentDict writeToFile:path atomically:YES];
-    //NSLog(@"Succeeded: '%@'",s ? @"YES" : @"NO");
+    //[currentDict writeToFile:path atomically:YES];
+    BOOL s = [currentDict writeToFile:path atomically:YES];
+    NSLog(@"Succeeded: '%@'",s ? @"YES" : @"NO");
     //NSLog(@"Assignments array: %@", teacherDict);
     //NSLog(@"Teacher: '%@'",info.teacher);
 }
@@ -109,6 +109,7 @@
             Assignment *adding = [[Assignment alloc] init];
             adding.assignmentText = string;
             adding.complete = FALSE;
+            adding.dueDate = [NSDate date];
             if(![self checkIfExists:adding]) {
                 [self.assignments addObject:adding];
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
@@ -135,6 +136,12 @@
             Assignment *adding = [[Assignment alloc] init];
             adding.assignmentText = [assignmentFromPlist objectAtIndex:0];
             adding.complete = [[assignmentFromPlist objectAtIndex:1] boolValue];
+            //NSDateFormatter *date = [[NSDateFormatter alloc] init];
+            //[date setDateFormat:@"yyyy-MM-dd hh:mm:ss Z"];
+            //NSLog(@"Date: '%@'",[date dateFromString:[assignmentFromPlist objectAtIndex:2]]);
+            NSLog(@"%@<%p> = '%@'",[[assignmentFromPlist objectAtIndex:2] class],[assignmentFromPlist objectAtIndex:2],[assignmentFromPlist objectAtIndex:2]);
+            adding.dueDate = [assignmentFromPlist objectAtIndex:2];
+            //NSLog(@"There was the object");
             //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",info.teacher,info.subject,info.complete ? @"TRUE" : @"FALSE");
             if (![self checkIfExists:adding]) {
                 [self.assignments addObject:adding];
@@ -242,6 +249,11 @@
     cell.backgroundView = backgroundView;
     
     cell.assignment.text = newString;
+    NSDateFormatter *date = [[NSDateFormatter alloc] init];
+    [date setDateFormat:@"MM/dd/yyyy"];
+    cell.due.text = [NSString stringWithFormat:@"Due: %@",[date stringFromDate:atRow.dueDate]];
+	//NSLog(@"%@",[NSString stringWithFormat:@"%@",[df stringFromDate:atRow.dueDate]]);
+    //cell.due.text = [NSString stringWithFormat:@"Due: %@",[df stringFromDate:atRow.dueDate]];
     //[cell.assignment sizeToFit];
     
     return cell;

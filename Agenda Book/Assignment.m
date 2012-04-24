@@ -5,5 +5,6 @@
 
 @synthesize assignmentText;
 @synthesize complete;
+@synthesize dueDate;
 
 @end

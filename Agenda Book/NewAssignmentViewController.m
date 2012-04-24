@@ -6,6 +6,7 @@
 
 @synthesize delegate;
 @synthesize assignmentField;
+@synthesize duePicker;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -30,6 +31,7 @@
 - (void)viewDidLoad
 {
     self.assignmentField.delegate = self;
+    self.duePicker.minimumDate = [NSDate date];
     [super viewDidLoad];
 }
 
@@ -41,7 +43,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.assignmentField becomeFirstResponder];
+    //[self.assignmentField becomeFirstResponder];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -55,6 +57,7 @@
         Assignment *assignment = [[Assignment alloc] init];
         assignment.assignmentText = self.assignmentField.text;
         assignment.complete = FALSE;
+        assignment.dueDate = self.duePicker.date;
         [self.delegate addAssignmentViewController:self didAddAssignment:assignment];
     } else {
         //NSLog(@"Empty and did not choose subject");
@@ -64,8 +67,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     //NSLog(@"Done button hit");
-    [self checkDone];
-    return NO;
+    //[self checkDone];
+    [theTextField resignFirstResponder];
+    return YES;
 }
 
 - (IBAction)cancel:(id)sender
@@ -75,7 +79,17 @@
 
 - (IBAction)done:(id)sender
 {
+    NSLog(@"Date picked: %@",self.duePicker.date);
     [self checkDone];
 }
+
+/* #pragma mark - UIPickerViewDelegate
+
+- (void)changeDateInLabel:(id)sender{
+	//Use NSDateFormatter to write out the date in a friendly format
+	NSDateFormatter *df = [[NSDateFormatter alloc] init];
+	df.dateStyle = NSDateFormatterMediumStyle;
+	NSLog(@"%@",[NSString stringWithFormat:@"%@",[df stringFromDate:self.duePicker.date]]);
+} */
 
 @end

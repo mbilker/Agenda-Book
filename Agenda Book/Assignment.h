@@ -5,5 +5,6 @@
 
 @property (nonatomic, copy) NSString *assignmentText;
 @property (nonatomic, assign) BOOL complete;
+@property (nonatomic, copy) NSDate *dueDate;
 
 @end

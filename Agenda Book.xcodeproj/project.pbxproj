@@ -94,6 +94,7 @@
 		65D5716D150EAB7400B9F47E /* Assignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Assignment.m; sourceTree = "<group>"; };
 		65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAssignmentViewController.h; sourceTree = "<group>"; };
 		65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAssignmentViewController.m; sourceTree = "<group>"; };
+		65D95DCA153670C400EB7208 /* Agenda Book.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Agenda Book.entitlements"; sourceTree = "<group>"; };
 		65EBA46815099EBF00064B8A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -152,6 +153,7 @@
 		65A8415B1506ED9900C6B779 /* Agenda Book */ = {
 			isa = PBXGroup;
 			children = (
+				65D95DCA153670C400EB7208 /* Agenda Book.entitlements */,
 				65A841721506F66A00C6B779 /* Images */,
 				65A841641506ED9900C6B779 /* AppDelegate.h */,
 				65A841651506ED9900C6B779 /* AppDelegate.m */,
@@ -378,6 +380,7 @@
 		65A841701506ED9900C6B779 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Agenda Book/Agenda Book.entitlements";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
@@ -390,6 +393,7 @@
 		65A841711506ED9900C6B779 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Agenda Book/Agenda Book.entitlements";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
