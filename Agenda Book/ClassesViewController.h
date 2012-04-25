@@ -1,7 +1,8 @@
 
 #import "NewClassViewController.h"
+#import "EditClassViewController.h"
 
-@interface ClassesViewController : UITableViewController <NewClassViewControllerDelegate, UIAlertViewDelegate>
+@interface ClassesViewController : UITableViewController <NewClassViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate, EditClassViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *classes;
 

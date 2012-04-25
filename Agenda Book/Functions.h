@@ -1,10 +1,3 @@
-//
-//  Functions.h
-//  Agenda Book
-//
-//  Created by System Administrator on 3/22/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 
@@ -13,6 +6,9 @@
 + (NSString *)assignmentPath;
 + (NSString *)classPath;
 + (NSString *)subjectPath;
++ (NSURL *)assignmentiCloud;
++ (NSURL *)classiCloud;
++ (NSURL *)subjectiCloud;
 + (UIColor *)colorForComplete:(BOOL)complete;
 + (UIColor *)determineClassComplete:(NSString *)string;
 

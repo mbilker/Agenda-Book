@@ -1,3 +1,4 @@
+
 #import "Functions.h"
 
 @implementation Functions
@@ -24,6 +25,27 @@
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *path = [documentsDirectory stringByAppendingPathComponent:@"Subjects.plist"];
     return path;
+}
+
++ (NSURL *)assignmentiCloud
+{
+    NSURL *classesCloud = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:@"DXD4278H9V.us.mbilker.agendabook"];
+    NSURL *ubiquitousPackage = [[classesCloud URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:@"Assignments.plist"];
+    return ubiquitousPackage;
+}
+
++ (NSURL *)classiCloud
+{
+    NSURL *classesCloud = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:@"DXD4278H9V.us.mbilker.agendabook"];
+    NSURL *ubiquitousPackage = [[classesCloud URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:@"Classes.plist"];
+    return ubiquitousPackage;
+}
+
++ (NSURL *)subjectiCloud
+{
+    NSURL *classesCloud = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:@"DXD4278H9V.us.mbilker.agendabook"];
+    NSURL *ubiquitousPackage = [[classesCloud URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:@"Subjects.plist"];
+    return ubiquitousPackage;
 }
 
 + (UIColor *)colorForComplete:(BOOL)complete

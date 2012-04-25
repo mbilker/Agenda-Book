@@ -22,6 +22,8 @@
 		6527C31E15071551007B8F26 /* SubjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C31D15071551007B8F26 /* SubjectCell.m */; };
 		6527C322150718FD007B8F26 /* NewClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C321150718FD007B8F26 /* NewClassViewController.m */; };
 		652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 652859F4150ED19900296718 /* NSString-truncateToWidth.m */; };
+		652A6246154785D700FE17E5 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A6245154785D700FE17E5 /* DetailsViewController.m */; };
+		652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A624815478BAC00FE17E5 /* EditClassViewController.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
 		6572AF02152BD1C20049BA6E /* CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6572AF01152BD1C20049BA6E /* CustomAlert.m */; };
@@ -65,6 +67,10 @@
 		6527C321150718FD007B8F26 /* NewClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewClassViewController.m; sourceTree = "<group>"; };
 		652859F4150ED19900296718 /* NSString-truncateToWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-truncateToWidth.m"; sourceTree = "<group>"; };
 		652859F7150ED1B200296718 /* NSString-truncateToWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-truncateToWidth.h"; sourceTree = "<group>"; };
+		652A6244154785D700FE17E5 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		652A6245154785D700FE17E5 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		652A624715478BAC00FE17E5 /* EditClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditClassViewController.h; sourceTree = "<group>"; };
+		652A624815478BAC00FE17E5 /* EditClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditClassViewController.m; sourceTree = "<group>"; };
 		65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSubjectPickerViewController.h; sourceTree = "<group>"; };
 		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
 		6567C2451508054C00859E02 /* SubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPickerViewController.h; sourceTree = "<group>"; };
@@ -162,6 +168,10 @@
 				657AA0F815159E780045148B /* AboutViewController.m */,
 				65A841A31506F97F00C6B779 /* ClassesViewController.h */,
 				65A841A41506F97F00C6B779 /* ClassesViewController.m */,
+				652A6244154785D700FE17E5 /* DetailsViewController.h */,
+				652A6245154785D700FE17E5 /* DetailsViewController.m */,
+				652A624715478BAC00FE17E5 /* EditClassViewController.h */,
+				652A624815478BAC00FE17E5 /* EditClassViewController.m */,
 				6527C320150718FD007B8F26 /* NewClassViewController.h */,
 				6527C321150718FD007B8F26 /* NewClassViewController.m */,
 				6567C2451508054C00859E02 /* SubjectPickerViewController.h */,
@@ -301,6 +311,8 @@
 				61DE21B81518EA9300C1F117 /* ClassIDViewController.m in Sources */,
 				61601C5B151BA0C700A81E39 /* Functions.m in Sources */,
 				6572AF02152BD1C20049BA6E /* CustomAlert.m in Sources */,
+				652A6246154785D700FE17E5 /* DetailsViewController.m in Sources */,
+				652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,8 +1,11 @@
 
 #import "ClassesViewController.h"
+#import "AssignmentsViewController.h"
+#import "DetailsViewController.h"
+#import "EditClassViewController.h"
+
 #import "Info.h"
 #import "SubjectCell.h"
-#import "AssignmentsViewController.h"
 #import "Functions.h"
 #import "CustomAlert.h"
 
@@ -11,7 +14,7 @@
 @implementation ClassesViewController {
     NSMutableArray *_assignments;
     NSIndexPath *_rowtodelete;
-    
+    Info *infoForRow;
 }
 
 @synthesize classes;
@@ -71,6 +74,10 @@
         [tempDict setObject:[NSArray arrayWithObjects:details.teacher,details.subject,details.classid, nil] forKey:[NSString stringWithFormat:@"%d",i]];
     }
     [tempDict writeToFile:[Functions classPath] atomically:YES];
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"iCloud"] == 1) {
+        NSURL *classesCloud = [Functions classiCloud];
+        [tempDict writeToURL:classesCloud atomically:YES];
+    }
     //NSLog(@"Classes array: %@", tempDict);
 }
 
@@ -269,6 +276,33 @@
     return proposedDestinationIndexPath;
 }
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    //NSLog(@"Accessory tapped");
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Teacher" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Class Details", @"Edit Class", nil];
+    infoForRow = [self.classes objectAtIndex:indexPath.row];
+    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //NSLog(@"Hit Button at: '%d'",buttonIndex);
+    //NSLog(@"Button: '%@'",[actionSheet buttonTitleAtIndex:buttonIndex]);
+    if (buttonIndex == 0 && [actionSheet buttonTitleAtIndex:buttonIndex] == @"Class Details") {
+        //NSLog(@"Class Details Hit");
+        DetailsViewController *details = [self.storyboard instantiateViewControllerWithIdentifier:@"detailsView"];
+        details.classInfo = infoForRow;
+        [self.navigationController pushViewController:details animated:YES];
+    } else if (buttonIndex == 1 && [actionSheet buttonTitleAtIndex:buttonIndex] == @"Edit Class") {
+        EditClassViewController *editClass = [self.storyboard instantiateViewControllerWithIdentifier:@"editClass"];
+        editClass.classInfo = infoForRow;
+        editClass.delegate = self;
+        [self.navigationController pushViewController:editClass animated:YES];
+    }
+}
+
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -303,6 +337,36 @@
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
 	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - EditClassViewControllerDelegate
+
+- (void)editClassViewControllerDidCancel:(EditClassViewController *)controller
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)editClassViewController:(EditClassViewController *)controller didChange:(Info *)info
+{
+    //NSLog(@"Teacher: '%@'",info.teacher);
+    //NSLog(@"Subject: '%@'",info.subject);
+    //NSLog(@"Class ID: '%@'",info.classid);
+    NSString *path = [Functions assignmentPath];
+    if ([[NSFileManager alloc] fileExistsAtPath:path]) {
+        //NSLog(@"File Exists");
+        NSMutableDictionary *teachersDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
+        NSArray *teacherAssignments = [teachersDict objectForKey:infoForRow.teacher];
+        if (teacherAssignments != nil) {
+            [teachersDict removeObjectForKey:infoForRow.teacher];
+            [teachersDict setObject:teacherAssignments forKey:info.teacher];
+            [teachersDict writeToFile:path atomically:YES];
+        }
+    }
+    infoForRow.teacher = info.teacher;
+    infoForRow.subject = info.subject;
+    infoForRow.classid = info.classid;
+    [self saveClasses];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

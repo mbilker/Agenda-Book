@@ -135,7 +135,8 @@
     }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField
+{
     //NSLog(@"Done button hit");
     [self checkDone];
     return NO;

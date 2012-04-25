@@ -53,6 +53,10 @@
 {
     NSDictionary *subjectsDict = [NSDictionary dictionaryWithObject:subjects forKey:@"Subjects"];
     [subjectsDict writeToFile:[Functions subjectPath] atomically:YES];
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"iCloud"] == 1) {
+        NSURL *icloud = [Functions subjectiCloud];
+        [subjectsDict writeToURL:icloud atomically:YES];
+    }
     //NSLog(@"Subjects array: %@", subjectsDict);
 }
 

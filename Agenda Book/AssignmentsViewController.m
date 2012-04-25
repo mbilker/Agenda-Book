@@ -58,9 +58,13 @@
     }
     [currentDict setObject:teacherDict forKey:info.teacher];
     //NSLog(@"Assignments array: '%@'", currentDict);
-    //[currentDict writeToFile:path atomically:YES];
-    BOOL s = [currentDict writeToFile:path atomically:YES];
-    NSLog(@"Succeeded: '%@'",s ? @"YES" : @"NO");
+    [currentDict writeToFile:path atomically:YES];
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"iCloud"] == 1) {
+        NSURL *icloud = [Functions assignmentiCloud];
+        [currentDict writeToURL:icloud atomically:YES];
+    }
+    //BOOL s = [currentDict writeToFile:path atomically:YES];
+    //NSLog(@"Succeeded: '%@'",s ? @"YES" : @"NO");
     //NSLog(@"Assignments array: %@", teacherDict);
     //NSLog(@"Teacher: '%@'",info.teacher);
 }
@@ -129,19 +133,15 @@
     NSString *path = [Functions assignmentPath];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
         //NSLog(@"File Exists");
-        NSMutableDictionary *subjectsDict = [[NSMutableDictionary dictionaryWithContentsOfFile:path] objectForKey:info.teacher];
+        NSDictionary *subjectsDict = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:info.teacher];
         for (int i = 0; i < [subjectsDict count]; i++)
         {
             NSArray *assignmentFromPlist = [subjectsDict objectForKey:[NSString stringWithFormat:@"%d",i]];
             Assignment *adding = [[Assignment alloc] init];
             adding.assignmentText = [assignmentFromPlist objectAtIndex:0];
             adding.complete = [[assignmentFromPlist objectAtIndex:1] boolValue];
-            //NSDateFormatter *date = [[NSDateFormatter alloc] init];
-            //[date setDateFormat:@"yyyy-MM-dd hh:mm:ss Z"];
-            //NSLog(@"Date: '%@'",[date dateFromString:[assignmentFromPlist objectAtIndex:2]]);
-            NSLog(@"%@<%p> = '%@'",[[assignmentFromPlist objectAtIndex:2] class],[assignmentFromPlist objectAtIndex:2],[assignmentFromPlist objectAtIndex:2]);
+            //NSLog(@"%@<%p> = '%@'",[[assignmentFromPlist objectAtIndex:2] class],[assignmentFromPlist objectAtIndex:2],[assignmentFromPlist objectAtIndex:2]);
             adding.dueDate = [assignmentFromPlist objectAtIndex:2];
-            //NSLog(@"There was the object");
             //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",info.teacher,info.subject,info.complete ? @"TRUE" : @"FALSE");
             if (![self checkIfExists:adding]) {
                 [self.assignments addObject:adding];
@@ -240,8 +240,8 @@
     //NSLog(@"Tokens: %@",tokens);
     NSMutableString *newString = [[NSMutableString alloc] init];
     for (NSString *token in tokens) {
-        //NSLog(@"Trucated: %@",[token stringByTruncatingToWidth:280 withFont:cell.assignment.font]);
-        [newString appendString:[token stringByTruncatingToWidth:280 withFont:cell.assignment.font]];
+        //NSLog(@"Trucated: %@",[token stringByTruncatingToWidth:self.tableView.frame.size.width withFont:cell.assignment.font]);
+        [newString appendString:[token stringByTruncatingToWidth:self.tableView.frame.size.width withFont:cell.assignment.font]];
     }
     
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -250,10 +250,8 @@
     
     cell.assignment.text = newString;
     NSDateFormatter *date = [[NSDateFormatter alloc] init];
-    [date setDateFormat:@"MM/dd/yyyy"];
+    [date setDateStyle:NSDateFormatterShortStyle];
     cell.due.text = [NSString stringWithFormat:@"Due: %@",[date stringFromDate:atRow.dueDate]];
-	//NSLog(@"%@",[NSString stringWithFormat:@"%@",[df stringFromDate:atRow.dueDate]]);
-    //cell.due.text = [NSString stringWithFormat:@"Due: %@",[df stringFromDate:atRow.dueDate]];
     //[cell.assignment sizeToFit];
     
     return cell;
