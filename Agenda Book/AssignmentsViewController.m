@@ -2,6 +2,8 @@
 #import "AssignmentsViewController.h"
 #import "AssignmentCell.h"
 #import "Assignment.h"
+#import "AssignmentDetailsViewController.h"
+#import "EditAssignmentViewController.h"
 #import "NewAssignmentViewController.h"
 #import "NSString-truncateToWidth.h"
 #import "Functions.h"
@@ -10,7 +12,9 @@
 /* #define server @"localhost:8080" */
 #define server @"9.classes.mbilker.us"
 
-@implementation AssignmentsViewController
+@implementation AssignmentsViewController {
+    Assignment *assignmentForRow;
+}
 
 @synthesize assignments;
 @synthesize info;
@@ -113,7 +117,12 @@
             Assignment *adding = [[Assignment alloc] init];
             adding.assignmentText = string;
             adding.complete = FALSE;
-            adding.dueDate = [NSDate date];
+            
+            NSDateComponents *components = [[NSDateComponents alloc] init];
+            [components setDay:1];
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSDate *date = [gregorian dateByAddingComponents:components toDate:[NSDate date] options:0];
+            adding.dueDate = date;
             if(![self checkIfExists:adding]) {
                 [self.assignments addObject:adding];
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
@@ -215,11 +224,6 @@
     [self.tableView reloadData];
 }
 
-- (IBAction)savePlist:(id)sender
-{
-    [self saveAssignments];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -276,6 +280,33 @@
 	}
 }
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    //NSLog(@"Accessory tapped");
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Teacher" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Assignment Details", @"Edit Assignment", nil];
+    assignmentForRow = [self.assignments objectAtIndex:indexPath.row];
+    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+}
+
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //NSLog(@"Hit Button at: '%d'",buttonIndex);
+    //NSLog(@"Button: '%@'",[actionSheet buttonTitleAtIndex:buttonIndex]);
+    if (buttonIndex == 0 && [actionSheet buttonTitleAtIndex:buttonIndex] == @"Assignment Details") {
+        AssignmentDetailsViewController *details = [self.storyboard instantiateViewControllerWithIdentifier:@"assignmentDetailsView"];
+        details.assignment = assignmentForRow;
+        [self.navigationController pushViewController:details animated:YES];
+    } else if (buttonIndex == 1 && [actionSheet buttonTitleAtIndex:buttonIndex] == @"Edit Assignment") {
+        NSLog(@"Edit assignment");
+        EditAssignmentViewController *edit = [self.storyboard instantiateViewControllerWithIdentifier:@"editAssignment"];
+        edit.delegate = self;
+        edit.assignment = assignmentForRow;
+        [self.navigationController pushViewController:edit animated:YES];
+    }
+}
+
 #pragma mark - AddAssignmentViewControllerDelegate
 
 - (void)addAssignmentViewControllerDidCancel:(AssignmentsViewController *)controller
@@ -298,6 +329,25 @@
 	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
 	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - EditAssignmentViewControllerDelegate
+
+- (void)editAssignmentViewControllerDidCancel:(EditAssignmentViewController *)controller
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)editAssignmentViewController:(EditAssignmentViewController *)controller didChange:(Assignment *)assignment
+{
+    NSLog(@"Assignment: '%@'",assignment.assignmentText);
+    NSLog(@"Complete: '%@'",assignment.complete ? @"YES" : @"NO");
+    NSLog(@"Due Date: '%@'",[assignment.dueDate description]);
+    assignmentForRow.assignmentText = assignment.assignmentText;
+    assignmentForRow.complete = assignment.complete;
+    assignmentForRow.dueDate = assignment.dueDate;
+    [self saveAssignments];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -77,10 +77,22 @@
 {
     int i = [self.enteredClassID.text intValue];
     if (i == 0) {
-        [[[UIAlertView alloc] initWithTitle:@"No Class ID" message:@"You did not enter a Class ID" delegate:self cancelButtonTitle:@"Enter ID" otherButtonTitles:nil] show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Class ID" message:@"You did not enter a Class ID" delegate:self cancelButtonTitle:@"Use None" otherButtonTitles:@"Reenter", nil];
+        alert.delegate = self;
+        [alert show];
         return;
     }
-    [self.delegate classIDViewController:self didAddClassID:self.enteredClassID.text];
+    [self.delegate classIDViewController:self didAddClassID:[NSString stringWithFormat:@"%d",[self.enteredClassID.text intValue]]];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //NSLog(@"cancel: '%d'",[alertView cancelButtonIndex]);
+    //NSLog(@"button: '%d'",buttonIndex);
+    if (buttonIndex == [alertView cancelButtonIndex]) {
+        //NSLog(@"using none");
+        [self.delegate classIDViewController:self didAddClassID:[NSString stringWithFormat:@"%d",[self.enteredClassID.text intValue]]];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

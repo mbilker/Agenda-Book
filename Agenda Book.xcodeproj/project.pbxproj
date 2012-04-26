@@ -10,6 +10,8 @@
 		61601C5B151BA0C700A81E39 /* Functions.m in Sources */ = {isa = PBXBuildFile; fileRef = 61601C5A151BA0C700A81E39 /* Functions.m */; };
 		61DE21B81518EA9300C1F117 /* ClassIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61DE21B71518EA9300C1F117 /* ClassIDViewController.m */; };
 		61E2070E1508E0CB007ABD77 /* umasd.png in Resources */ = {isa = PBXBuildFile; fileRef = 61E2070D1508E0CB007ABD77 /* umasd.png */; };
+		650329D81549008A00C4D628 /* AssignmentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 650329D71549008A00C4D628 /* AssignmentDetailsViewController.m */; };
+		650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 650329E41549066000C4D628 /* EditAssignmentViewController.m */; };
 		65199926150D4DE6007FD5A6 /* AssignmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199925150D4DE6007FD5A6 /* AssignmentCell.m */; };
 		6519992A150D4F4B007FD5A6 /* AssignmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */; };
 		651E40FF1512D4A3000D7BCC /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 651E40F81512D4A3000D7BCC /* Icon-72.png */; };
@@ -22,12 +24,16 @@
 		6527C31E15071551007B8F26 /* SubjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C31D15071551007B8F26 /* SubjectCell.m */; };
 		6527C322150718FD007B8F26 /* NewClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C321150718FD007B8F26 /* NewClassViewController.m */; };
 		652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 652859F4150ED19900296718 /* NSString-truncateToWidth.m */; };
-		652A6246154785D700FE17E5 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A6245154785D700FE17E5 /* DetailsViewController.m */; };
+		652A6246154785D700FE17E5 /* ClassDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A6245154785D700FE17E5 /* ClassDetailsViewController.m */; };
 		652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A624815478BAC00FE17E5 /* EditClassViewController.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
 		6572AF02152BD1C20049BA6E /* CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6572AF01152BD1C20049BA6E /* CustomAlert.m */; };
 		657AA0F915159E780045148B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657AA0F815159E780045148B /* AboutViewController.m */; };
+		658FF5891548955600D72959 /* TapkuLibrary.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 658FF5881548955600D72959 /* TapkuLibrary.bundle */; };
+		658FF58C1548959C00D72959 /* libTapkuLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF5841548954B00D72959 /* libTapkuLibrary.a */; };
+		658FF58E154895A400D72959 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF58D154895A400D72959 /* QuartzCore.framework */; };
+		658FF590154895B000D72959 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF58F154895B000D72959 /* MapKit.framework */; };
 		65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841551506ED9900C6B779 /* UIKit.framework */; };
 		65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841571506ED9900C6B779 /* Foundation.framework */; };
 		65A8415A1506ED9900C6B779 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841591506ED9900C6B779 /* CoreGraphics.framework */; };
@@ -44,12 +50,40 @@
 		65EBA46915099EBF00064B8A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EBA46815099EBF00064B8A /* Twitter.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		658FF5831548954B00D72959 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658FF57B1548954A00D72959 /* TapkuLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = TapkuLibrary;
+		};
+		658FF5851548954B00D72959 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658FF57B1548954A00D72959 /* TapkuLibrary.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3B45DDF1134C736600D24C1A;
+			remoteInfo = LogicTests;
+		};
+		658FF58A1548958A00D72959 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 658FF57B1548954A00D72959 /* TapkuLibrary.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = TapkuLibrary;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		61601C59151BA0C700A81E39 /* Functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Functions.h; sourceTree = "<group>"; };
 		61601C5A151BA0C700A81E39 /* Functions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Functions.m; sourceTree = "<group>"; };
 		61DE21B61518EA9200C1F117 /* ClassIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassIDViewController.h; sourceTree = "<group>"; };
 		61DE21B71518EA9300C1F117 /* ClassIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassIDViewController.m; sourceTree = "<group>"; };
 		61E2070D1508E0CB007ABD77 /* umasd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = umasd.png; sourceTree = "<group>"; };
+		650329D61549008A00C4D628 /* AssignmentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentDetailsViewController.h; sourceTree = "<group>"; };
+		650329D71549008A00C4D628 /* AssignmentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentDetailsViewController.m; sourceTree = "<group>"; };
+		650329E31549066000C4D628 /* EditAssignmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAssignmentViewController.h; sourceTree = "<group>"; };
+		650329E41549066000C4D628 /* EditAssignmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAssignmentViewController.m; sourceTree = "<group>"; };
 		65199924150D4DE6007FD5A6 /* AssignmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentCell.h; sourceTree = "<group>"; };
 		65199925150D4DE6007FD5A6 /* AssignmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentCell.m; sourceTree = "<group>"; };
 		65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentsViewController.h; sourceTree = "<group>"; };
@@ -67,8 +101,8 @@
 		6527C321150718FD007B8F26 /* NewClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewClassViewController.m; sourceTree = "<group>"; };
 		652859F4150ED19900296718 /* NSString-truncateToWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-truncateToWidth.m"; sourceTree = "<group>"; };
 		652859F7150ED1B200296718 /* NSString-truncateToWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-truncateToWidth.h"; sourceTree = "<group>"; };
-		652A6244154785D700FE17E5 /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
-		652A6245154785D700FE17E5 /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		652A6244154785D700FE17E5 /* ClassDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassDetailsViewController.h; sourceTree = "<group>"; };
+		652A6245154785D700FE17E5 /* ClassDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassDetailsViewController.m; sourceTree = "<group>"; };
 		652A624715478BAC00FE17E5 /* EditClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditClassViewController.h; sourceTree = "<group>"; };
 		652A624815478BAC00FE17E5 /* EditClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditClassViewController.m; sourceTree = "<group>"; };
 		65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSubjectPickerViewController.h; sourceTree = "<group>"; };
@@ -79,6 +113,10 @@
 		6572AF01152BD1C20049BA6E /* CustomAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAlert.m; sourceTree = "<group>"; };
 		657AA0F715159E780045148B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		657AA0F815159E780045148B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		658FF57B1548954A00D72959 /* TapkuLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TapkuLibrary.xcodeproj; path = tapkulibrary/src/TapkuLibrary.xcodeproj; sourceTree = "<group>"; };
+		658FF5881548955600D72959 /* TapkuLibrary.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TapkuLibrary.bundle; path = tapkulibrary/src/TapkuLibrary.bundle; sourceTree = "<group>"; };
+		658FF58D154895A400D72959 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		658FF58F154895B000D72959 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		65A841511506ED9900C6B779 /* Agenda Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agenda Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A841551506ED9900C6B779 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65A841571506ED9900C6B779 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -109,6 +147,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				658FF58C1548959C00D72959 /* libTapkuLibrary.a in Frameworks */,
+				658FF58E154895A400D72959 /* QuartzCore.framework in Frameworks */,
+				658FF590154895B000D72959 /* MapKit.framework in Frameworks */,
 				65EBA46915099EBF00064B8A /* Twitter.framework in Frameworks */,
 				65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */,
 				65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */,
@@ -119,9 +160,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		658FF57C1548954A00D72959 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				658FF5841548954B00D72959 /* libTapkuLibrary.a */,
+				658FF5861548954B00D72959 /* LogicTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		65A841461506ED9900C6B779 = {
 			isa = PBXGroup;
 			children = (
+				658FF5881548955600D72959 /* TapkuLibrary.bundle */,
 				651E40F81512D4A3000D7BCC /* Icon-72.png */,
 				651E40F91512D4A3000D7BCC /* Icon-Small-50.png */,
 				651E40FA1512D4A3000D7BCC /* Icon-Small.png */,
@@ -148,6 +199,9 @@
 		65A841541506ED9900C6B779 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				658FF57B1548954A00D72959 /* TapkuLibrary.xcodeproj */,
+				658FF58F154895B000D72959 /* MapKit.framework */,
+				658FF58D154895A400D72959 /* QuartzCore.framework */,
 				65EBA46815099EBF00064B8A /* Twitter.framework */,
 				65A841551506ED9900C6B779 /* UIKit.framework */,
 				65A841571506ED9900C6B779 /* Foundation.framework */,
@@ -168,8 +222,8 @@
 				657AA0F815159E780045148B /* AboutViewController.m */,
 				65A841A31506F97F00C6B779 /* ClassesViewController.h */,
 				65A841A41506F97F00C6B779 /* ClassesViewController.m */,
-				652A6244154785D700FE17E5 /* DetailsViewController.h */,
-				652A6245154785D700FE17E5 /* DetailsViewController.m */,
+				652A6244154785D700FE17E5 /* ClassDetailsViewController.h */,
+				652A6245154785D700FE17E5 /* ClassDetailsViewController.m */,
 				652A624715478BAC00FE17E5 /* EditClassViewController.h */,
 				652A624815478BAC00FE17E5 /* EditClassViewController.m */,
 				6527C320150718FD007B8F26 /* NewClassViewController.h */,
@@ -184,6 +238,10 @@
 				61DE21B71518EA9300C1F117 /* ClassIDViewController.m */,
 				65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */,
 				65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */,
+				650329D61549008A00C4D628 /* AssignmentDetailsViewController.h */,
+				650329D71549008A00C4D628 /* AssignmentDetailsViewController.m */,
+				650329E31549066000C4D628 /* EditAssignmentViewController.h */,
+				650329E41549066000C4D628 /* EditAssignmentViewController.m */,
 				652859F7150ED1B200296718 /* NSString-truncateToWidth.h */,
 				652859F4150ED19900296718 /* NSString-truncateToWidth.m */,
 				65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */,
@@ -236,6 +294,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				658FF58B1548958A00D72959 /* PBXTargetDependency */,
 			);
 			name = "Agenda Book";
 			productName = "Agenda Book";
@@ -260,12 +319,35 @@
 			mainGroup = 65A841461506ED9900C6B779;
 			productRefGroup = 65A841521506ED9900C6B779 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 658FF57C1548954A00D72959 /* Products */;
+					ProjectRef = 658FF57B1548954A00D72959 /* TapkuLibrary.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				65A841501506ED9900C6B779 /* Agenda Book */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		658FF5841548954B00D72959 /* libTapkuLibrary.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTapkuLibrary.a;
+			remoteRef = 658FF5831548954B00D72959 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		658FF5861548954B00D72959 /* LogicTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = LogicTests.octest;
+			remoteRef = 658FF5851548954B00D72959 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		65A8414F1506ED9900C6B779 /* Resources */ = {
@@ -284,6 +366,7 @@
 				651E41051512D4A3000D7BCC /* iTunesArtwork.png in Resources */,
 				65B92222151BBCAC00B85CB5 /* Default.png in Resources */,
 				65B92225151BBCB300B85CB5 /* Default@2x.png in Resources */,
+				658FF5891548955600D72959 /* TapkuLibrary.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,12 +394,22 @@
 				61DE21B81518EA9300C1F117 /* ClassIDViewController.m in Sources */,
 				61601C5B151BA0C700A81E39 /* Functions.m in Sources */,
 				6572AF02152BD1C20049BA6E /* CustomAlert.m in Sources */,
-				652A6246154785D700FE17E5 /* DetailsViewController.m in Sources */,
+				652A6246154785D700FE17E5 /* ClassDetailsViewController.m in Sources */,
 				652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */,
+				650329D81549008A00C4D628 /* AssignmentDetailsViewController.m in Sources */,
+				650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		658FF58B1548958A00D72959 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TapkuLibrary;
+			targetProxy = 658FF58A1548958A00D72959 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		65A8415E1506ED9900C6B779 /* InfoPlist.strings */ = {
@@ -359,7 +452,15 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/Volumes/MBILKER/Git/Agenda,
+					Book/tapkulibrary/src,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
 				SDKROOT = iphoneos;
@@ -380,8 +481,16 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/Volumes/MBILKER/Git/Agenda,
+					Book/tapkulibrary/src,
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PROVISIONING_PROFILE = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
 				SDKROOT = iphoneos;
@@ -395,6 +504,9 @@
 				CODE_SIGN_ENTITLEMENTS = "Agenda Book/Agenda Book.entitlements";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"/Volumes/MBILKER/Git/Agenda Book/tapkulibrary/src\"",
+				);
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -408,6 +520,9 @@
 				CODE_SIGN_ENTITLEMENTS = "Agenda Book/Agenda Book.entitlements";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"/Volumes/MBILKER/Git/Agenda Book/tapkulibrary/src\"",
+				);
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";

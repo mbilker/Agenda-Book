@@ -3,7 +3,7 @@
 
 #import "Info.h"
 
-@interface DetailsViewController : UIViewController
+@interface ClassDetailsViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UILabel *teacherName;
 @property (nonatomic, strong) IBOutlet UILabel *subjectName;

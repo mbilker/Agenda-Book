@@ -1,8 +1,8 @@
 
-#import "DetailsViewController.h"
+#import "ClassDetailsViewController.h"
 #import "Functions.h"
 
-@implementation DetailsViewController
+@implementation ClassDetailsViewController
 
 @synthesize teacherName;
 @synthesize subjectName;
@@ -23,14 +23,14 @@
 {
 	if ((self = [super initWithCoder:aDecoder]))
 	{
-		NSLog(@"init DetailsViewController");
+		NSLog(@"init ClassDetailsViewController");
 	}
 	return self;
 }
 
 - (void)dealloc
 {
-	NSLog(@"dealloc DetailsViewController");
+	NSLog(@"dealloc ClassDetailsViewController");
 }
 
 - (void)viewDidLoad

@@ -8,7 +8,7 @@
 - (void)classIDViewController:(ClassIDViewController *)controller didAddClassID:(NSString *)classID;
 @end
 
-@interface ClassIDViewController : UITableViewController <UITextFieldDelegate>
+@interface ClassIDViewController : UITableViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, weak) id <ClassIDViewControllerDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UITextField *enteredClassID;

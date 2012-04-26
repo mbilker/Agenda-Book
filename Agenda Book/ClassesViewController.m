@@ -1,7 +1,7 @@
 
 #import "ClassesViewController.h"
 #import "AssignmentsViewController.h"
-#import "DetailsViewController.h"
+#import "ClassDetailsViewController.h"
 #import "EditClassViewController.h"
 
 #import "Info.h"
@@ -292,7 +292,7 @@
     //NSLog(@"Button: '%@'",[actionSheet buttonTitleAtIndex:buttonIndex]);
     if (buttonIndex == 0 && [actionSheet buttonTitleAtIndex:buttonIndex] == @"Class Details") {
         //NSLog(@"Class Details Hit");
-        DetailsViewController *details = [self.storyboard instantiateViewControllerWithIdentifier:@"detailsView"];
+        ClassDetailsViewController *details = [self.storyboard instantiateViewControllerWithIdentifier:@"classDetailsView"];
         details.classInfo = infoForRow;
         [self.navigationController pushViewController:details animated:YES];
     } else if (buttonIndex == 1 && [actionSheet buttonTitleAtIndex:buttonIndex] == @"Edit Class") {

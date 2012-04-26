@@ -1,35 +1,21 @@
 
-#import "NewAssignmentViewController.h"
-#import "Assignment.h"
+#import "EditAssignmentViewController.h"
 
-@implementation NewAssignmentViewController
+@implementation EditAssignmentViewController {
+    Assignment *tempAssignment;
+}
 
 @synthesize delegate;
 @synthesize assignmentField;
-@synthesize dateCell;
+@synthesize dueCell;
 @synthesize duePicker;
 @synthesize dateFormatter;
-
-//static int calendarShadowOffset = (int)-20;
+@synthesize assignment;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-	if ((self = [super initWithCoder:aDecoder]))
-	{
-		NSLog(@"init NewAssignmentViewController");
-	}
-	return self;
-}
-
-- (void)dealloc
-{
-	NSLog(@"dealloc NewAssignmentViewController");
 }
 
 - (void)viewDidLoad
@@ -39,25 +25,28 @@
     
     self.assignmentField.delegate = self;
     
+    tempAssignment = [[Assignment alloc] init];
+    tempAssignment.assignmentText = self.assignment.assignmentText;
+    tempAssignment.complete = self.assignment.complete;
+    tempAssignment.dueDate = self.assignment.dueDate;
+    
+    self.assignmentField.text = tempAssignment.assignmentText;
+    [self.assignmentField becomeFirstResponder];
+    
     NSDateComponents *components = [[NSDateComponents alloc] init];
     [components setDay:1];
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDate *minimum = [gregorian dateByAddingComponents:components toDate:[NSDate date] options:0];
     self.duePicker.minimumDate = minimum;
+    self.duePicker.date = tempAssignment.dueDate;
     
-	self.dateCell.detailTextLabel.text = [self.dateFormatter stringFromDate:minimum];
+	self.dueCell.detailTextLabel.text = [self.dateFormatter stringFromDate:minimum];
     [super viewDidLoad];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.assignmentField becomeFirstResponder];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -68,29 +57,22 @@
 - (void)checkDone
 {
     if (self.assignmentField.text.length != 0) {
-        Assignment *assignment = [[Assignment alloc] init];
-        assignment.assignmentText = self.assignmentField.text;
-        assignment.complete = FALSE;
-        assignment.dueDate = self.duePicker.date;
-        [self.delegate addAssignmentViewController:self didAddAssignment:assignment];
+        tempAssignment.assignmentText = self.assignmentField.text;
+        tempAssignment.dueDate = self.duePicker.date;
+        [self.delegate editAssignmentViewController:self didChange:tempAssignment];
     } else {
         //NSLog(@"Empty and did not choose subject");
         [[[UIAlertView alloc] initWithTitle:@"Selection not complete" message:@"You did not enter an assignment" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
     }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField
-{
-    //NSLog(@"Done button hit");
-    [self checkDone];
-    //[theTextField resignFirstResponder];
-    return YES;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //NSLog(@"indexPath: '%d'", indexPath.row);
+    if (indexPath.row == 0) {
+        [self.assignmentField becomeFirstResponder];
+    }
     if (indexPath.row == 1) {
         //NSLog(@"second row");
         if ([self.assignmentField isFirstResponder]) {
@@ -120,7 +102,7 @@
             
 			// shrink the table vertical size to make room for the date picker
 			CGRect newFrame = self.tableView.frame;
-			newFrame.size.height -= self.duePicker.frame.size.height;
+			newFrame.size.height -= self.duePicker.frame.size.height - 50;
 			self.tableView.frame = newFrame;
             [UIView commitAnimations];
         }
@@ -166,12 +148,12 @@
 - (IBAction)cancel:(id)sender
 {
     [self hideDuePicker];
-	[self.delegate addAssignmentViewControllerDidCancel:self];
+	[self.delegate editAssignmentViewControllerDidCancel:self];
 }
 
 - (IBAction)dateChanged:(id)sender
 {
-	self.dateCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.duePicker.date];
+	self.dueCell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.duePicker.date];
 }
 
 - (IBAction)done:(id)sender
@@ -180,4 +162,5 @@
     [self hideDuePicker];
     [self checkDone];
 }
+
 @end
