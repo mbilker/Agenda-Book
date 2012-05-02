@@ -41,17 +41,17 @@
 
 - (void)makePlist
 {
-    if (![[NSFileManager alloc] fileExistsAtPath:[Functions assignmentPath]]) {
+    if (![[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] assignmentPath]]) {
         NSDictionary *d = [NSDictionary dictionary];
         //NSLog(@"Success: '%@'",[d writeToFile:path atomically:YES] ? @"YES" : @"NO");
-        [d writeToFile:[Functions assignmentPath] atomically:YES];
+        [d writeToFile:[[Functions sharedFunctions] assignmentPath] atomically:YES];
     }
 }
 
 - (void)saveAssignments
 {
     [self makePlist];
-    NSString *path = [Functions assignmentPath];
+    NSString *path = [[Functions sharedFunctions] assignmentPath];
     NSMutableDictionary *currentDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
     NSMutableDictionary *teacherDict = [NSMutableDictionary dictionaryWithCapacity:20];
     for (int i = 0; i < [self.assignments count]; i++)
@@ -64,7 +64,7 @@
     //NSLog(@"Assignments array: '%@'", currentDict);
     [currentDict writeToFile:path atomically:YES];
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"iCloud"] == 1) {
-        NSURL *icloud = [Functions assignmentiCloud];
+        NSURL *icloud = [[Functions sharedFunctions] assignmentiCloud];
         [currentDict writeToURL:icloud atomically:YES];
     }
     //BOOL s = [currentDict writeToFile:path atomically:YES];
@@ -139,7 +139,7 @@
 
 - (void)loadFromPlist
 {
-    NSString *path = [Functions assignmentPath];
+    NSString *path = [[Functions sharedFunctions] assignmentPath];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
         //NSLog(@"File Exists");
         NSDictionary *subjectsDict = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:info.teacher];
@@ -171,7 +171,7 @@
     
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = [Functions colorForComplete:changing.complete];
+    backgroundView.backgroundColor = [[Functions sharedFunctions] colorForComplete:changing.complete];
     cell.backgroundView = backgroundView;
     [self saveAssignments];
 }
@@ -211,7 +211,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
 }
 
 - (IBAction)loadRemote:(id)sender
@@ -235,6 +235,7 @@
 {
     AssignmentCell *cell = (AssignmentCell *)[tableView dequeueReusableCellWithIdentifier:@"AssignmentCell"];
     Assignment *atRow = [self.assignments objectAtIndex:indexPath.row];
+    //NSLog(@"Assignment: '%@', Complete: '%@', Due: '%@'",atRow.assignmentText,atRow.complete ? @"YES" : @"NO",[atRow.dueDate description]);
     CGSize maximumSize = CGSizeMake(280, 43);
     CGSize stringSize = [atRow.assignmentText sizeWithFont:cell.assignment.font constrainedToSize:maximumSize lineBreakMode:cell.assignment.lineBreakMode];
     CGRect cellFrame = CGRectMake(10, 10, 280, stringSize.height);
@@ -245,11 +246,11 @@
     NSMutableString *newString = [[NSMutableString alloc] init];
     for (NSString *token in tokens) {
         //NSLog(@"Trucated: %@",[token stringByTruncatingToWidth:self.tableView.frame.size.width withFont:cell.assignment.font]);
-        [newString appendString:[token stringByTruncatingToWidth:self.tableView.frame.size.width withFont:cell.assignment.font]];
+        [newString appendString:[token stringByTruncatingToWidth:cell.assignment.bounds.size.width withFont:cell.assignment.font]];
     }
     
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = [Functions colorForComplete:atRow.complete];
+    backgroundView.backgroundColor = [[Functions sharedFunctions] colorForComplete:atRow.complete];
     cell.backgroundView = backgroundView;
     
     cell.assignment.text = newString;
@@ -283,9 +284,9 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     //NSLog(@"Accessory tapped");
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Teacher" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Assignment Details", @"Edit Assignment", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Assignment Details", @"Edit Assignment", nil];
     assignmentForRow = [self.assignments objectAtIndex:indexPath.row];
-    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    [actionSheet showInView:self.navigationController.view];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -340,9 +341,9 @@
 
 - (void)editAssignmentViewController:(EditAssignmentViewController *)controller didChange:(Assignment *)assignment
 {
-    NSLog(@"Assignment: '%@'",assignment.assignmentText);
-    NSLog(@"Complete: '%@'",assignment.complete ? @"YES" : @"NO");
-    NSLog(@"Due Date: '%@'",[assignment.dueDate description]);
+    //NSLog(@"Assignment: '%@'",assignment.assignmentText);
+    //NSLog(@"Complete: '%@'",assignment.complete ? @"YES" : @"NO");
+    //NSLog(@"Due Date: '%@'",[assignment.dueDate description]);
     assignmentForRow.assignmentText = assignment.assignmentText;
     assignmentForRow.complete = assignment.complete;
     assignmentForRow.dueDate = assignment.dueDate;

@@ -34,6 +34,8 @@
 		658FF58C1548959C00D72959 /* libTapkuLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF5841548954B00D72959 /* libTapkuLibrary.a */; };
 		658FF58E154895A400D72959 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF58D154895A400D72959 /* QuartzCore.framework */; };
 		658FF590154895B000D72959 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF58F154895B000D72959 /* MapKit.framework */; };
+		65A834F4154F2DF5004AD1EE /* AssignmentsMonthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A834F3154F2DF5004AD1EE /* AssignmentsMonthViewController.m */; };
+		65A8350A154F3617004AD1EE /* CalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A83509154F3617004AD1EE /* CalendarCell.m */; };
 		65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841551506ED9900C6B779 /* UIKit.framework */; };
 		65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841571506ED9900C6B779 /* Foundation.framework */; };
 		65A8415A1506ED9900C6B779 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841591506ED9900C6B779 /* CoreGraphics.framework */; };
@@ -43,6 +45,7 @@
 		65A841691506ED9900C6B779 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65A841671506ED9900C6B779 /* MainStoryboard.storyboard */; };
 		65A841A51506F98000C6B779 /* ClassesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A41506F97F00C6B779 /* ClassesViewController.m */; };
 		65A841A81506FE5100C6B779 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A71506FE5100C6B779 /* Info.m */; };
+		65B76CB6154F741E00054BF6 /* CalendarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B76CB5154F741E00054BF6 /* CalendarCell.xib */; };
 		65B92222151BBCAC00B85CB5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B92221151BBCAC00B85CB5 /* Default.png */; };
 		65B92225151BBCB300B85CB5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B92224151BBCB300B85CB5 /* Default@2x.png */; };
 		65D5716E150EAB7400B9F47E /* Assignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D5716D150EAB7400B9F47E /* Assignment.m */; };
@@ -117,6 +120,10 @@
 		658FF5881548955600D72959 /* TapkuLibrary.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TapkuLibrary.bundle; path = tapkulibrary/src/TapkuLibrary.bundle; sourceTree = "<group>"; };
 		658FF58D154895A400D72959 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		658FF58F154895B000D72959 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		65A834F2154F2DF5004AD1EE /* AssignmentsMonthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentsMonthViewController.h; sourceTree = "<group>"; };
+		65A834F3154F2DF5004AD1EE /* AssignmentsMonthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentsMonthViewController.m; sourceTree = "<group>"; };
+		65A83508154F3617004AD1EE /* CalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarCell.h; sourceTree = "<group>"; };
+		65A83509154F3617004AD1EE /* CalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarCell.m; sourceTree = "<group>"; };
 		65A841511506ED9900C6B779 /* Agenda Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agenda Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65A841551506ED9900C6B779 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65A841571506ED9900C6B779 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -132,6 +139,7 @@
 		65A841A41506F97F00C6B779 /* ClassesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassesViewController.m; sourceTree = "<group>"; };
 		65A841A61506FE5100C6B779 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = "<group>"; };
 		65A841A71506FE5100C6B779 /* Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Info.m; sourceTree = "<group>"; };
+		65B76CB5154F741E00054BF6 /* CalendarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarCell.xib; sourceTree = "<group>"; };
 		65B92221151BBCAC00B85CB5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		65B92224151BBCB300B85CB5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		65D5716C150EAB7400B9F47E /* Assignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Assignment.h; sourceTree = "<group>"; };
@@ -228,10 +236,10 @@
 				652A624815478BAC00FE17E5 /* EditClassViewController.m */,
 				6527C320150718FD007B8F26 /* NewClassViewController.h */,
 				6527C321150718FD007B8F26 /* NewClassViewController.m */,
-				6567C2451508054C00859E02 /* SubjectPickerViewController.h */,
-				6567C2461508054C00859E02 /* SubjectPickerViewController.m */,
 				6527C31C15071551007B8F26 /* SubjectCell.h */,
 				6527C31D15071551007B8F26 /* SubjectCell.m */,
+				6567C2461508054C00859E02 /* SubjectPickerViewController.m */,
+				6567C2451508054C00859E02 /* SubjectPickerViewController.h */,
 				65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */,
 				65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */,
 				61DE21B61518EA9200C1F117 /* ClassIDViewController.h */,
@@ -246,6 +254,11 @@
 				652859F4150ED19900296718 /* NSString-truncateToWidth.m */,
 				65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */,
 				65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */,
+				65A834F2154F2DF5004AD1EE /* AssignmentsMonthViewController.h */,
+				65A834F3154F2DF5004AD1EE /* AssignmentsMonthViewController.m */,
+				65A83508154F3617004AD1EE /* CalendarCell.h */,
+				65A83509154F3617004AD1EE /* CalendarCell.m */,
+				65B76CB5154F741E00054BF6 /* CalendarCell.xib */,
 				65199924150D4DE6007FD5A6 /* AssignmentCell.h */,
 				65199925150D4DE6007FD5A6 /* AssignmentCell.m */,
 				65D5716C150EAB7400B9F47E /* Assignment.h */,
@@ -367,6 +380,7 @@
 				65B92222151BBCAC00B85CB5 /* Default.png in Resources */,
 				65B92225151BBCB300B85CB5 /* Default@2x.png in Resources */,
 				658FF5891548955600D72959 /* TapkuLibrary.bundle in Resources */,
+				65B76CB6154F741E00054BF6 /* CalendarCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,6 +412,8 @@
 				652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */,
 				650329D81549008A00C4D628 /* AssignmentDetailsViewController.m in Sources */,
 				650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */,
+				65A834F4154F2DF5004AD1EE /* AssignmentsMonthViewController.m in Sources */,
+				65A8350A154F3617004AD1EE /* CalendarCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,7 +454,6 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lawrence Bilker (5Z6HTAU5ST)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lawrence Bilker (5Z6HTAU5ST)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -461,8 +476,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
+				PROVISIONING_PROFILE = "EDEBB6D6-32DD-4AE2-8A38-0BDE7D8115C4";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -474,7 +488,6 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Lawrence Bilker (5Z6HTAU5ST)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lawrence Bilker (5Z6HTAU5ST)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = "";
@@ -491,8 +504,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "752595D8-9049-427D-A1D4-230FBBEAA1C0";
+				PROVISIONING_PROFILE = "EDEBB6D6-32DD-4AE2-8A38-0BDE7D8115C4";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -502,6 +514,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Agenda Book/Agenda Book.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lawrence Bilker (5Z6HTAU5ST)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -510,6 +523,7 @@
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "EDEBB6D6-32DD-4AE2-8A38-0BDE7D8115C4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -518,6 +532,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Agenda Book/Agenda Book.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lawrence Bilker (5Z6HTAU5ST)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -526,6 +541,7 @@
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "EDEBB6D6-32DD-4AE2-8A38-0BDE7D8115C4";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

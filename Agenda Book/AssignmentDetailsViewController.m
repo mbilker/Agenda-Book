@@ -1,5 +1,6 @@
 
 #import "AssignmentDetailsViewController.h"
+#import "Functions.h"
 
 @implementation AssignmentDetailsViewController
 
@@ -47,7 +48,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
 }
 
 @end

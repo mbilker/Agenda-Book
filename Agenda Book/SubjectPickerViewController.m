@@ -52,9 +52,9 @@
 - (void)saveSubjects
 {
     NSDictionary *subjectsDict = [NSDictionary dictionaryWithObject:subjects forKey:@"Subjects"];
-    [subjectsDict writeToFile:[Functions subjectPath] atomically:YES];
+    [subjectsDict writeToFile:[[Functions sharedFunctions] subjectPath] atomically:YES];
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"iCloud"] == 1) {
-        NSURL *icloud = [Functions subjectiCloud];
+        NSURL *icloud = [[Functions sharedFunctions] subjectiCloud];
         [subjectsDict writeToURL:icloud atomically:YES];
     }
     //NSLog(@"Subjects array: %@", subjectsDict);
@@ -62,7 +62,7 @@
 
 - (void)loadSubjects
 {
-    NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:[Functions subjectPath]];
+    NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:[[Functions sharedFunctions] subjectPath]];
     subjects = [subjectsDict valueForKey:@"Subjects"];
 }
 
@@ -73,7 +73,7 @@
 	[super viewDidLoad];
     subjects = [NSMutableArray arrayWithObjects:@"Math",@"Science",@"Social Studies",@"Language Arts",@"Spanish",@"German",@"French",@"Tech Ed",nil];
     
-    if ([[NSFileManager alloc] fileExistsAtPath:[Functions subjectPath]]) {
+    if ([[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] subjectPath]]) {
         //NSLog(@"File Exists");
         [self loadSubjects];
     } else {
@@ -111,8 +111,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return YES;
+    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
 }
 
 #pragma mark - Table view data source

@@ -73,9 +73,9 @@
         //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
         [tempDict setObject:[NSArray arrayWithObjects:details.teacher,details.subject,details.classid, nil] forKey:[NSString stringWithFormat:@"%d",i]];
     }
-    [tempDict writeToFile:[Functions classPath] atomically:YES];
+    [tempDict writeToFile:[[Functions sharedFunctions] classPath] atomically:YES];
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"iCloud"] == 1) {
-        NSURL *classesCloud = [Functions classiCloud];
+        NSURL *classesCloud = [[Functions sharedFunctions] classiCloud];
         [tempDict writeToURL:classesCloud atomically:YES];
     }
     //NSLog(@"Classes array: %@", tempDict);
@@ -83,7 +83,7 @@
 
 - (void)loadClasses
 {
-    NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:[Functions classPath]];
+    NSDictionary *subjectsDict = [NSDictionary dictionaryWithContentsOfFile:[[Functions sharedFunctions] classPath]];
     for (int i = 0; i < [subjectsDict count]; i++)
     {
         NSArray *tempArray = [subjectsDict objectForKey:[NSString stringWithFormat:@"%d",i]];
@@ -115,7 +115,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ([[NSFileManager alloc] fileExistsAtPath:[Functions classPath]]) {
+    if ([[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] classPath]]) {
         //NSLog(@"File Exists");
         [self loadClasses];
     }
@@ -141,7 +141,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -167,7 +167,7 @@
     if ([TWTweetComposeViewController canSendTweet]) {
         int d = 0;
         for (Info *i in self.classes) {
-            if ([Functions determineClassComplete:i.teacher]) {
+            if ([[Functions sharedFunctions] determineClassComplete:i.teacher]) {
                 d++;
             }
             //NSLog(@"Teacher: '%@', Complete: '%@'",i.teacher,[Functions determineClassComplete:i.teacher] ? @"YES" : @"NO");
@@ -227,7 +227,7 @@
 	cell.gameLabel.text = info.subject;
     
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = [Functions determineClassComplete:info.teacher];
+    backgroundView.backgroundColor = [[Functions sharedFunctions] determineClassComplete:info.teacher];
     cell.backgroundView = backgroundView;
     return cell;
 }
@@ -281,7 +281,7 @@
     //NSLog(@"Accessory tapped");
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Teacher" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Class Details", @"Edit Class", nil];
     infoForRow = [self.classes objectAtIndex:indexPath.row];
-    [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    [actionSheet showInView:self.navigationController.view];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -351,7 +351,7 @@
     //NSLog(@"Teacher: '%@'",info.teacher);
     //NSLog(@"Subject: '%@'",info.subject);
     //NSLog(@"Class ID: '%@'",info.classid);
-    NSString *path = [Functions assignmentPath];
+    NSString *path = [[Functions sharedFunctions] assignmentPath];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
         //NSLog(@"File Exists");
         NSMutableDictionary *teachersDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];

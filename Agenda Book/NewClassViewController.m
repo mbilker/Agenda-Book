@@ -1,13 +1,7 @@
-//
-//  PlayerDetailsViewController.m
-//  Agenda Book
-//
-//  Created by Matt Bilker on 3/6/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
 
 #import "NewClassViewController.h"
 #import "Info.h"
+#import "Functions.h"
 
 @implementation NewClassViewController
 {
@@ -111,8 +105,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
-    return YES;
+    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
 }
 
 - (IBAction)cancel:(id)sender

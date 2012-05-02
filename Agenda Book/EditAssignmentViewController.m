@@ -1,5 +1,6 @@
 
 #import "EditAssignmentViewController.h"
+#import "Functions.h"
 
 @implementation EditAssignmentViewController {
     Assignment *tempAssignment;
@@ -20,6 +21,17 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
     
@@ -41,17 +53,11 @@
     self.duePicker.date = tempAssignment.dueDate;
     
 	self.dueCell.detailTextLabel.text = [self.dateFormatter stringFromDate:minimum];
-    [super viewDidLoad];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
 }
 
 - (void)checkDone
@@ -102,7 +108,7 @@
             
 			// shrink the table vertical size to make room for the date picker
 			CGRect newFrame = self.tableView.frame;
-			newFrame.size.height -= self.duePicker.frame.size.height - 50;
+			newFrame.size.height -= self.duePicker.frame.size.height;
 			self.tableView.frame = newFrame;
             [UIView commitAnimations];
         }

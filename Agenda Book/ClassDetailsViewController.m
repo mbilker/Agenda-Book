@@ -39,7 +39,7 @@
     self.subjectName.text = [NSString stringWithFormat:@"Subject: %@",self.classInfo.subject];
     self.classID.text = [NSString stringWithFormat:@"Class ID: %@",self.classInfo.classid];
     
-    NSString *path = [Functions assignmentPath];
+    NSString *path = [[Functions sharedFunctions] assignmentPath];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
         NSDictionary *teacherAssignments = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:self.classInfo.teacher];
         int i = 0;
@@ -70,7 +70,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
 }
 
 @end

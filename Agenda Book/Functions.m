@@ -3,7 +3,50 @@
 
 @implementation Functions
 
-+ (NSString *)assignmentPath
+static Functions *instanceOfFunctions;
+
++ (id)alloc
+{
+    @synchronized(self)
+    {
+        NSAssert(instanceOfFunctions == nil, @"Attempted to allocate a second instance of the singleton: Functions");
+        instanceOfFunctions = [super alloc];
+        return instanceOfFunctions;
+    }
+    
+    return nil;
+}
+
++ (Functions *)sharedFunctions
+{
+    @synchronized(self)
+    {
+        if (instanceOfFunctions == nil)
+        {
+            (void)[[Functions alloc] init];
+        }
+        
+        return instanceOfFunctions;
+    }
+    
+    return nil;
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        NSLog(@"Initalizing public functions");
+    }
+    return self;
+}
+
+- (BOOL)shouldAutorotate:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (NSString *)assignmentPath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -11,7 +54,7 @@
     return path;
 }
 
-+ (NSString *)classPath
+- (NSString *)classPath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -19,7 +62,7 @@
     return path;
 }
 
-+ (NSString *)subjectPath
+- (NSString *)subjectPath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -27,28 +70,28 @@
     return path;
 }
 
-+ (NSURL *)assignmentiCloud
+- (NSURL *)assignmentiCloud
 {
     NSURL *classesCloud = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:@"DXD4278H9V.us.mbilker.agendabook"];
     NSURL *ubiquitousPackage = [[classesCloud URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:@"Assignments.plist"];
     return ubiquitousPackage;
 }
 
-+ (NSURL *)classiCloud
+- (NSURL *)classiCloud
 {
     NSURL *classesCloud = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:@"DXD4278H9V.us.mbilker.agendabook"];
     NSURL *ubiquitousPackage = [[classesCloud URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:@"Classes.plist"];
     return ubiquitousPackage;
 }
 
-+ (NSURL *)subjectiCloud
+- (NSURL *)subjectiCloud
 {
     NSURL *classesCloud = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:@"DXD4278H9V.us.mbilker.agendabook"];
     NSURL *ubiquitousPackage = [[classesCloud URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:@"Subjects.plist"];
     return ubiquitousPackage;
 }
 
-+ (UIColor *)colorForComplete:(BOOL)complete
+- (UIColor *)colorForComplete:(BOOL)complete
 {
     //NSLog(@"Selection: %@", (complete ? @"TRUE" : @"FALSE"));
 	switch (complete)
@@ -59,7 +102,7 @@
 	return nil;
 }
 
-+ (UIColor *)determineClassComplete:(NSString *)string
+- (UIColor *)determineClassComplete:(NSString *)string
 {
     NSString *path = [self assignmentPath];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {

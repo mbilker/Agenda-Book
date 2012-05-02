@@ -1,6 +1,7 @@
 
 #import "NewAssignmentViewController.h"
 #import "Assignment.h"
+#import "Functions.h"
 
 @implementation NewAssignmentViewController
 
@@ -34,6 +35,17 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
     
@@ -46,23 +58,12 @@
     self.duePicker.minimumDate = minimum;
     
 	self.dateCell.detailTextLabel.text = [self.dateFormatter stringFromDate:minimum];
-    [super viewDidLoad];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     [self.assignmentField becomeFirstResponder];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
 }
 
 - (void)checkDone
@@ -91,7 +92,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     //NSLog(@"indexPath: '%d'", indexPath.row);
-    if (indexPath.row == 1) {
+    if (indexPath.row == 0) {
+        if (![self.assignmentField isFirstResponder])
+            [self.assignmentField becomeFirstResponder];
+    } else if (indexPath.row == 1) {
         //NSLog(@"second row");
         if ([self.assignmentField isFirstResponder]) {
             //NSLog(@"resigning");
@@ -136,7 +140,8 @@
 - (void)hideDuePicker
 {
     if (self.duePicker.superview != nil) {
-        CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+        CGRect
+        screenRect = [[UIScreen mainScreen] applicationFrame];
         CGRect endFrame = self.duePicker.frame;
         endFrame.origin.y = screenRect.origin.y + screenRect.size.height;
         

@@ -4,6 +4,7 @@
 #import "ClassIDViewController.h"
 
 #import "Info.h"
+#import "Functions.h"
 
 @implementation EditClassViewController {
     Info *tempInfo;
@@ -77,7 +78,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
 }
 
 - (IBAction)cancel:(id)sender

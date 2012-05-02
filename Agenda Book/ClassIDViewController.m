@@ -1,5 +1,6 @@
 
 #import "ClassIDViewController.h"
+#import "Functions.h"
 
 @implementation ClassIDViewController
 
@@ -97,7 +98,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
 }
 
 @end
