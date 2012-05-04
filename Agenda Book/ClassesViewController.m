@@ -3,6 +3,7 @@
 #import "AssignmentsViewController.h"
 #import "ClassDetailsViewController.h"
 #import "EditClassViewController.h"
+#import "AssignmentsMonthViewController.h"
 
 #import "Info.h"
 #import "SubjectCell.h"
@@ -200,6 +201,10 @@
         AssignmentsViewController *assignmentsViewController = segue.destinationViewController;
         assignmentsViewController.managedObjectContext = self.managedObjectContext;
         assignmentsViewController.info = i;
+    } else if ([segue.identifier isEqualToString:@"AssignmentsMonth"])
+    {
+        AssignmentsMonthViewController *assignmentsMonthViewController = segue.destinationViewController;
+        assignmentsMonthViewController.managedObjectContext = self.managedObjectContext;
     }
 }
 

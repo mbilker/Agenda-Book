@@ -2,15 +2,18 @@
 #import "AssignmentsMonthViewController.h"
 #import "Functions.h"
 #import "CalendarCell.h"
-#import "DateAssignment.h"
+#import "Assignment.h"
 
 @implementation AssignmentsMonthViewController
 
 @synthesize alertView = _alertView;
 @synthesize tableView = _tableView;
-@synthesize dataDictionary;
+//@synthesize dataDictionary;
 @synthesize dateArray;
 @synthesize dateFormatter;
+
+@synthesize managedObjectContext;
+@synthesize fetchedResultsController = _fetchedResultsController;
 
 //static int originy = 0;
 
@@ -34,14 +37,37 @@
 	NSLog(@"dealloc AssignmentsMonthViewController");
 }
 
+- (NSFetchedResultsController *)fetchedResultsController {
+    
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"dueDate" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSFetchedResultsController *theFetchedResultsController =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController.delegate = self;
+    
+    return _fetchedResultsController;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     _loaded = FALSE;
-    self.dataDictionary = [NSMutableDictionary dictionary];
+    //self.dataDictionary = [NSMutableDictionary dictionary];
     self.dateArray = [NSMutableArray array];
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     
     [self.monthView reload];
     self.tableView.backgroundColor = [UIColor whiteColor];
@@ -63,7 +89,7 @@
 {
     self.alertView.progressBar.progress = 0;
     [self.alertView show];
-    NSString *path = [[Functions sharedFunctions] assignmentPath];
+    /* NSString *path = [[Functions sharedFunctions] assignmentPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         _loaded = TRUE;
         NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
@@ -95,6 +121,13 @@
         }
         NSLog(@"all: '%@'",self.dataDictionary);
         NSLog(@"all: '%@'",self.dateArray);
+    } */
+    NSError *error;
+    if ([[self fetchedResultsController] performFetch:&error]) {
+        // Update to handle the error appropriately.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		//exit(-1);  // Fail
+        abort();
     }
 }
 
@@ -141,46 +174,45 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *ar = [self.dataDictionary objectForKey:[self.dateFormatter stringFromDate:[self.monthView dateSelected]]];
-	if(ar == nil) return 0;
-	return [ar count];
+    //NSArray *ar = [self.dataDictionary objectForKey:[self.dateFormatter stringFromDate:[self.monthView dateSelected]]];
+	//if(ar == nil) return 0;
+	//return [ar count];
+    id sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
-- (void)after
+- (void)configureCell:(CalendarCell *)cell index:(NSIndexPath *)indexPath
 {
-}
-
-- (void)after2
-{
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    /* self.alertView.progressBar.progress = 0;
-    [self.alertView show];
-    [self performSelector:@selector(after) withObject:nil afterDelay:2];
-    [self performSelector:@selector(after2) withObject:nil afterDelay:3]; */
-    CalendarCell *tableCell = (CalendarCell *)[tableView dequeueReusableCellWithIdentifier:@"CalendarCell"];
-    
     NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"CalendarCell" owner:nil options:nil];
     
     for(id currentObject in topLevelObjects)
     {
         if([currentObject isKindOfClass:[CalendarCell class]])
         {
-            tableCell = (CalendarCell *)currentObject;
+            cell = (CalendarCell *)currentObject;
             break;
         }
     }
     
-    NSArray *assignmentArray = [self.dataDictionary objectForKey:[self.dateFormatter stringFromDate:[self.monthView dateSelected]]];
-    DateAssignment *assignment = [assignmentArray objectAtIndex:indexPath.row];
+    //NSArray *assignmentArray = [self.dataDictionary objectForKey:[self.dateFormatter stringFromDate:[self.monthView dateSelected]]];
+    //DateAssignment *assignment = [assignmentArray objectAtIndex:indexPath.row];
+    Assignment *assignment = [_fetchedResultsController objectAtIndexPath:indexPath];
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     backgroundView.backgroundColor = [[Functions sharedFunctions] colorForComplete:assignment.complete];
-    tableCell.backgroundView = backgroundView;
-    tableCell.assignment.text = assignment.assignmentText;
-    tableCell.teacher.text = assignment.teacher;
+    cell.backgroundView = backgroundView;
+    cell.assignment.text = assignment.assignmentText;
+    cell.teacher.text = assignment.teacher;
     //tableCell.due.text = [NSString stringWithFormat:@"Due: %@",[self.dateFormatter stringFromDate:assignment.dueDate]];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CalendarCell *tableCell = (CalendarCell *)[tableView dequeueReusableCellWithIdentifier:@"CalendarCell"];
+    [self configureCell:tableCell index:indexPath];
+    /* self.alertView.progressBar.progress = 0;
+    [self.alertView show];
+    [self performSelector:@selector(after) withObject:nil afterDelay:2];
+    [self performSelector:@selector(after2) withObject:nil afterDelay:3]; */
     
     return tableCell;
 }
@@ -262,6 +294,60 @@
 		_alertView = [[TKProgressAlertView alloc] initWithProgressTitle:@"Loading important stuff!"];
 	}
 	return _alertView;
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    [self.tableView beginUpdates];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:(CalendarCell *)[tableView cellForRowAtIndexPath:indexPath] index:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    [self.tableView endUpdates];
 }
 
 @end
