@@ -11,7 +11,7 @@
 @interface AddSubjectPickerViewController : UITableViewController <UITextFieldDelegate>
 
 @property (nonatomic, weak) id <AddSubjectPickerViewControllerDelegate> delegate;
-@property (strong, nonatomic) IBOutlet UITextField *subjectTextField;
+@property (nonatomic, strong) IBOutlet UITextField *subjectTextField;
 
 - (IBAction)done:(id)sender;
 - (IBAction)cancel:(id)sender;

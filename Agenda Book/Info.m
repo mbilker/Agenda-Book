@@ -3,8 +3,8 @@
 
 @implementation Info
 
-@synthesize teacher;
-@synthesize subject;
-@synthesize classid;
+@dynamic teacher;
+@dynamic subject;
+@dynamic classid;
 
 @end

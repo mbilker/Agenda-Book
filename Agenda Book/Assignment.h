@@ -1,10 +1,12 @@
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface Assignment : NSObject
+@interface Assignment : NSManagedObject
 
-@property (nonatomic, copy) NSString *assignmentText;
+@property (nonatomic, strong) NSString *assignmentText;
 @property (nonatomic, assign) BOOL complete;
-@property (nonatomic, copy) NSDate *dueDate;
+@property (nonatomic, strong) NSDate *dueDate;
+@property (nonatomic, strong) NSString *teacher;
 
 @end

@@ -4,6 +4,6 @@
 @implementation CalendarCell
 
 @synthesize assignment;
-@synthesize due;
+@synthesize teacher;
 
 @end

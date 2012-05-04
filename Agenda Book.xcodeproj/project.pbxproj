@@ -27,6 +27,8 @@
 		652A6246154785D700FE17E5 /* ClassDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A6245154785D700FE17E5 /* ClassDetailsViewController.m */; };
 		652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A624815478BAC00FE17E5 /* EditClassViewController.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
+		655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 655413ED15532E2600199B10 /* Data.xcdatamodeld */; };
+		655E91A61551CFD200C259CA /* DateAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 655E91A51551CFD200C259CA /* DateAssignment.m */; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
 		6572AF02152BD1C20049BA6E /* CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6572AF01152BD1C20049BA6E /* CustomAlert.m */; };
 		657AA0F915159E780045148B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657AA0F815159E780045148B /* AboutViewController.m */; };
@@ -50,6 +52,7 @@
 		65B92225151BBCB300B85CB5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B92224151BBCB300B85CB5 /* Default@2x.png */; };
 		65D5716E150EAB7400B9F47E /* Assignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D5716D150EAB7400B9F47E /* Assignment.m */; };
 		65D57172150EAE4C00B9F47E /* NewAssignmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */; };
+		65E14FD41553198C007D22AE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E14FD31553198C007D22AE /* CoreData.framework */; };
 		65EBA46915099EBF00064B8A /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EBA46815099EBF00064B8A /* Twitter.framework */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +113,9 @@
 		652A624815478BAC00FE17E5 /* EditClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditClassViewController.m; sourceTree = "<group>"; };
 		65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSubjectPickerViewController.h; sourceTree = "<group>"; };
 		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
+		655413EE15532E2600199B10 /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
+		655E91A41551CFD200C259CA /* DateAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateAssignment.h; sourceTree = "<group>"; };
+		655E91A51551CFD200C259CA /* DateAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateAssignment.m; sourceTree = "<group>"; };
 		6567C2451508054C00859E02 /* SubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPickerViewController.h; sourceTree = "<group>"; };
 		6567C2461508054C00859E02 /* SubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectPickerViewController.m; sourceTree = "<group>"; };
 		6572AF00152BD1C20049BA6E /* CustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlert.h; sourceTree = "<group>"; };
@@ -147,6 +153,7 @@
 		65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAssignmentViewController.h; sourceTree = "<group>"; };
 		65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAssignmentViewController.m; sourceTree = "<group>"; };
 		65D95DCA153670C400EB7208 /* Agenda Book.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Agenda Book.entitlements"; sourceTree = "<group>"; };
+		65E14FD31553198C007D22AE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		65EBA46815099EBF00064B8A /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -162,6 +169,7 @@
 				65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */,
 				65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */,
 				65A8415A1506ED9900C6B779 /* CoreGraphics.framework in Frameworks */,
+				65E14FD41553198C007D22AE /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +222,7 @@
 				65A841551506ED9900C6B779 /* UIKit.framework */,
 				65A841571506ED9900C6B779 /* Foundation.framework */,
 				65A841591506ED9900C6B779 /* CoreGraphics.framework */,
+				65E14FD31553198C007D22AE /* CoreData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -238,8 +247,8 @@
 				6527C321150718FD007B8F26 /* NewClassViewController.m */,
 				6527C31C15071551007B8F26 /* SubjectCell.h */,
 				6527C31D15071551007B8F26 /* SubjectCell.m */,
-				6567C2461508054C00859E02 /* SubjectPickerViewController.m */,
 				6567C2451508054C00859E02 /* SubjectPickerViewController.h */,
+				6567C2461508054C00859E02 /* SubjectPickerViewController.m */,
 				65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */,
 				65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */,
 				61DE21B61518EA9200C1F117 /* ClassIDViewController.h */,
@@ -261,6 +270,8 @@
 				65B76CB5154F741E00054BF6 /* CalendarCell.xib */,
 				65199924150D4DE6007FD5A6 /* AssignmentCell.h */,
 				65199925150D4DE6007FD5A6 /* AssignmentCell.m */,
+				655E91A41551CFD200C259CA /* DateAssignment.h */,
+				655E91A51551CFD200C259CA /* DateAssignment.m */,
 				65D5716C150EAB7400B9F47E /* Assignment.h */,
 				65D5716D150EAB7400B9F47E /* Assignment.m */,
 				65A841A61506FE5100C6B779 /* Info.h */,
@@ -270,6 +281,7 @@
 				61601C59151BA0C700A81E39 /* Functions.h */,
 				61601C5A151BA0C700A81E39 /* Functions.m */,
 				65A8415C1506ED9900C6B779 /* Supporting Files */,
+				655413ED15532E2600199B10 /* Data.xcdatamodeld */,
 			);
 			path = "Agenda Book";
 			sourceTree = "<group>";
@@ -414,6 +426,8 @@
 				650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */,
 				65A834F4154F2DF5004AD1EE /* AssignmentsMonthViewController.m in Sources */,
 				65A8350A154F3617004AD1EE /* CalendarCell.m in Sources */,
+				655E91A61551CFD200C259CA /* DateAssignment.m in Sources */,
+				655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,6 +582,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		655413ED15532E2600199B10 /* Data.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				655413EE15532E2600199B10 /* Data.xcdatamodel */,
+			);
+			currentVersion = 655413EE15532E2600199B10 /* Data.xcdatamodel */;
+			path = Data.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 65A841481506ED9900C6B779 /* Project object */;
 }

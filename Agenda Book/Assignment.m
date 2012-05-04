@@ -3,8 +3,9 @@
 
 @implementation Assignment
 
-@synthesize assignmentText;
-@synthesize complete;
-@synthesize dueDate;
+@dynamic assignmentText;
+@dynamic complete;
+@dynamic dueDate;
+@dynamic teacher;
 
 @end

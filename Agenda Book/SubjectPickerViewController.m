@@ -71,7 +71,7 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-    subjects = [NSMutableArray arrayWithObjects:@"Math",@"Science",@"Social Studies",@"Language Arts",@"Spanish",@"German",@"French",@"Tech Ed",nil];
+    subjects = [NSMutableArray arrayWithObjects:@"Math",@"Science",@"Social Studies",@"Language Arts",@"Spanish",@"German",@"French",@"Tech Ed",@"Band",nil];
     
     if ([[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] subjectPath]]) {
         //NSLog(@"File Exists");

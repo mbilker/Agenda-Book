@@ -6,7 +6,7 @@
 
 @protocol NewAssignmentViewControllerDelegate <NSObject>
 - (void)addAssignmentViewControllerDidCancel:(NewAssignmentViewController *)controller;
-- (void)addAssignmentViewController:(NewAssignmentViewController *)controller didAddAssignment:(Assignment *)newAssignment;
+- (void)addAssignmentViewController:(NewAssignmentViewController *)controller didAddAssignment:(NSDictionary *)newAssignment;
 @end
 
 @interface NewAssignmentViewController : UITableViewController <UITextFieldDelegate> {

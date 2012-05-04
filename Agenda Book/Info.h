@@ -1,10 +1,11 @@
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface Info : NSObject
+@interface Info : NSManagedObject
 
-@property (nonatomic, copy) NSString *teacher;
-@property (nonatomic, copy) NSString *subject;
-@property (nonatomic, copy) NSString *classid;
+@property (nonatomic, strong) NSString *teacher;
+@property (nonatomic, strong) NSString *subject;
+@property (nonatomic, strong) NSString *classid;
 
 @end

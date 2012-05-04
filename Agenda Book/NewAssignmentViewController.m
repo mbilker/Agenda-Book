@@ -55,6 +55,7 @@
     [components setDay:1];
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDate *minimum = [gregorian dateByAddingComponents:components toDate:[NSDate date] options:0];
+    NSLog(@"mimimum: '%@'",minimum);
     self.duePicker.minimumDate = minimum;
     
 	self.dateCell.detailTextLabel.text = [self.dateFormatter stringFromDate:minimum];
@@ -69,10 +70,11 @@
 - (void)checkDone
 {
     if (self.assignmentField.text.length != 0) {
-        Assignment *assignment = [[Assignment alloc] init];
-        assignment.assignmentText = self.assignmentField.text;
-        assignment.complete = FALSE;
-        assignment.dueDate = self.duePicker.date;
+        //Assignment *assignment = [[Assignment alloc] init];
+        //assignment.assignmentText = self.assignmentField.text;
+        //assignment.complete = FALSE;
+        //assignment.dueDate = self.duePicker.date;
+        NSDictionary *assignment = [NSDictionary dictionaryWithObjectsAndKeys:self.assignmentField.text, @"assignmentText", [NSNumber numberWithBool:FALSE], @"complete", self.duePicker.date, @"dueDate", nil];
         [self.delegate addAssignmentViewController:self didAddAssignment:assignment];
     } else {
         //NSLog(@"Empty and did not choose subject");

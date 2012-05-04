@@ -2,7 +2,7 @@
 #import "AssignmentsMonthViewController.h"
 #import "Functions.h"
 #import "CalendarCell.h"
-#import "Assignment.h"
+#import "DateAssignment.h"
 
 @implementation AssignmentsMonthViewController
 
@@ -10,6 +10,7 @@
 @synthesize tableView = _tableView;
 @synthesize dataDictionary;
 @synthesize dateArray;
+@synthesize dateFormatter;
 
 //static int originy = 0;
 
@@ -19,11 +20,28 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	if ((self = [super initWithCoder:aDecoder]))
+	{
+		NSLog(@"init AssignmentsMonthViewController");
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	NSLog(@"dealloc AssignmentsMonthViewController");
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _loaded = FALSE;
     self.dataDictionary = [NSMutableDictionary dictionary];
     self.dateArray = [NSMutableArray array];
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
     
     [self.monthView reload];
     self.tableView.backgroundColor = [UIColor whiteColor];
@@ -43,21 +61,40 @@
 
 - (void)loadAssignments
 {
+    self.alertView.progressBar.progress = 0;
+    [self.alertView show];
     NSString *path = [[Functions sharedFunctions] assignmentPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        _loaded = TRUE;
         NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
         //NSLog(@"dict: '%@'",[dict allKeys]);
         //NSLog(@"count: '%d'",[dict count]);
         for (NSString *teacherKey in [dict allKeys]) {
             NSDictionary *teacherDict = [dict objectForKey:teacherKey];
             for (NSString *assignmentKey in [teacherDict allKeys]) {
-                NSArray *assignment = [teacherDict objectForKey:assignmentKey];
-                NSLog(@"teacher: '%@'",teacherKey);
-                NSLog(@"assignment: '%@'",[assignment objectAtIndex:0]);
-                NSLog(@"complete: '%@'",[[assignment objectAtIndex:1] boolValue] ? @"YES" : @"NO");
-                NSLog(@"due: '%@'",[[assignment objectAtIndex:2] description]);
+                NSArray *assignmentArray = [teacherDict objectForKey:assignmentKey];
+                //NSLog(@"teacher: '%@'",teacherKey);
+                //NSLog(@"assignment: '%@'",[assignmentArray objectAtIndex:0]);
+                //NSLog(@"complete: '%@'",[[assignmentArray objectAtIndex:1] boolValue] ? @"YES" : @"NO");
+                //NSLog(@"due: '%@'",[[assignmentArray objectAtIndex:2] description]);
+                DateAssignment *assignment = [[DateAssignment alloc] init];
+                assignment.assignmentText = [assignmentArray objectAtIndex:0];
+                assignment.complete = [[assignmentArray objectAtIndex:1] boolValue];
+                assignment.teacher = teacherKey;
+                NSLog(@"%@",assignment);
+                NSMutableArray *array;
+                if ([[self.dataDictionary allKeys] containsObject:[self.dateFormatter stringFromDate:[assignmentArray objectAtIndex:2]]]) {
+                    array = [self.dataDictionary objectForKey:[self.dateFormatter stringFromDate:[assignmentArray objectAtIndex:2]]];
+                } else {
+                    array = [NSMutableArray array];
+                }
+                [array addObject:assignment];
+                [self.dataDictionary setObject:array forKey:[self.dateFormatter stringFromDate:[assignmentArray objectAtIndex:2]]];
+                [self.dateArray addObject:[self.dateFormatter stringFromDate:[assignmentArray objectAtIndex:2]]];
             }
         }
+        NSLog(@"all: '%@'",self.dataDictionary);
+        NSLog(@"all: '%@'",self.dateArray);
     }
 }
 
@@ -69,9 +106,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.monthView reload];
-    
-    [self loadAssignments];
+    [self.monthView selectDate:[NSDate date]];
+    [self.tableView reloadData];
 }
 
 - (void)updateOffset
@@ -92,14 +128,10 @@
     //[self updateOffset];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    //[self.monthView removeFromSuperview];
-}
-
 - (IBAction)goToToday:(id)sender
 {
-    //[_calendar selectDate:[NSDate date]];
+    [self.monthView selectDate:[NSDate date]];
+    [self.tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -109,17 +141,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    NSArray *ar = [self.dataDictionary objectForKey:[self.dateFormatter stringFromDate:[self.monthView dateSelected]]];
+	if(ar == nil) return 0;
+	return [ar count];
 }
 
 - (void)after
 {
-    [self.alertView.progressBar setProgress:1 animated:YES];
 }
 
 - (void)after2
 {
-    [self.alertView hide];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -140,11 +172,15 @@
             break;
         }
     }
+    
+    NSArray *assignmentArray = [self.dataDictionary objectForKey:[self.dateFormatter stringFromDate:[self.monthView dateSelected]]];
+    DateAssignment *assignment = [assignmentArray objectAtIndex:indexPath.row];
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = [[Functions sharedFunctions] colorForComplete:TRUE];
+    backgroundView.backgroundColor = [[Functions sharedFunctions] colorForComplete:assignment.complete];
     tableCell.backgroundView = backgroundView;
-    tableCell.assignment.text = @"Test";
-    tableCell.due.text = @"Due: 00/01/0000";
+    tableCell.assignment.text = assignment.assignmentText;
+    tableCell.teacher.text = assignment.teacher;
+    //tableCell.due.text = [NSString stringWithFormat:@"Due: %@",[self.dateFormatter stringFromDate:assignment.dueDate]];
     
     return tableCell;
 }
@@ -163,16 +199,14 @@
 
 - (void)calendarMonthView:(TKCalendarMonthView *)monthView didSelectDate:(NSDate *)date
 {
-    //NSLog(@"Selected date: '%@'",[date description]);
-    /* self.alertView.progressBar.progress = 0;
-    [self.alertView show];
-    [self performSelector:@selector(after) withObject:nil afterDelay:2];
-    [self performSelector:@selector(after2) withObject:nil afterDelay:3]; */
+    NSLog(@"Selected date: '%@'",[date description]);
+    [self.tableView reloadData];
 }
 
 - (void)calendarMonthView:(TKCalendarMonthView *)monthView monthDidChange:(NSDate *)month animated:(BOOL)animated
 {
     [self updateOffset];
+    [self.tableView reloadData];
 }
 
 - (NSArray *)calendarMonthView:(TKCalendarMonthView *)monthView marksFromDate:(NSDate *)startDate toDate:(NSDate *)lastDate
@@ -196,11 +230,11 @@
 	NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
 	[offsetComponents setDay:1];
     
-    TKDateInformation info = [d dateInformationWithTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-    NSArray *data = [NSArray arrayWithObjects:[NSDate dateFromDateInformation:info timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]], nil];
-    NSLog(@"date: '%@'",[NSDate dateFromDateInformation:info timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]);
+    //TKDateInformation info = [d dateInformationWithTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    //NSArray *data = [NSArray arrayWithObjects:[NSDate dateFromDateInformation:info timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]], nil];
 	
 	// for each date between start date and end date check if they exist in the data array
+    if (!_loaded) [self loadAssignments];
 	while (YES) {
 		// Is the date beyond the last date? If so, exit the loop.
 		// NSOrderedDescending = the left value is greater than the right
@@ -209,7 +243,7 @@
 		}
 		
 		// If the date is in the data array, add it to the marks array, else don't
-		if ([data containsObject:[d description]]) {
+		if ([self.dateArray containsObject:[self.dateFormatter stringFromDate:d]]) {
 			[marks addObject:[NSNumber numberWithBool:YES]];
 		} else {
 			[marks addObject:[NSNumber numberWithBool:NO]];
@@ -218,6 +252,8 @@
 		// Increment day using offset components (ie, 1 day in this instance)
 		d = [cal dateByAddingComponents:offsetComponents toDate:d options:0];
 	}
+    [self.alertView.progressBar setProgress:1 animated:YES];
+    [self.alertView hide];
     return [NSArray arrayWithArray:marks];
 }
 

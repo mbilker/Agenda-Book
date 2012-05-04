@@ -12,13 +12,14 @@
 #import <Twitter/Twitter.h>
 
 @implementation ClassesViewController {
-    NSMutableArray *_assignments;
     NSIndexPath *_rowtodelete;
     Info *infoForRow;
 }
 
-@synthesize classes;
 @synthesize editButton;
+@synthesize managedObjectContext;
+//@synthesize classes;
+@synthesize fetchedResultsController = _fetchedResultsController;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -51,12 +52,38 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (BOOL)checkIfExists:(Info *)info
+- (NSFetchedResultsController *)fetchedResultsController {
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Info" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"subject" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSFetchedResultsController *theFetchedResultsController =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController.delegate = self;
+    
+    return _fetchedResultsController;
+}
+
+- (BOOL)checkIfExists:(NSDictionary *)info
 {
-    for (int i = 0; i < [self.classes count]; i++)
-    {
-        Info *currentClass = [self.classes objectAtIndex:i];
-        if ([info.teacher isEqual:currentClass.teacher]) {
+    NSError *error;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Info" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    //for (int i = 0; i < [self.classes count]; i++) {
+    for (Info *currentClass in fetchedObjects) {
+        //Info *currentClass = [self.classes objectAtIndex:i];
+        if ([[info valueForKey:@"teacher"] isEqual:currentClass.teacher]) {
             //NSLog(@"Found %@ already exists",info.teacher);
             return YES;
         }
@@ -66,7 +93,7 @@
 
 - (void)saveClasses
 {
-    NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithCapacity:20];
+    /* NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithCapacity:20];
     for (int i = 0; i < [self.classes count]; i++)
     {
         Info *details = [self.classes objectAtIndex:i];
@@ -77,10 +104,15 @@
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"iCloud"] == 1) {
         NSURL *classesCloud = [[Functions sharedFunctions] classiCloud];
         [tempDict writeToURL:classesCloud atomically:YES];
-    }
+    } */
     //NSLog(@"Classes array: %@", tempDict);
+    NSError *error;
+    if (![managedObjectContext save:&error]) {
+        NSLog(@"Couldn't save: %@", [error localizedDescription]);
+    }
 }
 
+/*
 - (void)loadClasses
 {
     NSDictionary *subjectsDict = [NSDictionary dictionaryWithContentsOfFile:[[Functions sharedFunctions] classPath]];
@@ -93,32 +125,40 @@
         info.classid = [tempArray objectAtIndex:2];
         //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",info.teacher,info.subject,info.complete ? @"TRUE" : @"FALSE");
         if (![self checkIfExists:info]) {
-            [self.classes addObject:info];
+            //[self.classes addObject:info];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
     //self.classes = [subjectsDict valueForKey:@"Classes"];
-}
+} */
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSError *error;
+	if (![[self fetchedResultsController] performFetch:&error]) {
+		// Update to handle the error appropriately.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		//exit(-1);  // Fail
+        abort();
+	}
 }
 
 - (void)viewDidUnload
 {
+    self.fetchedResultsController = nil;
     [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ([[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] classPath]]) {
+    /* if ([[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] classPath]]) {
         //NSLog(@"File Exists");
         [self loadClasses];
-    }
+    } */
     
     [self.tableView reloadData];
     [super viewWillAppear:animated];
@@ -151,13 +191,14 @@
 		UINavigationController *navigationController = segue.destinationViewController;
 		NewClassViewController *newClassViewController = [[navigationController viewControllers] objectAtIndex:0];
 		newClassViewController.delegate = self;
+        newClassViewController.managedObjectContext = self.managedObjectContext;
 	} else if ([segue.identifier isEqualToString:@"ShowAssignments"])
     {
-        Info *i = [self.classes objectAtIndex:[[self.tableView indexPathForCell:sender] row]];
+        //Info *i = [self.classes objectAtIndex:[[self.tableView indexPathForCell:sender] row]];
+        Info *i = [_fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:sender]];
         //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",i.teacher,i.subject,i.complete ? @"TRUE" : @"FALSE");
-        _assignments = [NSMutableArray arrayWithCapacity:20];
         AssignmentsViewController *assignmentsViewController = segue.destinationViewController;
-        assignmentsViewController.assignments = _assignments;
+        assignmentsViewController.managedObjectContext = self.managedObjectContext;
         assignmentsViewController.info = i;
     }
 }
@@ -166,14 +207,19 @@
 {
     if ([TWTweetComposeViewController canSendTweet]) {
         int d = 0;
-        for (Info *i in self.classes) {
+        NSError *error;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Info" inManagedObjectContext:managedObjectContext];
+        [fetchRequest setEntity:entity];
+        NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        for (Info *i in fetchedObjects) {
             if ([[Functions sharedFunctions] determineClassComplete:i.teacher]) {
                 d++;
             }
             //NSLog(@"Teacher: '%@', Complete: '%@'",i.teacher,[Functions determineClassComplete:i.teacher] ? @"YES" : @"NO");
         }
         NSString *s;
-        if (!([self.classes count] == 1)) {
+        if (!([fetchedObjects count] == 1)) {
             s = @"classes";
         } else {
             s = @"class";
@@ -185,7 +231,7 @@
             f = @"class";
         }
         TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
-        [tweetSheet setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %d %@. Homework for %d %@ is complete.",[self.classes count],s,d,f]];
+        [tweetSheet setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %d %@. Homework for %d %@ is complete.",[fetchedObjects count],s,d,f]];
 	    [self presentModalViewController:tweetSheet animated:YES];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"No Twitter" message:@"Twitter is not available" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -214,21 +260,29 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [self.classes count];
+	//return [self.classes count];
+    id sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 #pragma mark - Table view delegate
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(SubjectCell *)cell indexPath:(NSIndexPath *)indexPath
 {
-	SubjectCell *cell = (SubjectCell *)[tableView dequeueReusableCellWithIdentifier:@"SubjectCell"];
-	Info *info = [self.classes objectAtIndex:indexPath.row];
+    Info *info = [_fetchedResultsController objectAtIndexPath:indexPath];
 	cell.nameLabel.text = info.teacher;
 	cell.gameLabel.text = info.subject;
     
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     backgroundView.backgroundColor = [[Functions sharedFunctions] determineClassComplete:info.teacher];
     cell.backgroundView = backgroundView;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	SubjectCell *cell = (SubjectCell *)[tableView dequeueReusableCellWithIdentifier:@"SubjectCell"];
+	//Info *info = [self.classes objectAtIndex:indexPath.row];
+    [self configureCell:cell indexPath:indexPath];
     return cell;
 }
 
@@ -254,33 +308,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
--(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
-{    
-    Info *classToMove = [self.classes objectAtIndex:sourceIndexPath.row];
-    //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",classToMove.teacher,classToMove.subject,classToMove.complete ? @"TRUE" : @"FALSE");
-    [self.classes removeObjectAtIndex:sourceIndexPath.row];
-    [self.classes insertObject:classToMove atIndex:destinationIndexPath.row];
-    [self.tableView reloadData];
-    //NSLog(@"End");
-    [self saveClasses];
-    
-}
-
-- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
-{
-    return proposedDestinationIndexPath;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     //NSLog(@"Accessory tapped");
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Teacher" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Class Details", @"Edit Class", nil];
-    infoForRow = [self.classes objectAtIndex:indexPath.row];
+    //infoForRow = [self.classes objectAtIndex:indexPath.row];
+    infoForRow = [_fetchedResultsController objectAtIndexPath:indexPath];
     [actionSheet showInView:self.navigationController.view];
 }
 
@@ -309,9 +347,10 @@
 {
     //NSLog(@"ButtonIndex: '%d'",buttonIndex);
     if (buttonIndex == 1) {
-        [self.classes removeObjectAtIndex:_rowtodelete.row];
+        //[self.classes removeObjectAtIndex:_rowtodelete.row];
+        [managedObjectContext deleteObject:[_fetchedResultsController objectAtIndexPath:_rowtodelete]];
         [self saveClasses];
-		[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_rowtodelete] withRowAnimation:UITableViewRowAnimationFade];
+		//[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_rowtodelete] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -322,20 +361,32 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)newClassViewController:(ClassesViewController *)controller didAddInfo:(Info *)newClass
+- (void)newClassViewController:(ClassesViewController *)controller didAddInfo:(NSDictionary *)newClass
 {
-    for (int i = 0; i < [self.classes count]; i++) {
-        Info *info = [self.classes objectAtIndex:i];
-        if ([info.teacher isEqual:newClass.teacher]) {
+    NSError *error;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Info" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    //for (int i = 0; i < [self.classes count]; i++) {
+    for (Info *info in fetchedObjects) {
+        //Info *info = [self.classes objectAtIndex:i];
+        if ([info.teacher isEqual:[newClass valueForKey:@"teacher"]]) {
+            NSLog(@"teacher1: '%@', teacher2: '%@'",info.teacher,[newClass valueForKey:@"teacher"]);
             [[[UIAlertView alloc] initWithTitle:@"Other Teacher Exists" message:@"Another Teacher with that name exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
             //NSLog(@"FOUND");
             return;
         }
     }
-    [self.classes addObject:newClass];
+    //[self.classes addObject:newClass];
+    Info *info = [NSEntityDescription insertNewObjectForEntityForName:@"Info" inManagedObjectContext:self.managedObjectContext];
+    info.teacher = [newClass valueForKey:@"teacher"];
+    info.subject = [newClass valueForKey:@"subject"];
+    info.classid = [newClass valueForKey:@"classid"];
     [self saveClasses];
-	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
-	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+	//NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
+	//[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -367,6 +418,60 @@
     infoForRow.classid = info.classid;
     [self saveClasses];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    [self.tableView beginUpdates];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:(SubjectCell *)[tableView cellForRowAtIndexPath:indexPath] indexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    [self.tableView endUpdates];
 }
 
 @end

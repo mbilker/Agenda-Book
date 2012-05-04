@@ -3,11 +3,8 @@
 #import "AssignmentCell.h"
 #import "Assignment.h"
 #import "AssignmentDetailsViewController.h"
-#import "EditAssignmentViewController.h"
-#import "NewAssignmentViewController.h"
 #import "NSString-truncateToWidth.h"
 #import "Functions.h"
-// #import "Info.h"
 
 /* #define server @"localhost:8080" */
 #define server @"9.classes.mbilker.us"
@@ -16,8 +13,10 @@
     Assignment *assignmentForRow;
 }
 
-@synthesize assignments;
+// @synthesize assignments;
 @synthesize info;
+@synthesize managedObjectContext;
+@synthesize fetchedResultsController = _fetchedResultsController;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -39,18 +38,40 @@
     return self;
 }
 
-- (void)makePlist
+- (NSFetchedResultsController *)fetchedResultsController {
+    
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"dueDate" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSFetchedResultsController *theFetchedResultsController =
+    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController.delegate = self;
+    
+    return _fetchedResultsController;
+}
+
+/* - (void)makePlist
 {
     if (![[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] assignmentPath]]) {
         NSDictionary *d = [NSDictionary dictionary];
         //NSLog(@"Success: '%@'",[d writeToFile:path atomically:YES] ? @"YES" : @"NO");
         [d writeToFile:[[Functions sharedFunctions] assignmentPath] atomically:YES];
     }
-}
+} */
 
 - (void)saveAssignments
 {
-    [self makePlist];
+    /* [self makePlist];
     NSString *path = [[Functions sharedFunctions] assignmentPath];
     NSMutableDictionary *currentDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
     NSMutableDictionary *teacherDict = [NSMutableDictionary dictionaryWithCapacity:20];
@@ -70,7 +91,11 @@
     //BOOL s = [currentDict writeToFile:path atomically:YES];
     //NSLog(@"Succeeded: '%@'",s ? @"YES" : @"NO");
     //NSLog(@"Assignments array: %@", teacherDict);
-    //NSLog(@"Teacher: '%@'",info.teacher);
+    //NSLog(@"Teacher: '%@'",info.teacher); */
+    NSError *error;
+    if (![managedObjectContext save:&error]) {
+        NSLog(@"Couldn't save: %@", [error localizedDescription]);
+    }
 }
 
 - (BOOL)checkIfOnline:(NSURL *)url
@@ -89,11 +114,16 @@
     return NO;
 }
 
-- (BOOL)checkIfExists:(Assignment *)adding
+- (BOOL)checkIfExists:(NSString *)adding
 {
-    for (int i = 0; i < [self.assignments count]; i++) {
-        Assignment *alreadyIn = [self.assignments objectAtIndex:i];
-        if([alreadyIn.assignmentText isEqual:adding.assignmentText]) {
+    NSError *error;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    for (Assignment *assignment in fetchedObjects) {
+        //Assignment *alreadyIn = [self.assignments objectAtIndex:i];
+        if([adding isEqual:assignment.assignmentText]) {
             //NSLog(@"Found '%@' already exists",adding.assignmentText);
             return YES;
         }
@@ -114,19 +144,24 @@
             return;
         }
         for (NSString *string in remoteArray) {
-            Assignment *adding = [[Assignment alloc] init];
-            adding.assignmentText = string;
-            adding.complete = FALSE;
-            
             NSDateComponents *components = [[NSDateComponents alloc] init];
             [components setDay:1];
             NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
             NSDate *date = [gregorian dateByAddingComponents:components toDate:[NSDate date] options:0];
-            adding.dueDate = date;
-            if(![self checkIfExists:adding]) {
-                [self.assignments addObject:adding];
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            //Assignment *adding = [[Assignment alloc] init];
+            //adding.assignmentText = string;
+            //adding.complete = FALSE;
+            //adding.dueDate = date;
+            
+            if(![self checkIfExists:string]) {
+                //[self.assignments addObject:adding];
+                //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
+                //[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                Assignment *assignment = [NSEntityDescription insertNewObjectForEntityForName:@"Assignment" inManagedObjectContext:managedObjectContext];
+                assignment.assignmentText = string;
+                assignment.complete = FALSE;
+                assignment.dueDate = date;
+                assignment.teacher = info.teacher;
             }
         }
         [self saveAssignments];
@@ -137,7 +172,7 @@
     }
 }
 
-- (void)loadFromPlist
+/* - (void)loadFromPlist
 {
     NSString *path = [[Functions sharedFunctions] assignmentPath];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
@@ -146,26 +181,31 @@
         for (int i = 0; i < [subjectsDict count]; i++)
         {
             NSArray *assignmentFromPlist = [subjectsDict objectForKey:[NSString stringWithFormat:@"%d",i]];
-            Assignment *adding = [[Assignment alloc] init];
-            adding.assignmentText = [assignmentFromPlist objectAtIndex:0];
-            adding.complete = [[assignmentFromPlist objectAtIndex:1] boolValue];
+            //Assignment *adding = [[Assignment alloc] init];
+            //adding.assignmentText = [assignmentFromPlist objectAtIndex:0];
+            //adding.complete = [[assignmentFromPlist objectAtIndex:1] boolValue];
             //NSLog(@"%@<%p> = '%@'",[[assignmentFromPlist objectAtIndex:2] class],[assignmentFromPlist objectAtIndex:2],[assignmentFromPlist objectAtIndex:2]);
-            adding.dueDate = [assignmentFromPlist objectAtIndex:2];
+            //adding.dueDate = [assignmentFromPlist objectAtIndex:2];
             //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",info.teacher,info.subject,info.complete ? @"TRUE" : @"FALSE");
+            NSDictionary *adding = [NSDictionary dictionaryWithObjectsAndKeys:[assignmentFromPlist objectAtIndex:0], @"assignmentText", [assignmentFromPlist objectAtIndex:1], @"complete", [assignmentFromPlist objectAtIndex:2], @"dueDate", nil];
             if (![self checkIfExists:adding]) {
-                [self.assignments addObject:adding];
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                //[self.assignments addObject:adding];
+                //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
+                //[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                Assignment *assignment = [NSEntityDescription insertNewObjectForEntityForName:@"Assignment" inManagedObjectContext:managedObjectContext];
+                assignment.assignmentText = [assignmentFromPlist objectAtIndex:1];
+                assignment.complete = [[assignmentFromPlist objectAtIndex:1] boolValue];
+                assignment.dueDate = [assignmentFromPlist objectAtIndex:2];
             }
-            
         }
     }
-}
+} */
 
 - (void)changeComplete:(NSIndexPath *)indexPath
 {
     //NSLog(@"Row: '%d'",indexPath.row);
-    Assignment *changing = [self.assignments objectAtIndex:indexPath.row];
+    //Assignment *changing = [self.assignments objectAtIndex:indexPath.row];
+    Assignment *changing = [_fetchedResultsController objectAtIndexPath:indexPath];
     changing.complete = !changing.complete;
     //NSLog(@"Complete: '%@'",changing.complete ? @"YES" : @"NO");
     
@@ -178,7 +218,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self loadFromPlist];
+    //[self loadFromPlist];
     [super viewWillAppear:animated];
 }
 
@@ -226,22 +266,28 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return [self.assignments count];
+	return 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    AssignmentCell *cell = (AssignmentCell *)[tableView dequeueReusableCellWithIdentifier:@"AssignmentCell"];
-    Assignment *atRow = [self.assignments objectAtIndex:indexPath.row];
-    //NSLog(@"Assignment: '%@', Complete: '%@', Due: '%@'",atRow.assignmentText,atRow.complete ? @"YES" : @"NO",[atRow.dueDate description]);
+	//return [self.assignments count];
+    id sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
+}
+
+- (void)configureCell:(AssignmentCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    Assignment *assignment = [_fetchedResultsController objectAtIndexPath:indexPath];
+    
     CGSize maximumSize = CGSizeMake(280, 43);
-    CGSize stringSize = [atRow.assignmentText sizeWithFont:cell.assignment.font constrainedToSize:maximumSize lineBreakMode:cell.assignment.lineBreakMode];
+    CGSize stringSize = [assignment.assignmentText sizeWithFont:cell.assignment.font constrainedToSize:maximumSize lineBreakMode:cell.assignment.lineBreakMode];
     CGRect cellFrame = CGRectMake(10, 10, 280, stringSize.height);
     cell.assignment.frame = cellFrame;
     
-    NSArray *tokens = [atRow.assignmentText componentsSeparatedByString:@"\n"];
+    NSArray *tokens = [assignment.assignmentText componentsSeparatedByString:@"\n"];
     //NSLog(@"Tokens: %@",tokens);
     NSMutableString *newString = [[NSMutableString alloc] init];
     for (NSString *token in tokens) {
@@ -250,15 +296,24 @@
     }
     
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = [[Functions sharedFunctions] colorForComplete:atRow.complete];
+    backgroundView.backgroundColor = [[Functions sharedFunctions] colorForComplete:assignment.complete];
     cell.backgroundView = backgroundView;
     
     cell.assignment.text = newString;
     NSDateFormatter *date = [[NSDateFormatter alloc] init];
     [date setDateStyle:NSDateFormatterShortStyle];
-    cell.due.text = [NSString stringWithFormat:@"Due: %@",[date stringFromDate:atRow.dueDate]];
+    cell.due.text = [NSString stringWithFormat:@"Due: %@",[date stringFromDate:assignment.dueDate]];
     //[cell.assignment sizeToFit];
-    
+
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AssignmentCell *cell = (AssignmentCell *)[tableView dequeueReusableCellWithIdentifier:@"AssignmentCell"];
+    //Assignment *atRow = [self.assignments objectAtIndex:indexPath.row];
+    //NSLog(@"Assignment: '%@', Complete: '%@', Due: '%@'",atRow.assignmentText,atRow.complete ? @"YES" : @"NO",[atRow.dueDate description]);
+    [self configureCell:cell indexPath:indexPath];
+        
     return cell;
 }
 
@@ -275,17 +330,24 @@
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete)
 	{
-		[self.assignments removeObjectAtIndex:indexPath.row];
+		//[self.assignments removeObjectAtIndex:indexPath.row];
+        [managedObjectContext deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
         [self saveAssignments];
-		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		//[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     //NSLog(@"Accessory tapped");
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Assignment Details", @"Edit Assignment", nil];
-    assignmentForRow = [self.assignments objectAtIndex:indexPath.row];
+    //assignmentForRow = [self.assignments objectAtIndex:indexPath.row];
+    assignmentForRow = [_fetchedResultsController objectAtIndexPath:indexPath];
     [actionSheet showInView:self.navigationController.view];
 }
 
@@ -315,20 +377,39 @@
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)addAssignmentViewController:(AssignmentsViewController *)controller didAddAssignment:(Assignment *)newAssignment
+- (void)addAssignmentViewController:(AssignmentsViewController *)controller didAddAssignment:(NSDictionary *)newAssignment
 {
-    for (int i = 0; i < [self.assignments count]; i++) {
+    NSError *error;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    for (Assignment *assignment in fetchedObjects) {
+        if ([self checkIfExists:assignment.assignmentText]) {
+            [[[UIAlertView alloc] initWithTitle:@"Other Assignment Exists" message:@"Another Assignment with that text exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
+            //NSLog(@"FOUND");
+            return;
+        }
+    }
+    
+    /* for (int i = 0; i < [self.assignments count]; i++) {
         Assignment *assignment = [self.assignments objectAtIndex:i];
         if ([assignment.assignmentText isEqual:newAssignment.assignmentText]) {
             [[[UIAlertView alloc] initWithTitle:@"Other Assignment Exists" message:@"Another Assignment with that text exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
             //NSLog(@"FOUND");
             return;
         }
-    }
-    [self.assignments addObject:newAssignment];
+    } */
+    //[self.assignments addObject:newAssignment];
+    Assignment *assignment = [NSEntityDescription insertNewObjectForEntityForName:@"Assignment" inManagedObjectContext:managedObjectContext];
+    assignment.assignmentText = [newAssignment valueForKey:@"assignmentText"];
+    assignment.complete = [[newAssignment valueForKey:@"complete"] boolValue];
+    assignment.dueDate = [newAssignment valueForKey:@"dueDate"];
+    assignment.teacher = info.teacher;
     [self saveAssignments];
-	NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
-	[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+	//NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
+	//[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadData];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -349,6 +430,60 @@
     assignmentForRow.dueDate = assignment.dueDate;
     [self saveAssignments];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    [self.tableView beginUpdates];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:(AssignmentCell *)[tableView cellForRowAtIndexPath:indexPath] indexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    [self.tableView endUpdates];
 }
 
 @end

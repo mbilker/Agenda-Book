@@ -13,6 +13,7 @@
 @synthesize teacherTextField;
 @synthesize detailLabel;
 @synthesize classIDLabel;
+@synthesize managedObjectContext;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -73,12 +74,7 @@
 
 - (void)viewDidUnload
 {
-    [self setTeacherTextField:nil];
-    [self setDetailLabel:nil];
-    [self setDetailLabel:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -116,12 +112,13 @@
 - (void)checkDone
 {
     if ([self.teacherTextField hasText] && subject != @"Not Chosen") {
-        Info *info = [[Info alloc] init];
-        info.teacher = self.teacherTextField.text;
-        info.subject = subject;
-        info.classid = tableClassID;
+        //Info *info = [NSEntityDescription insertNewObjectForEntityForName:@"Info" inManagedObjectContext:self.managedObjectContext];
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.teacherTextField.text, @"teacher", subject, @"subject", tableClassID, @"classid", nil];
+        //info.teacher = self.teacherTextField.text;
+        //info.subject = subject;
+        //info.classid = tableClassID;
         //NSLog(@"ClassID: '%@'",info.classid);
-        [self.delegate newClassViewController:self didAddInfo:info];
+        [self.delegate newClassViewController:self didAddInfo:dictionary];
     } else {
         //NSLog(@"Empty and did not choose subject");
         [[[UIAlertView alloc] initWithTitle:@"Selection not complete" message:@"You did not fill in the teacher or select a subject" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
