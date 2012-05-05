@@ -430,14 +430,17 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)editAssignmentViewController:(EditAssignmentViewController *)controller didChange:(Assignment *)assignment
+- (void)editAssignmentViewController:(EditAssignmentViewController *)controller didChange:(NSDictionary *)assignment
 {
     //NSLog(@"Assignment: '%@'",assignment.assignmentText);
     //NSLog(@"Complete: '%@'",assignment.complete ? @"YES" : @"NO");
     //NSLog(@"Due Date: '%@'",[assignment.dueDate description]);
-    assignmentForRow.assignmentText = assignment.assignmentText;
-    assignmentForRow.complete = assignment.complete;
-    assignmentForRow.dueDate = assignment.dueDate;
+    //assignmentForRow.assignmentText = assignment.assignmentText;
+    //assignmentForRow.complete = assignment.complete;
+    //assignmentForRow.dueDate = assignment.dueDate;
+    assignmentForRow.assignmentText = [assignment valueForKey:@"assignmentText"];
+    assignmentForRow.complete = [[assignment valueForKey:@"complete"] boolValue];
+    assignmentForRow.dueDate = [assignment valueForKey:@"dueDate"];
     [self saveAssignments];
     [self.navigationController popViewControllerAnimated:YES];
 }

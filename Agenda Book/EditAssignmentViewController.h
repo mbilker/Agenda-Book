@@ -7,7 +7,7 @@
 
 @protocol EditAssignmentViewControllerDelegate <NSObject>
 - (void)editAssignmentViewControllerDidCancel:(EditAssignmentViewController *)controller;
-- (void)editAssignmentViewController:(EditAssignmentViewController *)controller didChange:(Assignment *)assignment;
+- (void)editAssignmentViewController:(EditAssignmentViewController *)controller didChange:(NSDictionary *)assignment;
 @end
 
 @interface EditAssignmentViewController : UITableViewController <UITextFieldDelegate>

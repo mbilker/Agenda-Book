@@ -3,7 +3,7 @@
 #import "Functions.h"
 
 @implementation EditAssignmentViewController {
-    Assignment *tempAssignment;
+    NSMutableDictionary *tempAssignment;
 }
 
 @synthesize delegate;
@@ -37,12 +37,17 @@
     
     self.assignmentField.delegate = self;
     
-    tempAssignment = [[Assignment alloc] init];
-    tempAssignment.assignmentText = self.assignment.assignmentText;
-    tempAssignment.complete = self.assignment.complete;
-    tempAssignment.dueDate = self.assignment.dueDate;
+    //tempAssignment = [[Assignment alloc] init];
+    //tempAssignment.assignmentText = self.assignment.assignmentText;
+    //tempAssignment.complete = self.assignment.complete;
+    //tempAssignment.dueDate = self.assignment.dueDate;
+    tempAssignment = [NSMutableDictionary dictionary];
+    [tempAssignment setValue:self.assignment.assignmentText forKey:@"assignmentText"];
+    [tempAssignment setValue:[NSNumber numberWithBool:self.assignment.complete] forKey:@"complete"];
+    [tempAssignment setValue:self.assignment.dueDate forKey:@"dueDate"];
     
-    self.assignmentField.text = tempAssignment.assignmentText;
+    
+    self.assignmentField.text = [tempAssignment valueForKey:@"assignmentText"];
     [self.assignmentField becomeFirstResponder];
     
     NSDateComponents *components = [[NSDateComponents alloc] init];
@@ -50,7 +55,7 @@
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDate *minimum = [gregorian dateByAddingComponents:components toDate:[NSDate date] options:0];
     self.duePicker.minimumDate = minimum;
-    self.duePicker.date = tempAssignment.dueDate;
+    self.duePicker.date = [tempAssignment valueForKey:@"dueDate"];
     
 	self.dueCell.detailTextLabel.text = [self.dateFormatter stringFromDate:minimum];
 }
@@ -63,8 +68,10 @@
 - (void)checkDone
 {
     if (self.assignmentField.text.length != 0) {
-        tempAssignment.assignmentText = self.assignmentField.text;
-        tempAssignment.dueDate = self.duePicker.date;
+        //tempAssignment.assignmentText = self.assignmentField.text;
+        //tempAssignment.dueDate = self.duePicker.date;
+        [tempAssignment setValue:self.assignment.assignmentText forKey:@"assignmentText"];
+        [tempAssignment setValue:self.assignment.dueDate forKey:@"dueDate"];
         [self.delegate editAssignmentViewController:self didChange:tempAssignment];
     } else {
         //NSLog(@"Empty and did not choose subject");

@@ -28,7 +28,6 @@
 		652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A624815478BAC00FE17E5 /* EditClassViewController.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
 		655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 655413ED15532E2600199B10 /* Data.xcdatamodeld */; };
-		655E91A61551CFD200C259CA /* DateAssignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 655E91A51551CFD200C259CA /* DateAssignment.m */; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
 		6572AF02152BD1C20049BA6E /* CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6572AF01152BD1C20049BA6E /* CustomAlert.m */; };
 		657AA0F915159E780045148B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657AA0F815159E780045148B /* AboutViewController.m */; };
@@ -114,8 +113,6 @@
 		65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSubjectPickerViewController.h; sourceTree = "<group>"; };
 		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
 		655413EE15532E2600199B10 /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
-		655E91A41551CFD200C259CA /* DateAssignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateAssignment.h; sourceTree = "<group>"; };
-		655E91A51551CFD200C259CA /* DateAssignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateAssignment.m; sourceTree = "<group>"; };
 		6567C2451508054C00859E02 /* SubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPickerViewController.h; sourceTree = "<group>"; };
 		6567C2461508054C00859E02 /* SubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectPickerViewController.m; sourceTree = "<group>"; };
 		6572AF00152BD1C20049BA6E /* CustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlert.h; sourceTree = "<group>"; };
@@ -270,8 +267,6 @@
 				65B76CB5154F741E00054BF6 /* CalendarCell.xib */,
 				65199924150D4DE6007FD5A6 /* AssignmentCell.h */,
 				65199925150D4DE6007FD5A6 /* AssignmentCell.m */,
-				655E91A41551CFD200C259CA /* DateAssignment.h */,
-				655E91A51551CFD200C259CA /* DateAssignment.m */,
 				65D5716C150EAB7400B9F47E /* Assignment.h */,
 				65D5716D150EAB7400B9F47E /* Assignment.m */,
 				65A841A61506FE5100C6B779 /* Info.h */,
@@ -426,7 +421,6 @@
 				650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */,
 				65A834F4154F2DF5004AD1EE /* AssignmentsMonthViewController.m in Sources */,
 				65A8350A154F3617004AD1EE /* CalendarCell.m in Sources */,
-				655E91A61551CFD200C259CA /* DateAssignment.m in Sources */,
 				655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
