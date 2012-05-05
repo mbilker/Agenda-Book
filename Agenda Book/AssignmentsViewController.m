@@ -395,7 +395,7 @@
     [fetchRequest setEntity:entity];
     NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
     for (Assignment *assignment in fetchedObjects) {
-        if ([self checkIfExists:assignment.assignmentText]) {
+        if ([assignment.assignmentText isEqualToString:[newAssignment valueForKey:@"assignmentText"]]) {
             [[[UIAlertView alloc] initWithTitle:@"Other Assignment Exists" message:@"Another Assignment with that text exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
             //NSLog(@"FOUND");
             return;

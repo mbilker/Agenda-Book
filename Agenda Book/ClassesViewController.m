@@ -402,12 +402,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)editClassViewController:(EditClassViewController *)controller didChange:(Info *)info
+- (void)editClassViewController:(EditClassViewController *)controller didChange:(NSDictionary *)info
 {
     //NSLog(@"Teacher: '%@'",info.teacher);
     //NSLog(@"Subject: '%@'",info.subject);
     //NSLog(@"Class ID: '%@'",info.classid);
-    NSString *path = [[Functions sharedFunctions] assignmentPath];
+    /* NSString *path = [[Functions sharedFunctions] assignmentPath];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
         //NSLog(@"File Exists");
         NSMutableDictionary *teachersDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
@@ -417,10 +417,13 @@
             [teachersDict setObject:teacherAssignments forKey:info.teacher];
             [teachersDict writeToFile:path atomically:YES];
         }
-    }
-    infoForRow.teacher = info.teacher;
-    infoForRow.subject = info.subject;
-    infoForRow.classid = info.classid;
+    } */
+    //infoForRow.teacher = info.teacher;
+    //infoForRow.subject = info.subject;
+    //infoForRow.classid = info.classid;
+    infoForRow.teacher = [info valueForKey:@"teacher"];
+    infoForRow.subject = [info valueForKey:@"subject"];
+    infoForRow.classid = [info valueForKey:@"classid"];
     [self saveClasses];
     [self.navigationController popViewControllerAnimated:YES];
 }

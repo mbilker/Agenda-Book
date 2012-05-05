@@ -39,6 +39,7 @@
 		SubjectPickerViewController *subjectPickerViewController = segue.destinationViewController;
 		subjectPickerViewController.delegate = self;
 		subjectPickerViewController.subject = subject;
+        subjectPickerViewController.managedObjectContext = self.managedObjectContext;
 	}
     if ([segue.identifier isEqualToString:@"setClassID"])
 	{

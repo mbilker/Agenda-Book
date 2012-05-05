@@ -10,6 +10,8 @@
 @synthesize delegate;
 @synthesize subject;
 
+@synthesize managedObjectContext;
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
 	if ((self = [super initWithCoder:aDecoder]))

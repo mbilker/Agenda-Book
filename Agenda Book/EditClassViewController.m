@@ -3,18 +3,19 @@
 #import "SubjectPickerViewController.h"
 #import "ClassIDViewController.h"
 
-#import "Info.h"
 #import "Functions.h"
 
 @implementation EditClassViewController {
-    Info *tempInfo;
+    NSMutableDictionary *tempInfo;
 }
 
 @synthesize delegate;
 @synthesize subjectDetail;
-@synthesize classInfo;
 @synthesize classIDDetail;
 @synthesize teacherField;
+
+@synthesize classInfo;
+@synthesize managedObjectContext;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -44,6 +45,7 @@
 		SubjectPickerViewController *subjectPickerViewController = segue.destinationViewController;
 		subjectPickerViewController.delegate = self;
 		subjectPickerViewController.subject = self.classInfo.subject;
+        subjectPickerViewController.managedObjectContext = self.managedObjectContext;
 	}
     if ([segue.identifier isEqualToString:@"changeClassID"])
 	{
@@ -56,14 +58,18 @@
 
 - (void)viewDidLoad
 {
-    tempInfo = [[Info alloc] init];
-    tempInfo.subject = self.classInfo.subject;
-    tempInfo.teacher = self.classInfo.teacher;
-    tempInfo.classid = self.classInfo.classid;
+    //tempInfo = [[Info alloc] init];
+    //tempInfo.subject = self.classInfo.subject;
+    //tempInfo.teacher = self.classInfo.teacher;
+    //tempInfo.classid = self.classInfo.classid;
+    tempInfo = [NSMutableDictionary dictionary];
+    [tempInfo setValue:self.classInfo.subject forKey:@"subject"];
+    [tempInfo setValue:self.classInfo.teacher forKey:@"teacher"];
+    [tempInfo setValue:self.classInfo.classid forKey:@"classid"];
     
-    self.subjectDetail.text = tempInfo.subject;
-    self.classIDDetail.text = tempInfo.classid;
-    self.teacherField.text = tempInfo.teacher;
+    self.subjectDetail.text = [tempInfo valueForKey:@"subject"];
+    self.classIDDetail.text = [tempInfo valueForKey:@"classid"];
+    self.teacherField.text = [tempInfo valueForKey:@"teacher"];
     
     [self.teacherField becomeFirstResponder];
     [super viewDidLoad];
@@ -89,9 +95,12 @@
 - (void)checkDone
 {
     if ([self.teacherField hasText]) {
-        tempInfo.subject = self.subjectDetail.text;
-        tempInfo.teacher = self.teacherField.text;
-        tempInfo.classid = self.classIDDetail.text;
+        //tempInfo.subject = self.subjectDetail.text;
+        //tempInfo.teacher = self.teacherField.text;
+        //tempInfo.classid = self.classIDDetail.text;
+        [tempInfo setValue:self.subjectDetail.text forKey:@"subject"];
+        [tempInfo setValue:self.teacherField.text forKey:@"teacher"];
+        [tempInfo setValue:self.classIDDetail.text forKey:@"classid"];
         [self.delegate editClassViewController:self didChange:tempInfo];
     } else {
         //NSLog(@"Empty and did not choose subject");
@@ -121,8 +130,9 @@
 
 - (void)subjectPickerViewController:(SubjectPickerViewController *)controller didSelectSubject:(NSString *)theSubject
 {
-    tempInfo.subject = theSubject;
-	self.subjectDetail.text = tempInfo.subject;
+    //tempInfo.subject = theSubject;
+    [tempInfo setValue:theSubject forKey:@"subject"];
+	self.subjectDetail.text = [tempInfo valueForKey:@"subject"];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -135,8 +145,9 @@
 
 - (void)classIDViewController:(ClassIDViewController *)controller didAddClassID:(NSString *)classID
 {
-    tempInfo.classid = classID;
-    self.classIDDetail.text = tempInfo.classid;
+    //tempInfo.classid = classID;
+    [tempInfo setValue:classID forKey:@"classid"];
+    self.classIDDetail.text = [tempInfo valueForKey:@"classid"];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

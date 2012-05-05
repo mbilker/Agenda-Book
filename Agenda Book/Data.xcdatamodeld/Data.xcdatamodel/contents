@@ -11,8 +11,12 @@
         <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="teacher" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Subject" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Assignment" positionX="520" positionY="192" width="128" height="105"/>
+        <element name="Assignment" positionX="475" positionY="189" width="128" height="105"/>
         <element name="Info" positionX="333" positionY="189" width="128" height="90"/>
+        <element name="Subject" positionX="189" positionY="189" width="128" height="60"/>
     </elements>
 </model>
