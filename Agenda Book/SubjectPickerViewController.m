@@ -2,11 +2,10 @@
 #import "SubjectPickerViewController.h"
 #import "Functions.h"
 
-@implementation SubjectPickerViewController
-{
-	NSMutableArray *subjects;
-	NSUInteger selectedIndex;
+@implementation SubjectPickerViewController {
+    NSUInteger selectedIndex;
 }
+
 @synthesize delegate;
 @synthesize subject;
 
@@ -98,7 +97,6 @@
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
-    subjects = [NSMutableArray arrayWithObjects:@"Math",@"Science",@"Social Studies",@"Language Arts",@"Spanish",@"German",@"French",@"Tech Ed",@"Band",nil];
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.
@@ -106,7 +104,14 @@
 		//exit(-1);  // Fail
         abort();
 	}
-    NSLog(@"see: '%@'",_fetchedResultsController);
+    id sectionInfo = [[_fetchedResultsController sections] objectAtIndex:0];
+    if ([sectionInfo numberOfObjects] <= 0) {
+        NSArray *array = [NSArray arrayWithObjects:@"Math",@"Science",@"Social Studies",@"Language Arts",@"Spanish",@"German",@"French",@"Tech Ed",@"Band",nil];
+        for (NSString *sub in array) {
+            Subject *subj = [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:managedObjectContext];
+            subj.name = sub;
+        }
+    }
     
     /* if ([[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] subjectPath]]) {
         //NSLog(@"File Exists");
@@ -114,14 +119,12 @@
     } else {
         [self saveSubjects];
     } */
-    
-    selectedIndex = [subjects indexOfObject:self.subject];
+    NSLog(@"selected: '%d'",selectedIndex);
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    subjects = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -165,7 +168,8 @@
 - (void)configureCell:(UITableViewCell *)cell index:(NSIndexPath *)indexPath
 {
 	//cell.textLabel.text = [subjects objectAtIndex:indexPath.row];
-    cell.textLabel.text = [_fetchedResultsController objectAtIndexPath:indexPath];
+    Subject *addedSubject = [_fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = addedSubject.name;
 	if (indexPath.row == selectedIndex)
 		cell.accessoryType = UITableViewCellAccessoryCheckmark;
 	else
@@ -193,8 +197,9 @@
 	selectedIndex = indexPath.row;
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	cell.accessoryType = UITableViewCellAccessoryCheckmark;
-	NSString *theSubject = [subjects objectAtIndex:indexPath.row];
-	[self.delegate subjectPickerViewController:self didSelectSubject:theSubject];
+	//NSString *theSubject = [subjects objectAtIndex:indexPath.row];
+    Subject *theSubject = [_fetchedResultsController objectAtIndexPath:indexPath];
+	[self.delegate subjectPickerViewController:self didSelectSubject:theSubject.name];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -204,7 +209,7 @@
 		//[subjects removeObjectAtIndex:indexPath.row];
         [managedObjectContext deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
         [self saveSubjects];
-		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		//[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}   
 }
 

@@ -50,7 +50,7 @@
 	UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
 	ClassesViewController *classesViewController = [[navigationController viewControllers] objectAtIndex:0];
     classesViewController.managedObjectContext = self.managedObjectContext;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    /* NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
                                    entityForName:@"Info" inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
@@ -59,7 +59,7 @@
         NSLog(@"class: '%@'",info.subject);
         NSLog(@"classid: '%@'",info.classid);
         NSLog(@"teacher: '%@'",info.teacher);
-    }
+    } */
     return YES;
 }
 
