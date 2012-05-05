@@ -26,6 +26,7 @@
 		652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 652859F4150ED19900296718 /* NSString-truncateToWidth.m */; };
 		652A6246154785D700FE17E5 /* ClassDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A6245154785D700FE17E5 /* ClassDetailsViewController.m */; };
 		652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A624815478BAC00FE17E5 /* EditClassViewController.m */; };
+		654A84131554D39F00744CB3 /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A84121554D39F00744CB3 /* Subject.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
 		655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 655413ED15532E2600199B10 /* Data.xcdatamodeld */; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
@@ -110,6 +111,8 @@
 		652A6245154785D700FE17E5 /* ClassDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassDetailsViewController.m; sourceTree = "<group>"; };
 		652A624715478BAC00FE17E5 /* EditClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditClassViewController.h; sourceTree = "<group>"; };
 		652A624815478BAC00FE17E5 /* EditClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditClassViewController.m; sourceTree = "<group>"; };
+		654A84111554D39E00744CB3 /* Subject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subject.h; sourceTree = "<group>"; };
+		654A84121554D39F00744CB3 /* Subject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subject.m; sourceTree = "<group>"; };
 		65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSubjectPickerViewController.h; sourceTree = "<group>"; };
 		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
 		655413EE15532E2600199B10 /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
@@ -236,14 +239,14 @@
 				657AA0F815159E780045148B /* AboutViewController.m */,
 				65A841A31506F97F00C6B779 /* ClassesViewController.h */,
 				65A841A41506F97F00C6B779 /* ClassesViewController.m */,
+				6527C31C15071551007B8F26 /* SubjectCell.h */,
+				6527C31D15071551007B8F26 /* SubjectCell.m */,
 				652A6244154785D700FE17E5 /* ClassDetailsViewController.h */,
 				652A6245154785D700FE17E5 /* ClassDetailsViewController.m */,
 				652A624715478BAC00FE17E5 /* EditClassViewController.h */,
 				652A624815478BAC00FE17E5 /* EditClassViewController.m */,
 				6527C320150718FD007B8F26 /* NewClassViewController.h */,
 				6527C321150718FD007B8F26 /* NewClassViewController.m */,
-				6527C31C15071551007B8F26 /* SubjectCell.h */,
-				6527C31D15071551007B8F26 /* SubjectCell.m */,
 				6567C2451508054C00859E02 /* SubjectPickerViewController.h */,
 				6567C2461508054C00859E02 /* SubjectPickerViewController.m */,
 				65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */,
@@ -271,6 +274,8 @@
 				65D5716D150EAB7400B9F47E /* Assignment.m */,
 				65A841A61506FE5100C6B779 /* Info.h */,
 				65A841A71506FE5100C6B779 /* Info.m */,
+				654A84111554D39E00744CB3 /* Subject.h */,
+				654A84121554D39F00744CB3 /* Subject.m */,
 				6572AF00152BD1C20049BA6E /* CustomAlert.h */,
 				6572AF01152BD1C20049BA6E /* CustomAlert.m */,
 				61601C59151BA0C700A81E39 /* Functions.h */,
@@ -422,6 +427,7 @@
 				65A834F4154F2DF5004AD1EE /* AssignmentsMonthViewController.m in Sources */,
 				65A8350A154F3617004AD1EE /* CalendarCell.m in Sources */,
 				655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */,
+				654A84131554D39F00744CB3 /* Subject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

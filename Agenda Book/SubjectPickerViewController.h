@@ -1,6 +1,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AddSubjectPickerViewController.h"
+#import "Subject.h"
 
 @class SubjectPickerViewController;
 
@@ -8,11 +9,12 @@
 - (void)subjectPickerViewController:(SubjectPickerViewController *)controller didSelectSubject:(NSString *)game;
 @end
 
-@interface SubjectPickerViewController : UITableViewController <AddSubjectPickerViewControllerDelegate>
+@interface SubjectPickerViewController : UITableViewController <AddSubjectPickerViewControllerDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, weak) id <SubjectPickerViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSString *subject;
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end
