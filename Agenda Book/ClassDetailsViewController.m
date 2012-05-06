@@ -12,6 +12,7 @@
 @synthesize notDoneAssignmentsCount;
 
 @synthesize classInfo;
+@synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,26 +40,38 @@
     self.subjectName.text = [NSString stringWithFormat:@"Subject: %@",self.classInfo.subject];
     self.classID.text = [NSString stringWithFormat:@"Class ID: %@",self.classInfo.classid];
     
-    NSString *path = [[Functions sharedFunctions] assignmentPath];
-    if ([[NSFileManager alloc] fileExistsAtPath:path]) {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(%K == %@)",@"teacher",self.classInfo.teacher];
+    [fetchRequest setPredicate:predicate];
+    NSError *error;
+    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    int i = 0;
+    int c = 0;
+    int f = 0;
+    for (Assignment *assignment in fetchedObjects) {
+        //NSArray *dict = [teacherAssignments objectForKey:[NSString stringWithFormat:@"%d",count]];
+        //if ([[dict objectAtIndex:1] boolValue] == TRUE) c++;
+        //if ([[dict objectAtIndex:1] boolValue] == FALSE) f++;
+        if (assignment.complete) c++;
+        if (!assignment.complete) f++;
+        i++;
+    }
+    self.assignmentsCount.text = [NSString stringWithFormat:@"Assignments: %d",i];
+    self.doneAssignmentsCount.text = [NSString stringWithFormat:@"Complete Assignments: %d",c];
+    self.notDoneAssignmentsCount.text = [NSString stringWithFormat:@"Not Complete Assignments: %d",f];
+    
+    //NSString *path = [[Functions sharedFunctions] assignmentPath];
+    /* if ([[NSFileManager alloc] fileExistsAtPath:path]) {
         NSDictionary *teacherAssignments = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:self.classInfo.teacher];
-        int i = 0;
-        int c = 0;
-        int f = 0;
-        for (int count = 0; i < [teacherAssignments count]; count++) {
-            NSArray *dict = [teacherAssignments objectForKey:[NSString stringWithFormat:@"%d",count]];
-            if ([[dict objectAtIndex:1] boolValue] == TRUE) c++;
-            if ([[dict objectAtIndex:1] boolValue] == FALSE) f++;
-            i++;
-        }
-        self.assignmentsCount.text = [NSString stringWithFormat:@"Assignments: %d",i];
-        self.doneAssignmentsCount.text = [NSString stringWithFormat:@"Complete Assignments: %d",c];
-        self.notDoneAssignmentsCount.text = [NSString stringWithFormat:@"Not Complete Assignments: %d",f];
+        
     } else {
         self.assignmentsCount.text = @"Assignments: 0";
         self.doneAssignmentsCount.text = @"Complete Assignments: 0";
         self.notDoneAssignmentsCount.text = @"Not Complete Assignments: 0";
-    }
+    } */
     [super viewDidLoad];
 }
 

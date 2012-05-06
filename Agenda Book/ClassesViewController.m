@@ -218,7 +218,7 @@
         [fetchRequest setEntity:entity];
         NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
         for (Info *i in fetchedObjects) {
-            if ([[Functions sharedFunctions] determineClassComplete:i.teacher]) {
+            if ([[Functions sharedFunctions] determineClassComplete:i.teacher context:self.managedObjectContext]) {
                 d++;
             }
             //NSLog(@"Teacher: '%@', Complete: '%@'",i.teacher,[Functions determineClassComplete:i.teacher] ? @"YES" : @"NO");
@@ -279,7 +279,7 @@
 	cell.gameLabel.text = info.subject;
     
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = [[Functions sharedFunctions] determineClassComplete:info.teacher];
+    backgroundView.backgroundColor = [[Functions sharedFunctions] determineClassComplete:info.teacher context:self.managedObjectContext];
     cell.backgroundView = backgroundView;
 }
 
@@ -337,11 +337,13 @@
         //NSLog(@"Class Details Hit");
         ClassDetailsViewController *details = [self.storyboard instantiateViewControllerWithIdentifier:@"classDetailsView"];
         details.classInfo = infoForRow;
+        details.managedObjectContext = self.managedObjectContext;
         [self.navigationController pushViewController:details animated:YES];
     } else if (buttonIndex == 1 && [actionSheet buttonTitleAtIndex:buttonIndex] == @"Edit Class") {
         EditClassViewController *editClass = [self.storyboard instantiateViewControllerWithIdentifier:@"editClass"];
         editClass.classInfo = infoForRow;
         editClass.delegate = self;
+        editClass.managedObjectContext = self.managedObjectContext;
         [self.navigationController pushViewController:editClass animated:YES];
     }
 }

@@ -13,5 +13,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *notDoneAssignmentsCount;
 
 @property (nonatomic, strong) Info *classInfo;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end

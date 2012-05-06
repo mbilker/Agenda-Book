@@ -36,9 +36,14 @@ static Functions *instanceOfFunctions;
 {
     if ((self = [super init]))
     {
-        NSLog(@"Initalizing public functions");
+        NSLog(@"init Functions");
     }
     return self;
+}
+
+- (void)dealloc
+{
+    NSLog(@"dealloc Functions");
 }
 
 - (BOOL)shouldAutorotate:(UIInterfaceOrientation)interfaceOrientation
@@ -46,7 +51,7 @@ static Functions *instanceOfFunctions;
     return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (NSString *)assignmentPath
+/* - (NSString *)assignmentPath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -89,7 +94,7 @@ static Functions *instanceOfFunctions;
     NSURL *classesCloud = [[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:@"DXD4278H9V.us.mbilker.agendabook"];
     NSURL *ubiquitousPackage = [[classesCloud URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:@"Subjects.plist"];
     return ubiquitousPackage;
-}
+} */
 
 - (UIColor *)colorForComplete:(BOOL)complete
 {
@@ -102,7 +107,7 @@ static Functions *instanceOfFunctions;
 	return nil;
 }
 
-- (UIColor *)determineClassComplete:(NSString *)string
+/* - (UIColor *)determineClassComplete:(NSString *)string
 {
     NSString *path = [self assignmentPath];
     if ([[NSFileManager alloc] fileExistsAtPath:path]) {
@@ -113,6 +118,21 @@ static Functions *instanceOfFunctions;
             //NSLog(@"1: '%@' 2: '%@'",[a objectAtIndex:0],[[a objectAtIndex:1] boolValue] ? @"YES" : @"NO");
             if ([[a objectAtIndex:1] boolValue] == FALSE) return [self colorForComplete:FALSE];
         }
+    }
+    return [self colorForComplete:TRUE];
+} */
+
+- (UIColor *)determineClassComplete:(NSString *)string context:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:context];
+    [fetchRequest setEntity:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(%K == %@)",@"teacher",string];
+    [fetchRequest setPredicate:predicate];
+    NSError *error;
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    for (Assignment *assignment in fetchedObjects) {
+        if (!assignment.complete) return [self colorForComplete:FALSE]; 
     }
     return [self colorForComplete:TRUE];
 }

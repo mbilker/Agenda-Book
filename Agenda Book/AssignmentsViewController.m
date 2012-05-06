@@ -372,7 +372,6 @@
         details.assignment = assignmentForRow;
         [self.navigationController pushViewController:details animated:YES];
     } else if (buttonIndex == 1 && [actionSheet buttonTitleAtIndex:buttonIndex] == @"Edit Assignment") {
-        NSLog(@"Edit assignment");
         EditAssignmentViewController *edit = [self.storyboard instantiateViewControllerWithIdentifier:@"editAssignment"];
         edit.delegate = self;
         edit.assignment = assignmentForRow;

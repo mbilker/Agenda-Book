@@ -13,6 +13,20 @@
 @synthesize dateFormatter;
 @synthesize assignment;
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	if ((self = [super initWithCoder:aDecoder]))
+	{
+		NSLog(@"init EditAssignmentViewController");
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	NSLog(@"dealloc EditAssignmentViewController");
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -70,8 +84,8 @@
     if (self.assignmentField.text.length != 0) {
         //tempAssignment.assignmentText = self.assignmentField.text;
         //tempAssignment.dueDate = self.duePicker.date;
-        [tempAssignment setValue:self.assignment.assignmentText forKey:@"assignmentText"];
-        [tempAssignment setValue:self.assignment.dueDate forKey:@"dueDate"];
+        [tempAssignment setValue:self.assignmentField.text forKey:@"assignmentText"];
+        [tempAssignment setValue:self.duePicker.date forKey:@"dueDate"];
         [self.delegate editAssignmentViewController:self didChange:tempAssignment];
     } else {
         //NSLog(@"Empty and did not choose subject");
@@ -93,7 +107,7 @@
             [self.assignmentField resignFirstResponder];
         }
         if (self.duePicker.superview == nil) {
-            NSLog(@"duePicker is not shown");
+            //NSLog(@"duePicker is not shown");
             [self.view.window addSubview:self.duePicker];
             CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
             CGSize pickerSize = [self.duePicker sizeThatFits:CGSizeZero];

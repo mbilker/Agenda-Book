@@ -113,13 +113,28 @@
         }
     }
     
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subject" inManagedObjectContext:managedObjectContext];
+    [request setEntity:entity];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(name = %@)", self.subject];
+    [request setPredicate:pred];
+    NSError *error2;
+    NSArray *matching_objects = [managedObjectContext executeFetchRequest:request error:&error2];
+    //NSLog(@"matched: '%@'",matching_objects);
+    if ([matching_objects count] == 0) {
+        selectedIndex = -1;
+    } else {
+        Subject *info = [matching_objects objectAtIndex:0];
+        selectedIndex = [_fetchedResultsController indexPathForObject:info].row;
+    }
+    
     /* if ([[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] subjectPath]]) {
         //NSLog(@"File Exists");
         [self loadSubjects];
     } else {
         [self saveSubjects];
     } */
-    NSLog(@"selected: '%d'",selectedIndex);
+    //NSLog(@"selected: '%d'",selectedIndex);
 }
 
 - (void)viewDidUnload
