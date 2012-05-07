@@ -47,6 +47,7 @@
 		65A841691506ED9900C6B779 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65A841671506ED9900C6B779 /* MainStoryboard.storyboard */; };
 		65A841A51506F98000C6B779 /* ClassesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A41506F97F00C6B779 /* ClassesViewController.m */; };
 		65A841A81506FE5100C6B779 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A71506FE5100C6B779 /* Info.m */; };
+		65B71B1A155865390032C1E7 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B71B19155865390032C1E7 /* iAd.framework */; };
 		65B76CB6154F741E00054BF6 /* CalendarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B76CB5154F741E00054BF6 /* CalendarCell.xib */; };
 		65B92222151BBCAC00B85CB5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B92221151BBCAC00B85CB5 /* Default.png */; };
 		65B92225151BBCB300B85CB5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B92224151BBCB300B85CB5 /* Default@2x.png */; };
@@ -145,6 +146,7 @@
 		65A841A41506F97F00C6B779 /* ClassesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassesViewController.m; sourceTree = "<group>"; };
 		65A841A61506FE5100C6B779 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = "<group>"; };
 		65A841A71506FE5100C6B779 /* Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Info.m; sourceTree = "<group>"; };
+		65B71B19155865390032C1E7 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		65B76CB5154F741E00054BF6 /* CalendarCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarCell.xib; sourceTree = "<group>"; };
 		65B92221151BBCAC00B85CB5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		65B92224151BBCB300B85CB5 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				658FF58C1548959C00D72959 /* libTapkuLibrary.a in Frameworks */,
+				65B71B1A155865390032C1E7 /* iAd.framework in Frameworks */,
 				658FF58E154895A400D72959 /* QuartzCore.framework in Frameworks */,
 				658FF590154895B000D72959 /* MapKit.framework in Frameworks */,
 				65EBA46915099EBF00064B8A /* Twitter.framework in Frameworks */,
@@ -223,6 +226,7 @@
 				65A841571506ED9900C6B779 /* Foundation.framework */,
 				65A841591506ED9900C6B779 /* CoreGraphics.framework */,
 				65E14FD31553198C007D22AE /* CoreData.framework */,
+				65B71B19155865390032C1E7 /* iAd.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

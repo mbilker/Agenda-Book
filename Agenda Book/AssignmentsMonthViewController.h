@@ -11,7 +11,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSDictionary *dataDictionary;
 @property (nonatomic, strong) NSMutableArray *dateArray;
-@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+//@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 

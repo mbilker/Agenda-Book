@@ -21,6 +21,7 @@
 @synthesize managedObjectContext;
 //@synthesize classes;
 @synthesize fetchedResultsController = _fetchedResultsController;
+@synthesize iAdBanner;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -134,6 +135,70 @@
     //self.classes = [subjectsDict valueForKey:@"Classes"];
 } */
 
+- (void)slideDownDidStop
+{
+	// the date picker has finished sliding downwards, so remove it
+	[self.iAdBanner removeFromSuperview];
+}
+
+- (void)fixupAdView {
+    //NSLog(@"superview: '%@'",self.iAdBanner.superview);
+    //[UIView beginAnimations:@"fixupViews" context:nil];
+    if (self.iAdBanner.superview == nil) {
+        //NSLog(@"iAd is not shown");
+        [self.navigationController.view addSubview:self.iAdBanner];
+        [self.iAdBanner setCurrentContentSizeIdentifier:ADBannerContentSizeIdentifierPortrait];
+        CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+        CGSize adSize = [self.iAdBanner sizeThatFits:CGSizeZero];
+        CGRect startRect = CGRectMake(0.0, screenRect.origin.y + screenRect.size.height, adSize.width, adSize.height);
+        self.iAdBanner.frame = startRect;
+        
+        // compute the end frame
+        CGRect adRect = CGRectMake(0.0, screenRect.origin.y + screenRect.size.height - self.navigationController.toolbar.frame.size.height - adSize.height, adSize.width, adSize.height);
+        // start the slide up animation
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.3];
+        
+        // we need to perform some post operations after the animation is complete
+        [UIView setAnimationDelegate:self];
+        
+        self.iAdBanner.frame = adRect;
+        
+        // shrink the table vertical size to make room for the ad
+        /* CGRect newFrame = self.tableView.frame;
+        newFrame.size.height -= self.iAdBanner.frame.size.height;
+        self.tableView.frame = newFrame; */
+        [UIView commitAnimations];
+    }
+    //[UIView commitAnimations];
+}
+
+- (void)hideAd
+{
+    //NSLog(@"superview: '%@'",self.iAdBanner.superview);
+    if (self.iAdBanner.superview != nil) {
+        CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+        CGRect endFrame = self.iAdBanner.frame;
+        endFrame.origin.y = screenRect.origin.y + screenRect.size.height;
+    
+        // start the slide down animation
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.2];
+    
+        // we need to perform some post operations after the animation is complete
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(slideDownDidStop)];
+    
+        self.iAdBanner.frame = endFrame;
+        [UIView commitAnimations];
+    
+        // grow the table back again in vertical size to make room for the ad
+        /* CGRect newFrame = self.tableView.frame;
+        newFrame.size.height += self.iAdBanner.frame.size.height;
+        self.tableView.frame = newFrame; */
+    }
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -173,6 +238,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self hideAd];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -482,6 +548,21 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     [self.tableView endUpdates];
+}
+
+#pragma mark ADBannerViewDelegate
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    //NSLog(@"iAd loaded");
+    [self fixupAdView];
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+    //NSLog(@"iAd load error: '%@'",error);
+    [self hideAd];
+    //NSLog(@"Failed to load: '%@','%@'",error,[error userInfo]);
 }
 
 @end

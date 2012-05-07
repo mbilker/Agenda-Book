@@ -7,6 +7,7 @@
 + (Functions *) sharedFunctions;
 
 - (BOOL)shouldAutorotate:(UIInterfaceOrientation)interfaceOrientation;
+- (NSDate *)dateWithOutTime:(NSDate *)datDate;
 /* - (NSString *)assignmentPath;
 - (NSString *)classPath;
 - (NSString *)subjectPath;

@@ -312,6 +312,7 @@
     cell.assignment.text = newString;
     NSDateFormatter *date = [[NSDateFormatter alloc] init];
     [date setDateStyle:NSDateFormatterShortStyle];
+    [date setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     cell.due.text = [NSString stringWithFormat:@"Due: %@",[date stringFromDate:assignment.dueDate]];
     //[cell.assignment sizeToFit];
 

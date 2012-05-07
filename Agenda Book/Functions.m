@@ -51,6 +51,17 @@ static Functions *instanceOfFunctions;
     return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
 }
 
+- (NSDate *)dateWithOutTime:(NSDate *)datDate
+{
+    if (datDate == nil) {
+        datDate = [NSDate date];
+    }
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    NSDateComponents *comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:datDate];
+    return [calendar dateFromComponents:comps];
+}
+
 /* - (NSString *)assignmentPath
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

@@ -88,8 +88,20 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="editButton" destination="3Ak-As-bvu" id="oFm-Yw-W2d"/>
+                        <outlet property="iAdBanner" destination="h4g-Tf-2DR" id="6qO-7l-XPc"/>
                     </connections>
                 </tableViewController>
+                <adBannerView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="h4g-Tf-2DR">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <requiredContentSizeIdentifiers>
+                        <string>ADBannerContentSizeLandscape</string>
+                        <string>ADBannerContentSizePortrait</string>
+                    </requiredContentSizeIdentifiers>
+                    <connections>
+                        <outlet property="delegate" destination="Sz0-VT-ff9" id="X4w-jB-8Gf"/>
+                    </connections>
+                </adBannerView>
             </objects>
             <point key="canvasLocation" x="1484" y="-1208"/>
         </scene>
@@ -1118,6 +1130,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <relationship kind="action" name="editNavButtonPressed:"/>
                 <relationship kind="action" name="tweet:"/>
                 <relationship kind="outlet" name="editButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="iAdBanner" candidateClass="ADBannerView"/>
             </relationships>
         </class>
         <class className="EditAssignmentViewController" superclassName="UITableViewController">

@@ -10,7 +10,7 @@
 @synthesize tableView = _tableView;
 @synthesize dataDictionary;
 @synthesize dateArray;
-@synthesize dateFormatter;
+//@synthesize dateFormatter;
 
 @synthesize managedObjectContext;
 
@@ -78,9 +78,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    //self.dateFormatter = [[NSDateFormatter alloc] init];
+    //[self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    //[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     self.dateArray = [NSMutableArray array];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -91,15 +91,15 @@
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     for (Assignment *assignment in fetchedObjects) {
         NSMutableArray *array;
-        if ([[self.dataDictionary allKeys] containsObject:[self.dateFormatter stringFromDate:assignment.dueDate]]) {
-            array = [self.dataDictionary objectForKey:[self.dateFormatter stringFromDate:assignment.dueDate]];
+        if ([[self.dataDictionary allKeys] containsObject:[[Functions sharedFunctions] dateWithOutTime:assignment.dueDate]]) {
+            array = [self.dataDictionary objectForKey:[[Functions sharedFunctions] dateWithOutTime:assignment.dueDate]];
         } else {
             array = [NSMutableArray array];
         }
         [array addObject:assignment];
-        [dictionary setObject:array forKey:[self.dateFormatter stringFromDate:assignment.dueDate]];
-        if (![self.dateArray containsObject:[self.dateFormatter stringFromDate:assignment.dueDate]])
-            [self.dateArray addObject:[self.dateFormatter stringFromDate:assignment.dueDate]];
+        [dictionary setObject:array forKey:[[Functions sharedFunctions] dateWithOutTime:assignment.dueDate]];
+        if (![self.dateArray containsObject:[[Functions sharedFunctions] dateWithOutTime:assignment.dueDate]])
+            [self.dateArray addObject:[[Functions sharedFunctions] dateWithOutTime:assignment.dueDate]];
     }
     self.dataDictionary = [NSDictionary dictionaryWithDictionary:dictionary];
     //[self loadAssignments];
@@ -162,7 +162,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *ar = [self.dataDictionary objectForKey:[self.dateFormatter stringFromDate:[self.monthView dateSelected]]];
+    NSArray *ar = [self.dataDictionary objectForKey:[[Functions sharedFunctions] dateWithOutTime:[self.monthView dateSelected]]];
 	if(ar == nil) return 0;
 	return [ar count];
 }
@@ -181,7 +181,7 @@
         }
     }
     
-    NSArray *assignmentArray = [self.dataDictionary objectForKey:[self.dateFormatter stringFromDate:[self.monthView dateSelected]]];
+    NSArray *assignmentArray = [self.dataDictionary objectForKey:[[Functions sharedFunctions] dateWithOutTime:[self.monthView dateSelected]]];
     Assignment *assignment = [assignmentArray objectAtIndex:indexPath.row];
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     backgroundView.backgroundColor = [[Functions sharedFunctions] colorForComplete:assignment.complete];
@@ -255,7 +255,7 @@
 		}
 		
 		// If the date is in the data array, add it to the marks array, else don't
-		if ([self.dateArray containsObject:[self.dateFormatter stringFromDate:d]]) {
+		if ([self.dateArray containsObject:[[Functions sharedFunctions] dateWithOutTime:d]]) {
 			[marks addObject:[NSNumber numberWithBool:YES]];
 		} else {
 			[marks addObject:[NSNumber numberWithBool:NO]];

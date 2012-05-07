@@ -48,17 +48,22 @@
     [super viewWillAppear:animated];
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [self.dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     
     self.assignmentField.delegate = self;
     
-    NSDateComponents *components = [[NSDateComponents alloc] init];
-    [components setDay:1];
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDate *minimum = [gregorian dateByAddingComponents:components toDate:[NSDate date] options:0];
-    NSLog(@"mimimum: '%@'",minimum);
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    
+    NSDateComponents *offset = [[NSDateComponents alloc] init];
+    [offset setDay:1];
+    
+    NSDate *minimum = [calendar dateByAddingComponents:offset toDate:[[Functions sharedFunctions] dateWithOutTime:[NSDate date]] options:0];
+    self.duePicker.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
     self.duePicker.minimumDate = minimum;
     
 	self.dateCell.detailTextLabel.text = [self.dateFormatter stringFromDate:minimum];
+    
     [self.assignmentField becomeFirstResponder];
 }
 
@@ -74,7 +79,7 @@
         //assignment.assignmentText = self.assignmentField.text;
         //assignment.complete = FALSE;
         //assignment.dueDate = self.duePicker.date;
-        NSDictionary *assignment = [NSDictionary dictionaryWithObjectsAndKeys:self.assignmentField.text, @"assignmentText", [NSNumber numberWithBool:FALSE], @"complete", self.duePicker.date, @"dueDate", nil];
+        NSDictionary *assignment = [NSDictionary dictionaryWithObjectsAndKeys:self.assignmentField.text, @"assignmentText", [NSNumber numberWithBool:FALSE], @"complete", [[Functions sharedFunctions] dateWithOutTime:self.duePicker.date], @"dueDate", nil];
         [self.delegate addAssignmentViewController:self didAddAssignment:assignment];
     } else {
         //NSLog(@"Empty and did not choose subject");
