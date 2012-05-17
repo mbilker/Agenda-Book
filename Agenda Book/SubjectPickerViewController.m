@@ -60,7 +60,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subject" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(compare:)];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     
@@ -223,7 +223,7 @@
 	{
 		//[subjects removeObjectAtIndex:indexPath.row];
         [managedObjectContext deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
-        [self saveSubjects];
+        [[Functions sharedFunctions] saveContext:self.managedObjectContext];
 		//[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}   
 }
@@ -236,7 +236,7 @@
     //[subjects addObject:newSubject];
     Subject *addSubject = [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:managedObjectContext];
     addSubject.name = newSubject;
-    [self saveSubjects];
+    [[Functions sharedFunctions] saveContext:self.managedObjectContext];
     //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[subjects count] - 1 inSection:0];
 	//[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self dismissViewControllerAnimated:YES completion:nil];

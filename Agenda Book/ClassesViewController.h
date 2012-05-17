@@ -2,6 +2,7 @@
 #import "NewClassViewController.h"
 #import "EditClassViewController.h"
 #import <iAd/iAd.h>
+#import <TapkuLibrary/TapkuLibrary.h>
 
 @interface ClassesViewController : UITableViewController <NewClassViewControllerDelegate, EditClassViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate, NSFetchedResultsControllerDelegate, ADBannerViewDelegate>
 

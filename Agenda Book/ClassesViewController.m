@@ -12,8 +12,11 @@
 
 #import <Twitter/Twitter.h>
 
+#define WILL_DISPLAY_ADS
+
 @implementation ClassesViewController {
     NSIndexPath *_rowtodelete;
+    BOOL _updateAvailable;
     Info *infoForRow;
 }
 
@@ -93,48 +96,30 @@
     return NO;
 }
 
-- (void)saveClasses
+- (void)requestDone:(TKHTTPRequest *)arg1
 {
-    /* NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithCapacity:20];
-    for (int i = 0; i < [self.classes count]; i++)
-    {
-        Info *details = [self.classes objectAtIndex:i];
-        //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",details.teacher,details.subject,details.complete ? @"TRUE" : @"FALSE");
-        [tempDict setObject:[NSArray arrayWithObjects:details.teacher,details.subject,details.classid, nil] forKey:[NSString stringWithFormat:@"%d",i]];
-    }
-    [tempDict writeToFile:[[Functions sharedFunctions] classPath] atomically:YES];
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"iCloud"] == 1) {
-        NSURL *classesCloud = [[Functions sharedFunctions] classiCloud];
-        [tempDict writeToURL:classesCloud atomically:YES];
-    } */
-    //NSLog(@"Classes array: %@", tempDict);
     NSError *error;
-    if (![managedObjectContext save:&error]) {
-        NSLog(@"Couldn't save: %@", [error localizedDescription]);
+    NSDictionary *update = [NSJSONSerialization JSONObjectWithData:arg1.responseData options:kNilOptions error:&error];
+    int appVersion = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] intValue];
+    int updateVersion = [[update valueForKey:@"version"] intValue];
+    //NSLog(@"version: '%d', version: '%d'",appVersion,updateVersion);
+    if (updateVersion > appVersion) {
+        _updateAvailable = TRUE;
+        [[[UIAlertView alloc] initWithTitle:@"Newer App Version" message:[NSString stringWithFormat:@"There is a newer app version (%d), you currently have %d",updateVersion,appVersion] delegate:self cancelButtonTitle:@"Ignore" otherButtonTitles:@"Update", nil] show];
+        //NSLog(@"newer app version available");
     }
 }
 
-/*
-- (void)loadClasses
+- (void)checkUpdate
 {
-    NSDictionary *subjectsDict = [NSDictionary dictionaryWithContentsOfFile:[[Functions sharedFunctions] classPath]];
-    for (int i = 0; i < [subjectsDict count]; i++)
-    {
-        NSArray *tempArray = [subjectsDict objectForKey:[NSString stringWithFormat:@"%d",i]];
-        Info *info = [[Info alloc] init];
-        info.teacher = [tempArray objectAtIndex:0];
-        info.subject = [tempArray objectAtIndex:1];
-        info.classid = [tempArray objectAtIndex:2];
-        //NSLog(@"Teacher: %@, Subject: %@, Complete: %@",info.teacher,info.subject,info.complete ? @"TRUE" : @"FALSE");
-        if (![self checkIfExists:info]) {
-            //[self.classes addObject:info];
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
-            [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
-    }
-    //self.classes = [subjectsDict valueForKey:@"Classes"];
-} */
+    _updateAvailable = FALSE;
+    TKHTTPRequest *request = [TKHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/update",server]]];
+    request.delegate = self;
+    request.didFinishSelector = @selector(requestDone:);
+    [request start];
+}
 
+#ifdef WILL_DISPLAY_ADS
 - (void)slideDownDidStop
 {
 	// the date picker has finished sliding downwards, so remove it
@@ -198,12 +183,14 @@
         self.tableView.frame = newFrame; */
     }
 }
+#endif
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self checkUpdate];
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.
@@ -228,6 +215,10 @@
     
     [self.tableView reloadData];
     [super viewWillAppear:animated];
+#ifndef WILL_DISPLAY_ADS
+    iAdBanner = nil;
+    //NSLog(@"No ads");
+#endif
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -238,7 +229,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+#ifdef WILL_DISPLAY_ADS
     [self hideAd];
+#endif
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -367,7 +360,7 @@
         _rowtodelete = indexPath;
 
 		//[self.classes removeObjectAtIndex:indexPath.row];
-        //[self saveClasses];
+        //[[Functions sharedFunctions] saveContext:self.managedObjectContext];
 		//[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }
@@ -419,11 +412,13 @@
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     //NSLog(@"ButtonIndex: '%d'",buttonIndex);
-    if (buttonIndex == 1) {
+    if (buttonIndex == 1 && _rowtodelete) {
         //[self.classes removeObjectAtIndex:_rowtodelete.row];
         [managedObjectContext deleteObject:[_fetchedResultsController objectAtIndexPath:_rowtodelete]];
-        [self saveClasses];
 		//[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_rowtodelete] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (buttonIndex == 1 && _updateAvailable) {
+        _updateAvailable = FALSE;
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://mbilker.us/agenda.html"]];
     }
 }
 
@@ -457,7 +452,7 @@
     info.teacher = [newClass valueForKey:@"teacher"];
     info.subject = [newClass valueForKey:@"subject"];
     info.classid = [newClass valueForKey:@"classid"];
-    [self saveClasses];
+    [[Functions sharedFunctions] saveContext:self.managedObjectContext];
 	//NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
 	//[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self dismissViewControllerAnimated:YES completion:nil];
@@ -492,7 +487,7 @@
     infoForRow.teacher = [info valueForKey:@"teacher"];
     infoForRow.subject = [info valueForKey:@"subject"];
     infoForRow.classid = [info valueForKey:@"classid"];
-    [self saveClasses];
+    [[Functions sharedFunctions] saveContext:self.managedObjectContext];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -550,6 +545,7 @@
     [self.tableView endUpdates];
 }
 
+#ifdef WILL_DISPLAY_ADS
 #pragma mark ADBannerViewDelegate
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
@@ -564,5 +560,6 @@
     [self hideAd];
     //NSLog(@"Failed to load: '%@','%@'",error,[error userInfo]);
 }
+#endif
 
 @end

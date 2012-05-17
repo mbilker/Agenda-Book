@@ -6,8 +6,8 @@
 #import "NSString-truncateToWidth.h"
 #import "Functions.h"
 
-/* #define server @"localhost:8080" */
-#define server @"9.classes.mbilker.us"
+//#define server @"localhost:8080"
+//#define server @"9.classes.mbilker.us"
 
 @implementation AssignmentsViewController {
     Assignment *assignmentForRow;
@@ -69,11 +69,11 @@
         //NSLog(@"Success: '%@'",[d writeToFile:path atomically:YES] ? @"YES" : @"NO");
         [d writeToFile:[[Functions sharedFunctions] assignmentPath] atomically:YES];
     }
-} */
+}
 
 - (void)saveAssignments
 {
-    /* [self makePlist];
+    [self makePlist];
     NSString *path = [[Functions sharedFunctions] assignmentPath];
     NSMutableDictionary *currentDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
     NSMutableDictionary *teacherDict = [NSMutableDictionary dictionaryWithCapacity:20];
@@ -93,12 +93,12 @@
     //BOOL s = [currentDict writeToFile:path atomically:YES];
     //NSLog(@"Succeeded: '%@'",s ? @"YES" : @"NO");
     //NSLog(@"Assignments array: %@", teacherDict);
-    //NSLog(@"Teacher: '%@'",info.teacher); */
+    //NSLog(@"Teacher: '%@'",info.teacher);
     NSError *error;
     if (![managedObjectContext save:&error]) {
         NSLog(@"Couldn't save: %@", [error localizedDescription]);
     }
-}
+} */
 
 - (BOOL)checkIfOnline:(NSURL *)url
 {
@@ -166,7 +166,7 @@
                 assignment.teacher = info.teacher;
             }
         }
-        [self saveAssignments];
+        [[Functions sharedFunctions] saveContext:self.managedObjectContext];
         //NSArray* scienceArray = [json objectForKey:@"0"];
         //NSLog(@"%@: %@", [scienceArray objectAtIndex:1], scienceArray);
     } else {
@@ -215,7 +215,7 @@
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     backgroundView.backgroundColor = [[Functions sharedFunctions] colorForComplete:changing.complete];
     cell.backgroundView = backgroundView;
-    [self saveAssignments];
+    [[Functions sharedFunctions] saveContext:self.managedObjectContext];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -343,7 +343,7 @@
 	{
 		//[self.assignments removeObjectAtIndex:indexPath.row];
         [managedObjectContext deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
-        [self saveAssignments];
+        [[Functions sharedFunctions] saveContext:self.managedObjectContext];
 		//[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }
@@ -416,7 +416,7 @@
     assignment.complete = [[newAssignment valueForKey:@"complete"] boolValue];
     assignment.dueDate = [newAssignment valueForKey:@"dueDate"];
     assignment.teacher = info.teacher;
-    [self saveAssignments];
+    [[Functions sharedFunctions] saveContext:self.managedObjectContext];
 	//NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
 	//[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView reloadData];
@@ -441,7 +441,7 @@
     assignmentForRow.assignmentText = [assignment valueForKey:@"assignmentText"];
     assignmentForRow.complete = [[assignment valueForKey:@"complete"] boolValue];
     assignmentForRow.dueDate = [assignment valueForKey:@"dueDate"];
-    [self saveAssignments];
+    [[Functions sharedFunctions] saveContext:self.managedObjectContext];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
