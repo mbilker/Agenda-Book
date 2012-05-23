@@ -29,6 +29,7 @@
 		654A84131554D39F00744CB3 /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A84121554D39F00744CB3 /* Subject.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
 		655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 655413ED15532E2600199B10 /* Data.xcdatamodeld */; };
+		655E8460156C495F00BA4392 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 655E845F156C48EE00BA4392 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
 		6572AF02152BD1C20049BA6E /* CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6572AF01152BD1C20049BA6E /* CustomAlert.m */; };
 		657AA0F915159E780045148B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657AA0F815159E780045148B /* AboutViewController.m */; };
@@ -117,6 +118,8 @@
 		65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSubjectPickerViewController.h; sourceTree = "<group>"; };
 		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
 		655413EE15532E2600199B10 /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
+		655E845E156C48EE00BA4392 /* OpenUDID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
+		655E845F156C48EE00BA4392 /* OpenUDID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		6567C2451508054C00859E02 /* SubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPickerViewController.h; sourceTree = "<group>"; };
 		6567C2461508054C00859E02 /* SubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectPickerViewController.m; sourceTree = "<group>"; };
 		6572AF00152BD1C20049BA6E /* CustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlert.h; sourceTree = "<group>"; };
@@ -238,6 +241,8 @@
 				65A841721506F66A00C6B779 /* Images */,
 				65A841641506ED9900C6B779 /* AppDelegate.h */,
 				65A841651506ED9900C6B779 /* AppDelegate.m */,
+				655E845E156C48EE00BA4392 /* OpenUDID.h */,
+				655E845F156C48EE00BA4392 /* OpenUDID.m */,
 				65A841671506ED9900C6B779 /* MainStoryboard.storyboard */,
 				657AA0F715159E780045148B /* AboutViewController.h */,
 				657AA0F815159E780045148B /* AboutViewController.m */,
@@ -407,6 +412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				655E8460156C495F00BA4392 /* OpenUDID.m in Sources */,
 				65A841621506ED9900C6B779 /* main.m in Sources */,
 				65A841661506ED9900C6B779 /* AppDelegate.m in Sources */,
 				65A841A51506F98000C6B779 /* ClassesViewController.m in Sources */,
@@ -471,7 +477,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Lawrence Bilker";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lawrence Bilker (5Z6HTAU5ST)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -494,7 +500,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "46943EAE-372F-43A1-AEB2-FAE980F45623";
+				PROVISIONING_PROFILE = "8F65B05A-5263-481B-A040-9B70208AAAE1";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -505,7 +511,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Lawrence Bilker";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lawrence Bilker (5Z6HTAU5ST)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = "";
@@ -522,7 +528,7 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "46943EAE-372F-43A1-AEB2-FAE980F45623";
+				PROVISIONING_PROFILE = "8F65B05A-5263-481B-A040-9B70208AAAE1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -532,7 +538,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Agenda Book/Agenda Book.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Lawrence Bilker";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lawrence Bilker (5Z6HTAU5ST)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -541,7 +547,7 @@
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46943EAE-372F-43A1-AEB2-FAE980F45623";
+				PROVISIONING_PROFILE = "8F65B05A-5263-481B-A040-9B70208AAAE1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -550,7 +556,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Agenda Book/Agenda Book.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Lawrence Bilker";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lawrence Bilker (5Z6HTAU5ST)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Agenda Book/Agenda Book-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -559,7 +565,7 @@
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "46943EAE-372F-43A1-AEB2-FAE980F45623";
+				PROVISIONING_PROFILE = "8F65B05A-5263-481B-A040-9B70208AAAE1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

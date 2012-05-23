@@ -4,7 +4,7 @@
 #import "AppDelegate.h"
 
 //#define server @"localhost:8080"
-#define server @"10.classes.mbilker.us"
+#define server @"11.classes.mbilker.us"
 
 @interface Functions : NSObject
 

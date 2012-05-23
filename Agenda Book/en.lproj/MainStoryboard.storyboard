@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Z7m-U9-URt">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="10K549" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Z7m-U9-URt">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
+        <deployment defaultVersion="1280" identifier="iOS"/>
         <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
     </dependencies>
     <scenes>
-        <!--Classes View Controller - Classes-->
         <scene sceneID="4hu-r8-Pc4">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUq-cY-zxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -105,7 +104,6 @@
             </objects>
             <point key="canvasLocation" x="1484" y="-1208"/>
         </scene>
-        <!--New Class View Controller - Add Class-->
         <scene sceneID="R00-SH-ESx">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h2x-8c-PJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -172,7 +170,7 @@
                                         <rect key="frame" x="0.0" y="121" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Class ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="np0-PV-aWS">
@@ -226,7 +224,6 @@
             </objects>
             <point key="canvasLocation" x="2487" y="-1208"/>
         </scene>
-        <!--Subject Picker View Controller - Subject-->
         <scene sceneID="esE-FE-4qw">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PDd-8s-wGC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -272,7 +269,6 @@
             </objects>
             <point key="canvasLocation" x="2976" y="-1208"/>
         </scene>
-        <!--Class Details View Controller - Details-->
         <scene sceneID="ijn-rY-uPv">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3H2-pj-7SI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -341,7 +337,6 @@
             </objects>
             <point key="canvasLocation" x="1484" y="-588"/>
         </scene>
-        <!--Edit Class View Controller - Edit Class-->
         <scene sceneID="HDC-lc-C7Q">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pyb-Ic-wFN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -374,7 +369,7 @@
                                         <rect key="frame" x="0.0" y="55" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subject" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PgS-bX-eLT">
@@ -402,7 +397,7 @@
                                         <rect key="frame" x="0.0" y="99" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="280" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="280" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Class ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IKz-eo-8JL">
@@ -457,7 +452,6 @@
             </objects>
             <point key="canvasLocation" x="2487" y="-588"/>
         </scene>
-        <!--ClassID View Controller - Class ID-->
         <scene sceneID="qq2-ZP-wgY">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7S-Ru-6HR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -511,7 +505,6 @@
             </objects>
             <point key="canvasLocation" x="3480" y="-1814"/>
         </scene>
-        <!--Add Subject Picker View Controller - Add Subject-->
         <scene sceneID="CmK-YY-DTB">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6jE-5R-3uR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -568,7 +561,6 @@
             </objects>
             <point key="canvasLocation" x="4016" y="-1208"/>
         </scene>
-        <!--About View Controller - About-->
         <scene sceneID="qMp-Vr-K4v">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gPr-sJ-WPJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -578,7 +570,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="umasd.png" id="Cz2-7E-3OW">
-                                <rect key="frame" x="108" y="49" width="100" height="144"/>
+                                <rect key="frame" x="20" y="49" width="100" height="144"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Upper Merion Area School District" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="ICw-St-OrS">
@@ -588,29 +580,29 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Agenda Book" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="Tw4-E4-vEx">
-                                <rect key="frame" x="108" y="201" width="104" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Agenda Book" lineBreakMode="tailTruncation" minimumFontSize="10" id="Tw4-E4-vEx">
+                                <rect key="frame" x="128" y="49" width="148" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="App by Matt Bilker" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="0Lm-Kp-urw">
-                                <rect key="frame" x="86" y="230" width="148" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="App by Matt Bilker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="0Lm-Kp-urw">
+                                <rect key="frame" x="128" y="78" width="148" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Icon by @3ra0y" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="uqa-fB-83v">
-                                <rect key="frame" x="86" y="259" width="148" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Icon by @3ra0y" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" id="uqa-fB-83v">
+                                <rect key="frame" x="128" y="107" width="148" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Thank you to all of the beta testers who tested this app. It really helped with the developtment." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="10" id="adE-2s-Xdo">
-                                <rect key="frame" x="20" y="288" width="280" height="49"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Thank you to all of the beta testers who tested this app. It really helped with the developtment." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="10" id="adE-2s-Xdo">
+                                <rect key="frame" x="128" y="136" width="159" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -626,7 +618,6 @@
             </objects>
             <point key="canvasLocation" x="1992" y="-588"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="w1B-H0-act">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MM1-hA-4hT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -649,7 +640,6 @@
             </objects>
             <point key="canvasLocation" x="958" y="-1208"/>
         </scene>
-        <!--Assignment Details View Controller - Details-->
         <scene sceneID="WfR-wV-oYC">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hsv-m3-Kwh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -694,7 +684,6 @@
             </objects>
             <point key="canvasLocation" x="1484" y="-1814"/>
         </scene>
-        <!--Assignments View Controller - Assignments-->
         <scene sceneID="Gme-qj-f8a">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mer-xc-bOI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -740,7 +729,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem title="Fetch Online" id="9Tj-G4-x7G">
+                        <barButtonItem title="Get Work" id="9Tj-G4-x7G">
                             <connections>
                                 <action selector="loadRemote:" destination="Fv7-CW-pO6" id="VBo-ez-u66"/>
                             </connections>
@@ -759,7 +748,6 @@
             </objects>
             <point key="canvasLocation" x="1992" y="-1814"/>
         </scene>
-        <!--New Assignment View Controller - Add Assignment-->
         <scene sceneID="ZOe-Z4-3ii">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lmc-tz-PxT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -844,7 +832,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <date key="date" timeIntervalSinceReferenceDate="357012132.858706">
-                        <!--2012-04-25 02:02:12 +0000-->
+                        <!--2012-04-24 22:02:12 -0400-->
                     </date>
                     <locale key="locale" localeIdentifier="en_US"/>
                     <timeZone key="timeZone" name="America/Los_Angeles">
@@ -875,7 +863,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="2976" y="-1814"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="OUa-jf-JNn">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmp-ro-jH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -893,7 +880,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="1992" y="-1208"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="z8B-uv-2Vk">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kkU-qI-egy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -911,7 +897,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="3480" y="-1208"/>
         </scene>
-        <!--Edit Assignment View Controller - Edit Assignment-->
         <scene sceneID="F2l-NT-KFw">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qb9-Ag-XvX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -944,7 +929,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <rect key="frame" x="0.0" y="55" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="10" y="0.0" width="300" height="43"/>
+                                            <rect key="frame" x="10" y="1" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Due Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nte-tl-nwK">
@@ -998,7 +983,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <date key="date" timeIntervalSinceReferenceDate="357012132.858706">
-                        <!--2012-04-25 02:02:12 +0000-->
+                        <!--2012-04-24 22:02:12 -0400-->
                     </date>
                     <locale key="locale" localeIdentifier="en_US"/>
                     <timeZone key="timeZone" name="America/Los_Angeles">
@@ -1029,7 +1014,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="1484" y="-2439"/>
         </scene>
-        <!--Assignments Month View Controller - Month View-->
         <scene sceneID="Oma-n7-7Oi">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NCS-Sf-c8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1052,7 +1036,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="1992" y="-2439"/>
         </scene>
-        <!--Navigation Controller-->
         <scene sceneID="FNR-8W-Lu9">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcP-4m-Qd0" userLabel="First Responder" sceneMemberID="firstResponder"/>

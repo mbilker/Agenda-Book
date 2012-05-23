@@ -393,6 +393,8 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(%K == %@)",@"teacher",info.teacher];
+    [fetchRequest setPredicate:predicate];
     NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
     for (Assignment *assignment in fetchedObjects) {
         if ([assignment.assignmentText isEqualToString:[newAssignment valueForKey:@"assignmentText"]]) {

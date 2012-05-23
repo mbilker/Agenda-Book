@@ -5,6 +5,8 @@
 #import "Info.h"
 #import "Assignment.h"
 
+#import "OpenUDID.h"
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -60,7 +62,47 @@
         NSLog(@"classid: '%@'",info.classid);
         NSLog(@"teacher: '%@'",info.teacher);
     } */
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+    // Check if the app was launched in response to the user tapping on a
+	// push notification. If so, we add the new message to the data model.
+	if (launchOptions != nil)
+	{
+		NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+		if (dictionary != nil)
+		{
+			NSLog(@"Launched from push notification: %@", dictionary);
+			[self update:dictionary];
+		}
+	}
     return YES;
+}
+
+- (void)update:(NSDictionary *)dictionary
+{
+    if ([[[dictionary valueForKey:@"aps"] valueForKey:@"update"] boolValue]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://mbilker.us/agenda.html"]];
+        exit(-1);
+    }
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+	//NSLog(@"My token is: %@", deviceToken);
+    NSString* newToken = [deviceToken description];
+	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+	NSLog(@"My token is: %@", newToken);
+    NSString *udid = [OpenUDID value];
+    NSLog(@"UDID: '%@'",udid);
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
 }
 
 - (void)saveContext

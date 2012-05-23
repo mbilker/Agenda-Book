@@ -17,6 +17,7 @@
 @implementation ClassesViewController {
     NSIndexPath *_rowtodelete;
     BOOL _updateAvailable;
+    BOOL _ready;
     Info *infoForRow;
 }
 
@@ -116,46 +117,15 @@
     TKHTTPRequest *request = [TKHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/update",server]]];
     request.delegate = self;
     request.didFinishSelector = @selector(requestDone:);
-    [request start];
+    [request startAsynchronous];
 }
 
 #ifdef WILL_DISPLAY_ADS
+
 - (void)slideDownDidStop
 {
 	// the date picker has finished sliding downwards, so remove it
 	[self.iAdBanner removeFromSuperview];
-}
-
-- (void)fixupAdView {
-    //NSLog(@"superview: '%@'",self.iAdBanner.superview);
-    //[UIView beginAnimations:@"fixupViews" context:nil];
-    if (self.iAdBanner.superview == nil) {
-        //NSLog(@"iAd is not shown");
-        [self.navigationController.view addSubview:self.iAdBanner];
-        [self.iAdBanner setCurrentContentSizeIdentifier:ADBannerContentSizeIdentifierPortrait];
-        CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-        CGSize adSize = [self.iAdBanner sizeThatFits:CGSizeZero];
-        CGRect startRect = CGRectMake(0.0, screenRect.origin.y + screenRect.size.height, adSize.width, adSize.height);
-        self.iAdBanner.frame = startRect;
-        
-        // compute the end frame
-        CGRect adRect = CGRectMake(0.0, screenRect.origin.y + screenRect.size.height - self.navigationController.toolbar.frame.size.height - adSize.height, adSize.width, adSize.height);
-        // start the slide up animation
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.3];
-        
-        // we need to perform some post operations after the animation is complete
-        [UIView setAnimationDelegate:self];
-        
-        self.iAdBanner.frame = adRect;
-        
-        // shrink the table vertical size to make room for the ad
-        /* CGRect newFrame = self.tableView.frame;
-        newFrame.size.height -= self.iAdBanner.frame.size.height;
-        self.tableView.frame = newFrame; */
-        [UIView commitAnimations];
-    }
-    //[UIView commitAnimations];
 }
 
 - (void)hideAd
@@ -182,6 +152,37 @@
         newFrame.size.height += self.iAdBanner.frame.size.height;
         self.tableView.frame = newFrame; */
     }
+}
+
+- (void)showAd
+{
+    if (self.iAdBanner.superview == nil) {
+        //NSLog(@"iAd is not shown");
+        [self.navigationController.view addSubview:self.iAdBanner];
+        [self.iAdBanner setCurrentContentSizeIdentifier:ADBannerContentSizeIdentifierPortrait];
+        CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+        CGSize adSize = [self.iAdBanner sizeThatFits:CGSizeZero];
+        CGRect startRect = CGRectMake(0.0, screenRect.origin.y + screenRect.size.height, adSize.width, adSize.height);
+        self.iAdBanner.frame = startRect;
+        
+        // compute the end frame
+        CGRect adRect = CGRectMake(0.0, screenRect.origin.y + screenRect.size.height - self.navigationController.toolbar.frame.size.height - adSize.height, adSize.width, adSize.height);
+        // start the slide up animation
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.3];
+        
+        // we need to perform some post operations after the animation is complete
+        [UIView setAnimationDelegate:self];
+        
+        self.iAdBanner.frame = adRect;
+        
+        // shrink the table vertical size to make room for the ad
+        /* CGRect newFrame = self.tableView.frame;
+         newFrame.size.height -= self.iAdBanner.frame.size.height;
+         self.tableView.frame = newFrame; */
+        [UIView commitAnimations];
+    }
+    //[UIView commitAnimations];
 }
 #endif
 
@@ -219,6 +220,11 @@
     iAdBanner = nil;
     //NSLog(@"No ads");
 #endif
+#ifdef WILL_DISPLAY_ADS
+    if (_ready == TRUE) {
+        [self showAd];
+    }
+#endif
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -229,9 +235,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-#ifdef WILL_DISPLAY_ADS
-    [self hideAd];
-#endif
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -264,6 +267,9 @@
     {
         AssignmentsMonthViewController *assignmentsMonthViewController = segue.destinationViewController;
         assignmentsMonthViewController.managedObjectContext = self.managedObjectContext;
+#ifdef WILL_DISPLAY_ADS
+        [self hideAd];
+#endif
     }
 }
 
@@ -419,6 +425,7 @@
     } else if (buttonIndex == 1 && _updateAvailable) {
         _updateAvailable = FALSE;
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://mbilker.us/agenda.html"]];
+        //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-services://?action=download-manifest&url=http://mbilker.us/apps/agenda-book.plist"]];
     }
 }
 
@@ -551,12 +558,14 @@
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
     //NSLog(@"iAd loaded");
-    [self fixupAdView];
+    _ready = TRUE;
+    [self showAd];
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
     //NSLog(@"iAd load error: '%@'",error);
+    _ready = FALSE;
     [self hideAd];
     //NSLog(@"Failed to load: '%@','%@'",error,[error userInfo]);
 }
