@@ -10,6 +10,8 @@
 #import "Functions.h"
 #import "CustomAlert.h"
 
+#import "UAPush.h"
+
 #import <Twitter/Twitter.h>
 
 #define WILL_DISPLAY_ADS
@@ -114,7 +116,7 @@
 - (void)checkUpdate
 {
     _updateAvailable = FALSE;
-    TKHTTPRequest *request = [TKHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/update",server]]];
+    TKHTTPRequest *request = [TKHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/update",classServer]]];
     request.delegate = self;
     request.didFinishSelector = @selector(requestDone:);
     [request startAsynchronous];

@@ -107,7 +107,7 @@
 	NSData *dataReply;
 	NSString *stringReply;
 	
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/check",server]]];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/check",classServer]]];
 	[request setHTTPMethod: @"GET"];
 	dataReply = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 	stringReply = [[NSString alloc] initWithData:dataReply encoding:NSUTF8StringEncoding];
@@ -135,7 +135,7 @@
 
 - (void)loadJSONRemote:(NSString *)class
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/class/%@",server,class]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/class/%@",classServer,class]];
     if ([self checkIfOnline:url]) {
         NSError *error;
         NSData* data = [NSData dataWithContentsOfURL:url];

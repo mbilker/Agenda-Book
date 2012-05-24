@@ -6,14 +6,26 @@
 #import "Assignment.h"
 
 #import "OpenUDID.h"
+#import "UAirship.h"
+#import "UAPush.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    NSDictionary *_info;
+}
 
 @synthesize window = _window;
 
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+
+- (void)update:(NSDictionary *)dictionary
+{
+    if ([[dictionary valueForKey:@"update"] boolValue]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://mbilker.us/agenda.html"]];
+        [[UAPush shared] resetBadge]; //zero badge
+    }
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -63,8 +75,18 @@
         NSLog(@"teacher: '%@'",info.teacher);
     } */
     
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    //Init Airship launch options
+    NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
+    [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
+    
+    // Create Airship singleton that's used to talk to Urban Airship servers.
+    // Please populate AirshipConfig.plist with your info from http://go.urbanairship.com
+    [UAirship takeOff:takeOffOptions];
+    
+    [[UAPush shared] resetBadge]; //zero badge
+    //[UIApplication sharedApplication].delegate = self;
+    //[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    [[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     // Check if the app was launched in response to the user tapping on a
 	// push notification. If so, we add the new message to the data model.
@@ -73,31 +95,42 @@
 		NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
 		if (dictionary != nil)
 		{
-			NSLog(@"Launched from push notification: %@", dictionary);
+			//NSLog(@"Launched from push notification: %@", dictionary);
 			[self update:dictionary];
 		}
 	}
     return YES;
 }
 
-- (void)update:(NSDictionary *)dictionary
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if ([[[dictionary valueForKey:@"aps"] valueForKey:@"update"] boolValue]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://mbilker.us/agenda.html"]];
-        exit(-1);
+    //NSLog(@"Received Notification: %@", userInfo);
+    if (application.applicationState == UIApplicationStateActive) {
+        _info = userInfo;
+        int appVersion = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] intValue];
+        int updateVersion = [[userInfo valueForKey:@"version"] intValue];
+        if (updateVersion > appVersion) {
+            [[[UIAlertView alloc] initWithTitle:@"New Update" message:[NSString stringWithFormat:@"There is a newer app version (%d), you currently have %d",updateVersion,appVersion] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Update", nil] show];
+        }
+    } else {
+        [self update:userInfo];
     }
 }
 
-- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	//NSLog(@"My token is: %@", deviceToken);
-    NSString* newToken = [deviceToken description];
-	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-	newToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-	NSLog(@"My token is: %@", newToken);
-    NSString *udid = [OpenUDID value];
-    NSLog(@"UDID: '%@'",udid);
+    //NSLog(@"Index: '%d'",buttonIndex);
+    if (buttonIndex == 1) {
+        [self update:_info];
+    }
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    NSLog(@"DeviceToken: '%@'",deviceToken.description);
+    [UAPush shared].alias = [OpenUDID value];
+    [[UAirship shared] registerDeviceToken:deviceToken];
+    //[[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
@@ -200,6 +233,11 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    [UAirship land];
 }
 
 @end

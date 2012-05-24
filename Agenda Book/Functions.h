@@ -3,8 +3,8 @@
 #import "Assignment.h"
 #import "AppDelegate.h"
 
-//#define server @"localhost:8080"
-#define server @"11.classes.mbilker.us"
+#define classServer @"localhost:8080"
+//#define classServer @"12.classes.mbilker.us"
 
 @interface Functions : NSObject
 
@@ -12,12 +12,14 @@
 
 - (BOOL)shouldAutorotate:(UIInterfaceOrientation)interfaceOrientation;
 - (NSDate *)dateWithOutTime:(NSDate *)datDate;
-/* - (NSString *)assignmentPath;
+/* 
+- (NSString *)assignmentPath;
 - (NSString *)classPath;
 - (NSString *)subjectPath;
 - (NSURL *)assignmentiCloud;
 - (NSURL *)classiCloud;
-- (NSURL *)subjectiCloud; */
+- (NSURL *)subjectiCloud;
+*/
 - (UIColor *)colorForComplete:(BOOL)complete;
 - (UIColor *)determineClassComplete:(NSString *)string context:(NSManagedObjectContext *)context;
 - (void)saveContext:(NSManagedObjectContext *)context;
