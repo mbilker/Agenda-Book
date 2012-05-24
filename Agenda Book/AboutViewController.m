@@ -4,6 +4,8 @@
 
 @implementation AboutViewController
 
+@synthesize version;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     return [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -16,6 +18,11 @@
 		NSLog(@"init AboutViewController");
 	}
 	return self;
+}
+
+- (void)viewDidLoad
+{
+    self.version.text = [NSString stringWithFormat:@"Version: b%d",[[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] intValue]];
 }
 
 - (void)dealloc
