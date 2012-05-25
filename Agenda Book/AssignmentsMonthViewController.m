@@ -269,7 +269,7 @@
     return [NSArray arrayWithArray:marks];
 }
 
-- (TKProgressAlertView *)alertView{
+- (TKProgressAlertView *)alertView {
 	if(_alertView == nil){
 		_alertView = [[TKProgressAlertView alloc] initWithProgressTitle:@"Loading important stuff!"];
 	}

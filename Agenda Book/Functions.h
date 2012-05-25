@@ -3,8 +3,8 @@
 #import "Assignment.h"
 #import "AppDelegate.h"
 
-#define classServer @"localhost:8080"
-//#define classServer @"12.classes.mbilker.us"
+//#define classServer @"localhost:8080"
+#define classServer @"classes.mbilker.us"
 
 @interface Functions : NSObject
 

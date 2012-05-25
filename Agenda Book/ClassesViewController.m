@@ -19,6 +19,7 @@
 @implementation ClassesViewController {
     NSIndexPath *_rowtodelete;
     BOOL _updateAvailable;
+    BOOL _updateChecked;
     BOOL _ready;
     Info *infoForRow;
 }
@@ -28,6 +29,7 @@
 //@synthesize classes;
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize iAdBanner;
+@synthesize alertView = _alertView;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -81,6 +83,13 @@
     return _fetchedResultsController;
 }
 
+- (TKProgressAlertView *)alertView {
+    if (_alertView == nil) {
+        _alertView = [[TKProgressAlertView alloc] initWithProgressTitle:@"Checking for update"];
+    }
+    return _alertView;
+}
+
 - (BOOL)checkIfExists:(NSDictionary *)info
 {
     NSError *error;
@@ -99,10 +108,10 @@
     return NO;
 }
 
-- (void)requestDone:(TKHTTPRequest *)arg1
+- (void)requestDone:(TKHTTPRequest *)request
 {
     NSError *error;
-    NSDictionary *update = [NSJSONSerialization JSONObjectWithData:arg1.responseData options:kNilOptions error:&error];
+    NSDictionary *update = [NSJSONSerialization JSONObjectWithData:request.responseData options:kNilOptions error:&error];
     int appVersion = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] intValue];
     int updateVersion = [[update valueForKey:@"version"] intValue];
     //NSLog(@"version: '%d', version: '%d'",appVersion,updateVersion);
@@ -110,16 +119,42 @@
         _updateAvailable = TRUE;
         [[[UIAlertView alloc] initWithTitle:@"Newer App Version" message:[NSString stringWithFormat:@"There is a newer app version (%d), you currently have %d",updateVersion,appVersion] delegate:self cancelButtonTitle:@"Ignore" otherButtonTitles:@"Update", nil] show];
         //NSLog(@"newer app version available");
+    } else {
+        [[[UIAlertView alloc] initWithTitle:@"No new update" message:@"No new update available" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] show];
     }
+    [self.alertView hide];
+}
+
+- (void)requestFailed:(TKHTTPRequest *)request
+{
+    NSLog(@"Request Failed: '%@'",request.error);
+    [self.alertView hide];
+    [[[UIAlertView alloc] initWithTitle:@"Update Check Failed!" message:@"There was a problem connecting to the update server" delegate:nil cancelButtonTitle:@"Ignore" otherButtonTitles:nil] show];
+}
+
+- (void)reqestStarted:(TKHTTPRequest *)request
+{
+    NSLog(@"Request Started");
 }
 
 - (void)checkUpdate
 {
     _updateAvailable = FALSE;
+    _updateChecked = TRUE;
+    self.alertView.progressBar.progress = 0;
+    [self.alertView show];
     TKHTTPRequest *request = [TKHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/update",classServer]]];
     request.delegate = self;
     request.didFinishSelector = @selector(requestDone:);
+    request.didFailSelector = @selector(requestFailed:);
+    request.didStartSelector = @selector(reqestStarted:);
+    request.delegate = self;
     [request startAsynchronous];
+}
+
+- (void)request:(TKHTTPRequest *)request didReceiveTotalBytes:(NSInteger)received ofExpectedBytes:(NSInteger)total
+{
+    [self.alertView.progressBar setProgress:received/total animated:YES];
 }
 
 #ifdef WILL_DISPLAY_ADS
@@ -193,7 +228,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self checkUpdate];
+    _updateChecked = FALSE;
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.
@@ -232,6 +267,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (!_updateChecked) [self checkUpdate];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
