@@ -113,7 +113,7 @@
     NSError *error;
     NSDictionary *update = [NSJSONSerialization JSONObjectWithData:request.responseData options:kNilOptions error:&error];
     int appVersion = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] intValue];
-    int updateVersion = [[update valueForKey:@"version"] intValue];
+    int updateVersion = [[[update valueForKey:@"prod"] valueForKey:@"version"] intValue];
     //NSLog(@"version: '%d', version: '%d'",appVersion,updateVersion);
     if (updateVersion > appVersion) {
         _updateAvailable = TRUE;
@@ -155,6 +155,23 @@
 - (void)request:(TKHTTPRequest *)request didReceiveTotalBytes:(NSInteger)received ofExpectedBytes:(NSInteger)total
 {
     [self.alertView.progressBar setProgress:received/total animated:YES];
+}
+
+- (void)reloadFetchedResults:(NSNotification*)note {
+    NSError *error = nil;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }             
+    
+    if (note) {
+        [self.tableView reloadData];
+    }
 }
 
 #ifdef WILL_DISPLAY_ADS
@@ -229,6 +246,7 @@
 {
     [super viewDidLoad];
     _updateChecked = FALSE;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFetchedResults:) name:@"RefetchAllDatabaseData" object:[[UIApplication sharedApplication] delegate]];
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
 		// Update to handle the error appropriately.
@@ -242,6 +260,7 @@
 {
     self.fetchedResultsController = nil;
     [super viewDidUnload];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -462,7 +481,7 @@
 		//[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_rowtodelete] withRowAnimation:UITableViewRowAnimationFade];
     } else if (buttonIndex == 1 && _updateAvailable) {
         _updateAvailable = FALSE;
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://mbilker.us/agenda.html"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://classes.mbilker.us"]];
         //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-services://?action=download-manifest&url=http://mbilker.us/apps/agenda-book.plist"]];
     }
 }
@@ -606,6 +625,12 @@
     _ready = FALSE;
     [self hideAd];
     //NSLog(@"Failed to load: '%@','%@'",error,[error userInfo]);
+}
+
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner
+{
+    _ready = FALSE;
+    [self hideAd];
 }
 #endif
 

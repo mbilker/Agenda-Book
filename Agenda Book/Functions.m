@@ -57,7 +57,7 @@ static Functions *instanceOfFunctions;
         datDate = [NSDate date];
     }
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    [calendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
     NSDateComponents *comps = [calendar components:NSYearCalendarUnit|NSMonthCalendarUnit|NSDayCalendarUnit fromDate:datDate];
     return [calendar dateFromComponents:comps];
 }

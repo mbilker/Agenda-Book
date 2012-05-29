@@ -48,7 +48,7 @@
     [super viewWillAppear:animated];
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [self.dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [self.dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     
     self.assignmentField.delegate = self;
     
@@ -66,14 +66,14 @@
     [self.assignmentField becomeFirstResponder];
     
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    [calendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
     
     NSDateComponents *offset = [[NSDateComponents alloc] init];
     [offset setDay:1];
     
     NSDate *minimum = [calendar dateByAddingComponents:offset toDate:[[Functions sharedFunctions] dateWithOutTime:[NSDate date]] options:0];
-    self.duePicker.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
-    self.duePicker.minimumDate = minimum;
+    self.duePicker.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
+    self.duePicker.minimumDate = [[Functions sharedFunctions] dateWithOutTime:minimum];
     self.duePicker.date = [tempAssignment valueForKey:@"dueDate"];
     
 	self.dueCell.detailTextLabel.text = [self.dateFormatter stringFromDate:[tempAssignment valueForKey:@"dueDate"]];

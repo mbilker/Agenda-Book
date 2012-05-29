@@ -151,7 +151,7 @@
 
 - (IBAction)goToToday:(id)sender
 {
-    [self.monthView selectDate:[NSDate date]];
+    [self.monthView selectDate:[[Functions sharedFunctions] dateWithOutTime:[NSDate date]]];
     [self.tableView reloadData];
 }
 
