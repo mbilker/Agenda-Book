@@ -22,6 +22,8 @@
     BOOL _updateChecked;
     BOOL _ready;
     Info *infoForRow;
+    
+    UIView *iAdContainer;
 }
 
 @synthesize editButton;
@@ -48,9 +50,6 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
     return self;
 }
 
@@ -186,7 +185,7 @@
 {
     //NSLog(@"superview: '%@'",self.iAdBanner.superview);
     if (self.iAdBanner.superview != nil) {
-        CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+        /* CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
         CGRect endFrame = self.iAdBanner.frame;
         endFrame.origin.y = screenRect.origin.y + screenRect.size.height;
     
@@ -202,16 +201,19 @@
         [UIView commitAnimations];
     
         // grow the table back again in vertical size to make room for the ad
-        /* CGRect newFrame = self.tableView.frame;
+        CGRect newFrame = self.tableView.frame;
         newFrame.size.height += self.iAdBanner.frame.size.height;
         self.tableView.frame = newFrame; */
+        [self.iAdBanner removeFromSuperview];
+        iAdContainer = nil;
+        self.tableView.tableHeaderView = nil;
     }
 }
 
 - (void)showAd
 {
     if (self.iAdBanner.superview == nil) {
-        //NSLog(@"iAd is not shown");
+        /* //NSLog(@"iAd is not shown");
         [self.navigationController.view addSubview:self.iAdBanner];
         [self.iAdBanner setCurrentContentSizeIdentifier:ADBannerContentSizeIdentifierPortrait];
         CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
@@ -231,12 +233,17 @@
         self.iAdBanner.frame = adRect;
         
         // shrink the table vertical size to make room for the ad
-        /* CGRect newFrame = self.tableView.frame;
-         newFrame.size.height -= self.iAdBanner.frame.size.height;
-         self.tableView.frame = newFrame; */
-        [UIView commitAnimations];
+        CGRect newFrame = self.tableView.frame;
+        newFrame.size.height -= self.iAdBanner.frame.size.height;
+        self.tableView.frame = newFrame;
+        [UIView commitAnimations]; */
+        iAdContainer = [[UIView alloc] initWithFrame:self.iAdBanner.frame];
+        [iAdContainer addSubview:self.iAdBanner];
+        iAdContainer.layer.shadowColor = [[UIColor blackColor] CGColor];
+        iAdContainer.layer.shadowOffset = CGSizeMake(0.1, 0.1);
+        iAdContainer.layer.shadowOpacity = 0.50;
+        self.tableView.tableHeaderView = iAdContainer;
     }
-    //[UIView commitAnimations];
 }
 #endif
 
@@ -324,9 +331,6 @@
     {
         AssignmentsMonthViewController *assignmentsMonthViewController = segue.destinationViewController;
         assignmentsMonthViewController.managedObjectContext = self.managedObjectContext;
-#ifdef WILL_DISPLAY_ADS
-        [self hideAd];
-#endif
     }
 }
 
