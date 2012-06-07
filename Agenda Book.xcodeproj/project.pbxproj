@@ -28,6 +28,7 @@
 		652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A624815478BAC00FE17E5 /* EditClassViewController.m */; };
 		654A84131554D39F00744CB3 /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A84121554D39F00744CB3 /* Subject.m */; };
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
+		6550B51715815EB600FBAD16 /* MainStoryboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6550B51615815EB600FBAD16 /* MainStoryboard-iPad.storyboard */; };
 		655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 655413ED15532E2600199B10 /* Data.xcdatamodeld */; };
 		655E8460156C495F00BA4392 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 655E845F156C48EE00BA4392 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
@@ -128,6 +129,7 @@
 		654A84121554D39F00744CB3 /* Subject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subject.m; sourceTree = "<group>"; };
 		65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddSubjectPickerViewController.h; sourceTree = "<group>"; };
 		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
+		6550B51615815EB600FBAD16 /* MainStoryboard-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPad.storyboard"; sourceTree = "<group>"; };
 		655413EE15532E2600199B10 /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
 		655E845E156C48EE00BA4392 /* OpenUDID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		655E845F156C48EE00BA4392 /* OpenUDID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				655E845E156C48EE00BA4392 /* OpenUDID.h */,
 				655E845F156C48EE00BA4392 /* OpenUDID.m */,
 				65A841671506ED9900C6B779 /* MainStoryboard.storyboard */,
+				6550B51615815EB600FBAD16 /* MainStoryboard-iPad.storyboard */,
 				657AA0F715159E780045148B /* AboutViewController.h */,
 				657AA0F815159E780045148B /* AboutViewController.m */,
 				65A841A31506F97F00C6B779 /* ClassesViewController.h */,
@@ -448,6 +451,7 @@
 				658FF5891548955600D72959 /* TapkuLibrary.bundle in Resources */,
 				65B76CB6154F741E00054BF6 /* CalendarCell.xib in Resources */,
 				65C22B5B156CAB00001DE5DD /* AirshipConfig.plist in Resources */,
+				6550B51715815EB600FBAD16 /* MainStoryboard-iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
