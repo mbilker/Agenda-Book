@@ -495,6 +495,7 @@
 - (void)newClassViewControllerDidCancel:(ClassesViewController *)controller
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (void)newClassViewController:(ClassesViewController *)controller didAddInfo:(NSDictionary *)newClass

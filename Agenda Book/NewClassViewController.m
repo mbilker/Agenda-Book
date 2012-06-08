@@ -70,6 +70,7 @@
 {
 	self.detailLabel.text = subject;
     self.classIDLabel.text = tableClassID;
+    self.contentSizeForViewInPopover = CGSizeMake(self.tableView.frame.size.width/2, self.tableView.frame.size.height);
     [super viewDidLoad];
 }
 
