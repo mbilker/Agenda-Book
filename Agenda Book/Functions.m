@@ -133,7 +133,7 @@ static Functions *instanceOfFunctions;
     return [self colorForComplete:TRUE];
 } */
 
-- (UIColor *)determineClassComplete:(NSString *)string context:(NSManagedObjectContext *)context
+- (BOOL)determineClassComplete:(NSString *)string context:(NSManagedObjectContext *)context
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:context];
@@ -143,9 +143,14 @@ static Functions *instanceOfFunctions;
     NSError *error;
     NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     for (Assignment *assignment in fetchedObjects) {
-        if (!assignment.complete) return [self colorForComplete:FALSE]; 
+        if (!assignment.complete) return FALSE;
     }
-    return [self colorForComplete:TRUE];
+    return TRUE;
+}
+
+- (UIColor *)determineClassCompleteColor:(NSString *)string context:(NSManagedObjectContext *)context
+{
+    return [self colorForComplete:[self determineClassComplete:string context:context]];
 }
 
 - (void)saveContext:(NSManagedObjectContext *)context

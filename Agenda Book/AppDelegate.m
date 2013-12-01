@@ -6,10 +6,6 @@
 #import "Info.h"
 #import "Assignment.h"
 
-#import "OpenUDID.h"
-#import "UAirship.h"
-#import "UAPush.h"
-
 @implementation AppDelegate {
     NSDictionary *_info;
 }
@@ -19,14 +15,6 @@
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
-
-- (void)update:(NSDictionary *)dictionary
-{
-    if ([[dictionary valueForKey:@"update"] boolValue]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@",classServer]]];
-        [[UAPush shared] resetBadge]; //zero badge
-    }
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -75,95 +63,7 @@
         NSLog(@"classid: '%@'",info.classid);
         NSLog(@"teacher: '%@'",info.teacher);
     } */
-    
-    //Init Airship launch options
-    NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
-    [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
-    
-    // Create Airship singleton that's used to talk to Urban Airship servers.
-    // Please populate AirshipConfig.plist with your info from http://go.urbanairship.com
-    [UAirship takeOff:takeOffOptions];
-    
-    [[UAPush shared] resetBadge]; //zero badge
-    //[UIApplication sharedApplication].delegate = self;
-    //[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    [[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    
-    // Check if the app was launched in response to the user tapping on a
-	// push notification. If so, we add the new message to the data model.
-	if (launchOptions != nil)
-	{
-		NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-		if (dictionary != nil)
-		{
-			//NSLog(@"Launched from push notification: %@", dictionary);
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [self update:dictionary];
-            });
-		}
-	}
     return YES;
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    [UAirship land];
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    [[UAPush shared] resetBadge];
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    //NSLog(@"Received Notification: %@", userInfo);
-    if (application.applicationState == UIApplicationStateActive) {
-        _info = userInfo;
-        int appVersion = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] intValue];
-        int updateVersion = [[userInfo valueForKey:@"version"] intValue];
-        if (updateVersion > appVersion) {
-            [[[UIAlertView alloc] initWithTitle:@"New Update" message:[NSString stringWithFormat:@"There is a newer app version (%d), you currently have %d",updateVersion,appVersion] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Update", nil] show];
-            NSLog(@"New update: '%d'",updateVersion);
-        }
-    } else {
-        [self update:userInfo];
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    //NSLog(@"Index: '%d'",buttonIndex);
-    if (buttonIndex == 1) {
-        [self update:_info];
-    }
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
-{
-    NSLog(@"DeviceToken: '%@'",deviceToken.description);
-    [[UAirship shared] registerDeviceToken:deviceToken];
-    NSString *name = [[UIDevice currentDevice] name];
-    [[UAPush shared] updateAlias:name];
-    [[UAPush shared] updateTags:[NSMutableArray arrayWithObject:[OpenUDID value]]];
-    //[[UAPush shared] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    if ([application enabledRemoteNotificationTypes] != [UAPush shared].notificationTypes) {
-        NSLog(@"Failed to register a device token with the requested services. Your notifications may be turned off.");
-        //only alert if this is the first registration, or if push has just been
-        //re-enabled
-        if ([UAirship shared].deviceToken != nil) { //already been set this session
-            UIRemoteNotificationType disabledTypes = [application enabledRemoteNotificationTypes] ^ [UAPush shared].notificationTypes;
-            NSString* okStr = @"OK";
-            NSString* errorMessage = [NSString stringWithFormat:@"Unable to turn on %@. Use the \"Settings\" app to enable these notifications.", [UAPush pushTypeString:disabledTypes]];
-            NSString *errorTitle = @"Error";
-            UIAlertView *someError = [[UIAlertView alloc] initWithTitle:errorTitle
-                                                                message:errorMessage
-                                                               delegate:nil
-                                                      cancelButtonTitle:okStr
-                                                      otherButtonTitles:nil];
-            [someError show];
-        }
-    }
 }
 
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error

@@ -22,7 +22,8 @@
 - (NSURL *)subjectiCloud;
 */
 - (UIColor *)colorForComplete:(BOOL)complete;
-- (UIColor *)determineClassComplete:(NSString *)string context:(NSManagedObjectContext *)context;
+- (BOOL)determineClassComplete:(NSString *)string context:(NSManagedObjectContext *)context;
+- (UIColor *)determineClassCompleteColor:(NSString *)string context:(NSManagedObjectContext *)context;
 - (void)saveContext:(NSManagedObjectContext *)context;
 
 @end

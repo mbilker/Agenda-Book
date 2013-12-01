@@ -3,14 +3,11 @@
 #import "AssignmentsViewController.h"
 #import "ClassDetailsViewController.h"
 #import "EditClassViewController.h"
-#import "AssignmentsMonthViewController.h"
 
 #import "Info.h"
 #import "SubjectCell.h"
 #import "Functions.h"
 #import "CustomAlert.h"
-
-#import "UAPush.h"
 
 #import <Twitter/Twitter.h>
 
@@ -31,12 +28,10 @@
 //@synthesize classes;
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize iAdBanner;
-@synthesize alertView = _alertView;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	if ((self = [super initWithCoder:aDecoder]))
-	{
+	if ((self = [super initWithCoder:aDecoder])) {
 		NSLog(@"init ClassesViewController");
 	}
 	return self;
@@ -82,13 +77,6 @@
     return _fetchedResultsController;
 }
 
-- (TKProgressAlertView *)alertView {
-    if (_alertView == nil) {
-        _alertView = [[TKProgressAlertView alloc] initWithProgressTitle:@"Checking for update"];
-    }
-    return _alertView;
-}
-
 - (BOOL)checkIfExists:(NSDictionary *)info
 {
     NSError *error;
@@ -105,55 +93,6 @@
         }
     }
     return NO;
-}
-
-- (void)requestDone:(TKHTTPRequest *)request
-{
-    NSError *error;
-    NSDictionary *update = [NSJSONSerialization JSONObjectWithData:request.responseData options:kNilOptions error:&error];
-    int appVersion = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] intValue];
-    int updateVersion = [[[update valueForKey:@"prod"] valueForKey:@"version"] intValue];
-    //NSLog(@"version: '%d', version: '%d'",appVersion,updateVersion);
-    if (updateVersion > appVersion) {
-        _updateAvailable = TRUE;
-        [[[UIAlertView alloc] initWithTitle:@"Newer App Version" message:[NSString stringWithFormat:@"There is a newer app version (%d), you currently have %d",updateVersion,appVersion] delegate:self cancelButtonTitle:@"Ignore" otherButtonTitles:@"Update", nil] show];
-        //NSLog(@"newer app version available");
-    } else {
-        [[[UIAlertView alloc] initWithTitle:@"No new update" message:@"No new update available" delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] show];
-    }
-    [self.alertView hide];
-}
-
-- (void)requestFailed:(TKHTTPRequest *)request
-{
-    NSLog(@"Request Failed: '%@'",request.error);
-    [self.alertView hide];
-    [[[UIAlertView alloc] initWithTitle:@"Update Check Failed!" message:@"There was a problem connecting to the update server" delegate:nil cancelButtonTitle:@"Ignore" otherButtonTitles:nil] show];
-}
-
-- (void)reqestStarted:(TKHTTPRequest *)request
-{
-    NSLog(@"Request Started");
-}
-
-- (void)checkUpdate
-{
-    _updateAvailable = FALSE;
-    _updateChecked = TRUE;
-    self.alertView.progressBar.progress = 0;
-    [self.alertView show];
-    TKHTTPRequest *request = [TKHTTPRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/update",classServer]]];
-    request.delegate = self;
-    request.didFinishSelector = @selector(requestDone:);
-    request.didFailSelector = @selector(requestFailed:);
-    request.didStartSelector = @selector(reqestStarted:);
-    request.delegate = self;
-    [request startAsynchronous];
-}
-
-- (void)request:(TKHTTPRequest *)request didReceiveTotalBytes:(NSInteger)received ofExpectedBytes:(NSInteger)total
-{
-    [self.alertView.progressBar setProgress:received/total animated:YES];
 }
 
 - (void)reloadFetchedResults:(NSNotification*)note {
@@ -293,7 +232,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!_updateChecked) [self checkUpdate];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -319,18 +257,13 @@
 		NewClassViewController *newClassViewController = [[navigationController viewControllers] objectAtIndex:0];
 		newClassViewController.delegate = self;
         newClassViewController.managedObjectContext = self.managedObjectContext;
-	} else if ([segue.identifier isEqualToString:@"ShowAssignments"])
-    {
+	} else if ([segue.identifier isEqualToString:@"ShowAssignments"]) {
         //Info *i = [self.classes objectAtIndex:[[self.tableView indexPathForCell:sender] row]];
         Info *i = [_fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:sender]];
         //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",i.teacher,i.subject,i.complete ? @"TRUE" : @"FALSE");
         AssignmentsViewController *assignmentsViewController = segue.destinationViewController;
         assignmentsViewController.managedObjectContext = self.managedObjectContext;
         assignmentsViewController.info = i;
-    } else if ([segue.identifier isEqualToString:@"AssignmentsMonth"])
-    {
-        AssignmentsMonthViewController *assignmentsMonthViewController = segue.destinationViewController;
-        assignmentsMonthViewController.managedObjectContext = self.managedObjectContext;
     }
 }
 
@@ -347,7 +280,7 @@
             if ([[Functions sharedFunctions] determineClassComplete:i.teacher context:self.managedObjectContext]) {
                 d++;
             }
-            //NSLog(@"Teacher: '%@', Complete: '%@'",i.teacher,[Functions determineClassComplete:i.teacher] ? @"YES" : @"NO");
+            NSLog(@"Teacher: '%@', Complete: '%@'",i.teacher,[[Functions sharedFunctions]determineClassComplete:i.teacher context:self.managedObjectContext] ? @"YES" : @"NO");
         }
         NSString *s;
         if (!([fetchedObjects count] == 1)) {
@@ -405,7 +338,7 @@
 	cell.gameLabel.text = info.subject;
     
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = [[Functions sharedFunctions] determineClassComplete:info.teacher context:self.managedObjectContext];
+    backgroundView.backgroundColor = [[Functions sharedFunctions] determineClassCompleteColor:info.teacher context:self.managedObjectContext];
     cell.backgroundView = backgroundView;
 }
 
@@ -459,13 +392,13 @@
 {
     //NSLog(@"Hit Button at: '%d'",buttonIndex);
     //NSLog(@"Button: '%@'",[actionSheet buttonTitleAtIndex:buttonIndex]);
-    if (buttonIndex == 0 && [actionSheet buttonTitleAtIndex:buttonIndex] == @"Class Details") {
+    if (buttonIndex == 0 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqual:@"Class Details"]) {
         //NSLog(@"Class Details Hit");
         ClassDetailsViewController *details = [self.storyboard instantiateViewControllerWithIdentifier:@"classDetailsView"];
         details.classInfo = infoForRow;
         details.managedObjectContext = self.managedObjectContext;
         [self.navigationController pushViewController:details animated:YES];
-    } else if (buttonIndex == 1 && [actionSheet buttonTitleAtIndex:buttonIndex] == @"Edit Class") {
+    } else if (buttonIndex == 1 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqual:@"Edit Class"]) {
         EditClassViewController *editClass = [self.storyboard instantiateViewControllerWithIdentifier:@"editClass"];
         editClass.classInfo = infoForRow;
         editClass.delegate = self;

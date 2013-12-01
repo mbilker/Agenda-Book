@@ -113,7 +113,7 @@
 
 - (void)checkDone
 {
-    if ([self.teacherTextField hasText] && subject != @"Not Chosen") {
+    if ([self.teacherTextField hasText] && ![subject isEqual: @"Not Chosen"]) {
         //Info *info = [NSEntityDescription insertNewObjectForEntityForName:@"Info" inManagedObjectContext:self.managedObjectContext];
         NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.teacherTextField.text, @"teacher", subject, @"subject", tableClassID, @"classid", nil];
         //info.teacher = self.teacherTextField.text;

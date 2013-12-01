@@ -30,40 +30,27 @@
 		65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */; };
 		6550B51715815EB600FBAD16 /* MainStoryboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6550B51615815EB600FBAD16 /* MainStoryboard-iPad.storyboard */; };
 		655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 655413ED15532E2600199B10 /* Data.xcdatamodeld */; };
-		655E8460156C495F00BA4392 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 655E845F156C48EE00BA4392 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
 		6572AF02152BD1C20049BA6E /* CustomAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6572AF01152BD1C20049BA6E /* CustomAlert.m */; };
 		657AA0F915159E780045148B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657AA0F815159E780045148B /* AboutViewController.m */; };
-		658FF5891548955600D72959 /* TapkuLibrary.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 658FF5881548955600D72959 /* TapkuLibrary.bundle */; };
-		658FF58C1548959C00D72959 /* libTapkuLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF5841548954B00D72959 /* libTapkuLibrary.a */; };
 		658FF58E154895A400D72959 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF58D154895A400D72959 /* QuartzCore.framework */; };
-		658FF590154895B000D72959 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF58F154895B000D72959 /* MapKit.framework */; };
-		65A834F4154F2DF5004AD1EE /* AssignmentsMonthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A834F3154F2DF5004AD1EE /* AssignmentsMonthViewController.m */; };
 		65A8350A154F3617004AD1EE /* CalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A83509154F3617004AD1EE /* CalendarCell.m */; };
 		65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841551506ED9900C6B779 /* UIKit.framework */; };
 		65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841571506ED9900C6B779 /* Foundation.framework */; };
-		65A8415A1506ED9900C6B779 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841591506ED9900C6B779 /* CoreGraphics.framework */; };
 		65A841601506ED9900C6B779 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 65A8415E1506ED9900C6B779 /* InfoPlist.strings */; };
 		65A841621506ED9900C6B779 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841611506ED9900C6B779 /* main.m */; };
 		65A841661506ED9900C6B779 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841651506ED9900C6B779 /* AppDelegate.m */; };
 		65A841691506ED9900C6B779 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65A841671506ED9900C6B779 /* MainStoryboard.storyboard */; };
 		65A841A51506F98000C6B779 /* ClassesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A41506F97F00C6B779 /* ClassesViewController.m */; };
 		65A841A81506FE5100C6B779 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 65A841A71506FE5100C6B779 /* Info.m */; };
-		65B71B1A155865390032C1E7 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B71B19155865390032C1E7 /* iAd.framework */; };
+		65A891A0184BDBE900B2D266 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B71B19155865390032C1E7 /* iAd.framework */; };
+		65A891A1184BDC0800B2D266 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65A841591506ED9900C6B779 /* CoreGraphics.framework */; };
 		65B76CB6154F741E00054BF6 /* CalendarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B76CB5154F741E00054BF6 /* CalendarCell.xib */; };
 		65B92222151BBCAC00B85CB5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B92221151BBCAC00B85CB5 /* Default.png */; };
 		65B92225151BBCB300B85CB5 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65B92224151BBCB300B85CB5 /* Default@2x.png */; };
-		65C22B45156CA99D001DE5DD /* libUAirship-1.2.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B44156CA99D001DE5DD /* libUAirship-1.2.1.a */; };
-		65C22B47156CA9CE001DE5DD /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B46156CA9CE001DE5DD /* CFNetwork.framework */; };
 		65C22B49156CA9E7001DE5DD /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B48156CA9E7001DE5DD /* MobileCoreServices.framework */; };
-		65C22B4B156CA9F5001DE5DD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B4A156CA9F5001DE5DD /* Security.framework */; };
-		65C22B4D156CAA0E001DE5DD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B4C156CAA0E001DE5DD /* SystemConfiguration.framework */; };
 		65C22B51156CAA34001DE5DD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B50156CAA34001DE5DD /* libz.dylib */; };
 		65C22B53156CAA47001DE5DD /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B52156CAA47001DE5DD /* libsqlite3.dylib */; };
-		65C22B55156CAA51001DE5DD /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B54156CAA51001DE5DD /* CoreTelephony.framework */; };
-		65C22B57156CAA61001DE5DD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B56156CAA61001DE5DD /* StoreKit.framework */; };
-		65C22B59156CAA76001DE5DD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B58156CAA76001DE5DD /* CoreLocation.framework */; };
-		65C22B5B156CAB00001DE5DD /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65C22B5A156CAB00001DE5DD /* AirshipConfig.plist */; };
 		65D5716E150EAB7400B9F47E /* Assignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D5716D150EAB7400B9F47E /* Assignment.m */; };
 		65D57172150EAE4C00B9F47E /* NewAssignmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */; };
 		65E14FD41553198C007D22AE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65E14FD31553198C007D22AE /* CoreData.framework */; };
@@ -84,13 +71,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 3B45DDF1134C736600D24C1A;
 			remoteInfo = LogicTests;
-		};
-		658FF58A1548958A00D72959 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 658FF57B1548954A00D72959 /* TapkuLibrary.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = TapkuLibrary;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -131,8 +111,6 @@
 		65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddSubjectPickerViewController.m; sourceTree = "<group>"; };
 		6550B51615815EB600FBAD16 /* MainStoryboard-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "MainStoryboard-iPad.storyboard"; sourceTree = "<group>"; };
 		655413EE15532E2600199B10 /* Data.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Data.xcdatamodel; sourceTree = "<group>"; };
-		655E845E156C48EE00BA4392 /* OpenUDID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
-		655E845F156C48EE00BA4392 /* OpenUDID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		6567C2451508054C00859E02 /* SubjectPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectPickerViewController.h; sourceTree = "<group>"; };
 		6567C2461508054C00859E02 /* SubjectPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectPickerViewController.m; sourceTree = "<group>"; };
 		6572AF00152BD1C20049BA6E /* CustomAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlert.h; sourceTree = "<group>"; };
@@ -140,11 +118,8 @@
 		657AA0F715159E780045148B /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		657AA0F815159E780045148B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		658FF57B1548954A00D72959 /* TapkuLibrary.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TapkuLibrary.xcodeproj; path = tapkulibrary/src/TapkuLibrary.xcodeproj; sourceTree = "<group>"; };
-		658FF5881548955600D72959 /* TapkuLibrary.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TapkuLibrary.bundle; path = tapkulibrary/src/TapkuLibrary.bundle; sourceTree = "<group>"; };
 		658FF58D154895A400D72959 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		658FF58F154895B000D72959 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		65A834F2154F2DF5004AD1EE /* AssignmentsMonthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentsMonthViewController.h; sourceTree = "<group>"; };
-		65A834F3154F2DF5004AD1EE /* AssignmentsMonthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentsMonthViewController.m; sourceTree = "<group>"; };
 		65A83508154F3617004AD1EE /* CalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarCell.h; sourceTree = "<group>"; };
 		65A83509154F3617004AD1EE /* CalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarCell.m; sourceTree = "<group>"; };
 		65A841511506ED9900C6B779 /* Agenda Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agenda Book.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,7 +152,6 @@
 		65C22B54156CAA51001DE5DD /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		65C22B56156CAA61001DE5DD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		65C22B58156CAA76001DE5DD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		65C22B5A156CAB00001DE5DD /* AirshipConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AirshipConfig.plist; sourceTree = "<group>"; };
 		65D5716C150EAB7400B9F47E /* Assignment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Assignment.h; sourceTree = "<group>"; };
 		65D5716D150EAB7400B9F47E /* Assignment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Assignment.m; sourceTree = "<group>"; };
 		65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAssignmentViewController.h; sourceTree = "<group>"; };
@@ -194,23 +168,14 @@
 			files = (
 				65C22B53156CAA47001DE5DD /* libsqlite3.dylib in Frameworks */,
 				65C22B51156CAA34001DE5DD /* libz.dylib in Frameworks */,
-				658FF58C1548959C00D72959 /* libTapkuLibrary.a in Frameworks */,
-				65B71B1A155865390032C1E7 /* iAd.framework in Frameworks */,
+				65A891A0184BDBE900B2D266 /* iAd.framework in Frameworks */,
 				658FF58E154895A400D72959 /* QuartzCore.framework in Frameworks */,
-				658FF590154895B000D72959 /* MapKit.framework in Frameworks */,
 				65EBA46915099EBF00064B8A /* Twitter.framework in Frameworks */,
 				65A841561506ED9900C6B779 /* UIKit.framework in Frameworks */,
-				65C22B4B156CA9F5001DE5DD /* Security.framework in Frameworks */,
-				65C22B4D156CAA0E001DE5DD /* SystemConfiguration.framework in Frameworks */,
-				65C22B57156CAA61001DE5DD /* StoreKit.framework in Frameworks */,
 				65A841581506ED9900C6B779 /* Foundation.framework in Frameworks */,
 				65C22B49156CA9E7001DE5DD /* MobileCoreServices.framework in Frameworks */,
-				65C22B47156CA9CE001DE5DD /* CFNetwork.framework in Frameworks */,
-				65A8415A1506ED9900C6B779 /* CoreGraphics.framework in Frameworks */,
+				65A891A1184BDC0800B2D266 /* CoreGraphics.framework in Frameworks */,
 				65E14FD41553198C007D22AE /* CoreData.framework in Frameworks */,
-				65C22B55156CAA51001DE5DD /* CoreTelephony.framework in Frameworks */,
-				65C22B59156CAA76001DE5DD /* CoreLocation.framework in Frameworks */,
-				65C22B45156CA99D001DE5DD /* libUAirship-1.2.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,7 +194,6 @@
 		65A841461506ED9900C6B779 = {
 			isa = PBXGroup;
 			children = (
-				658FF5881548955600D72959 /* TapkuLibrary.bundle */,
 				651E40F81512D4A3000D7BCC /* Icon-72.png */,
 				651E40F91512D4A3000D7BCC /* Icon-Small-50.png */,
 				651E40FA1512D4A3000D7BCC /* Icon-Small.png */,
@@ -287,8 +251,6 @@
 				65A841721506F66A00C6B779 /* Images */,
 				65A841641506ED9900C6B779 /* AppDelegate.h */,
 				65A841651506ED9900C6B779 /* AppDelegate.m */,
-				655E845E156C48EE00BA4392 /* OpenUDID.h */,
-				655E845F156C48EE00BA4392 /* OpenUDID.m */,
 				65A841671506ED9900C6B779 /* MainStoryboard.storyboard */,
 				6550B51615815EB600FBAD16 /* MainStoryboard-iPad.storyboard */,
 				657AA0F715159E780045148B /* AboutViewController.h */,
@@ -319,8 +281,6 @@
 				652859F4150ED19900296718 /* NSString-truncateToWidth.m */,
 				65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */,
 				65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */,
-				65A834F2154F2DF5004AD1EE /* AssignmentsMonthViewController.h */,
-				65A834F3154F2DF5004AD1EE /* AssignmentsMonthViewController.m */,
 				65A83508154F3617004AD1EE /* CalendarCell.h */,
 				65A83509154F3617004AD1EE /* CalendarCell.m */,
 				65B76CB5154F741E00054BF6 /* CalendarCell.xib */,
@@ -338,7 +298,6 @@
 				61601C5A151BA0C700A81E39 /* Functions.m */,
 				65A8415C1506ED9900C6B779 /* Supporting Files */,
 				655413ED15532E2600199B10 /* Data.xcdatamodeld */,
-				65C22B5A156CAB00001DE5DD /* AirshipConfig.plist */,
 			);
 			path = "Agenda Book";
 			sourceTree = "<group>";
@@ -376,7 +335,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				658FF58B1548958A00D72959 /* PBXTargetDependency */,
 			);
 			name = "Agenda Book";
 			productName = "Agenda Book";
@@ -448,9 +406,7 @@
 				651E41051512D4A3000D7BCC /* iTunesArtwork.png in Resources */,
 				65B92222151BBCAC00B85CB5 /* Default.png in Resources */,
 				65B92225151BBCB300B85CB5 /* Default@2x.png in Resources */,
-				658FF5891548955600D72959 /* TapkuLibrary.bundle in Resources */,
 				65B76CB6154F741E00054BF6 /* CalendarCell.xib in Resources */,
-				65C22B5B156CAB00001DE5DD /* AirshipConfig.plist in Resources */,
 				6550B51715815EB600FBAD16 /* MainStoryboard-iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,7 +418,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				655E8460156C495F00BA4392 /* OpenUDID.m in Sources */,
 				65A841621506ED9900C6B779 /* main.m in Sources */,
 				65A841661506ED9900C6B779 /* AppDelegate.m in Sources */,
 				65A841A51506F98000C6B779 /* ClassesViewController.m in Sources */,
@@ -484,7 +439,6 @@
 				652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */,
 				650329D81549008A00C4D628 /* AssignmentDetailsViewController.m in Sources */,
 				650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */,
-				65A834F4154F2DF5004AD1EE /* AssignmentsMonthViewController.m in Sources */,
 				65A8350A154F3617004AD1EE /* CalendarCell.m in Sources */,
 				655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */,
 				654A84131554D39F00744CB3 /* Subject.m in Sources */,
@@ -492,14 +446,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		658FF58B1548958A00D72959 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TapkuLibrary;
-			targetProxy = 658FF58A1548958A00D72959 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		65A8415E1506ED9900C6B779 /* InfoPlist.strings */ = {
@@ -590,7 +536,7 @@
 					"Airship/**",
 				);
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -614,7 +560,7 @@
 					"Airship/**",
 				);
 				INFOPLIST_FILE = "Agenda Book/Agenda Book-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
