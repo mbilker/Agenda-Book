@@ -123,6 +123,15 @@
         [self.delegate newClassViewController:self didAddInfo:dictionary];
     } else {
         //NSLog(@"Empty and did not choose subject");
+        UIView *errorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50.0)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, errorView.frame.size.height/2, 50.0, 50.0)];
+        [label setTextAlignment:UITextAlignmentCenter];
+        label.center = errorView.center;
+        label.opaque = FALSE;
+        label.backgroundColor = [UIColor clearColor];
+        label.text = @"Selection Not Complete";
+        [errorView addSubview:label];
+        self.tableView.tableHeaderView = errorView;
         [[[UIAlertView alloc] initWithTitle:@"Selection not complete" message:@"You did not fill in the teacher or select a subject" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
     }
 }
