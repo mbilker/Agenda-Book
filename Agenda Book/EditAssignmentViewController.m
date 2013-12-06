@@ -1,6 +1,6 @@
 
 #import "EditAssignmentViewController.h"
-#import "Functions.h"
+#import "Utils.h"
 
 @implementation EditAssignmentViewController {
     NSMutableDictionary *tempAssignment;
@@ -59,7 +59,7 @@
     tempAssignment = [NSMutableDictionary dictionary];
     [tempAssignment setValue:self.assignment.assignmentText forKey:@"assignmentText"];
     [tempAssignment setValue:[NSNumber numberWithBool:self.assignment.complete] forKey:@"complete"];
-    [tempAssignment setValue:[[Functions sharedFunctions] dateWithOutTime:self.assignment.dueDate] forKey:@"dueDate"];
+    [tempAssignment setValue:[[Utils instance] dateWithOutTime:self.assignment.dueDate] forKey:@"dueDate"];
     
     
     self.assignmentField.text = [tempAssignment valueForKey:@"assignmentText"];
@@ -71,9 +71,9 @@
     NSDateComponents *offset = [[NSDateComponents alloc] init];
     [offset setDay:1];
     
-    NSDate *minimum = [calendar dateByAddingComponents:offset toDate:[[Functions sharedFunctions] dateWithOutTime:[NSDate date]] options:0];
+    NSDate *minimum = [calendar dateByAddingComponents:offset toDate:[[Utils instance] dateWithOutTime:[NSDate date]] options:0];
     self.duePicker.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
-    self.duePicker.minimumDate = [[Functions sharedFunctions] dateWithOutTime:minimum];
+    self.duePicker.minimumDate = [[Utils instance] dateWithOutTime:minimum];
     self.duePicker.date = [tempAssignment valueForKey:@"dueDate"];
     
 	self.dueCell.detailTextLabel.text = [self.dateFormatter stringFromDate:[tempAssignment valueForKey:@"dueDate"]];
@@ -81,7 +81,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
+    return [[Utils instance] shouldAutorotate:interfaceOrientation];
 }
 
 - (void)checkDone
@@ -90,7 +90,7 @@
         //tempAssignment.assignmentText = self.assignmentField.text;
         //tempAssignment.dueDate = self.duePicker.date;
         [tempAssignment setValue:self.assignmentField.text forKey:@"assignmentText"];
-        [tempAssignment setValue:[[Functions sharedFunctions] dateWithOutTime:self.duePicker.date] forKey:@"dueDate"];
+        [tempAssignment setValue:[[Utils instance] dateWithOutTime:self.duePicker.date] forKey:@"dueDate"];
         [self.delegate editAssignmentViewController:self didChange:tempAssignment];
     } else {
         //NSLog(@"Empty and did not choose subject");

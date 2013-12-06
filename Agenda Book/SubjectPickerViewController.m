@@ -1,6 +1,6 @@
 
 #import "SubjectPickerViewController.h"
-#import "Functions.h"
+#import "Utils.h"
 
 @implementation SubjectPickerViewController {
     NSUInteger selectedIndex;
@@ -9,7 +9,6 @@
 @synthesize delegate;
 @synthesize subject;
 
-@synthesize managedObjectContext;
 @synthesize fetchedResultsController = _fetchedResultsController;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -57,40 +56,18 @@
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subject" inManagedObjectContext:managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subject" inManagedObjectContext:[[Utils instance] managedObjectContext]];
     [fetchRequest setEntity:entity];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(compare:)];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     
-    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[[Utils instance] managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
     _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
 }
-
-- (void)saveSubjects
-{
-    /* NSDictionary *subjectsDict = [NSDictionary dictionaryWithObject:subjects forKey:@"Subjects"];
-    [subjectsDict writeToFile:[[Functions sharedFunctions] subjectPath] atomically:YES];
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"iCloud"] == 1) {
-        NSURL *icloud = [[Functions sharedFunctions] subjectiCloud];
-        [subjectsDict writeToURL:icloud atomically:YES];
-    }
-    //NSLog(@"Subjects array: %@", subjectsDict); */
-    NSError *error;
-    if (![managedObjectContext save:&error]) {
-        NSLog(@"Couldn't save: %@", [error localizedDescription]);
-    }
-}
-
-/* - (void)loadSubjects
-{
-    NSMutableDictionary *subjectsDict = [NSMutableDictionary dictionaryWithContentsOfFile:[[Functions sharedFunctions] subjectPath]];
-    subjects = [subjectsDict valueForKey:@"Subjects"];
-} */
 
 #pragma mark - View lifecycle
 
@@ -106,35 +83,28 @@
 	}
     id sectionInfo = [[_fetchedResultsController sections] objectAtIndex:0];
     if ([sectionInfo numberOfObjects] <= 0) {
-        NSArray *array = [NSArray arrayWithObjects:@"Math",@"Science",@"Social Studies",@"Language Arts",@"Spanish",@"German",@"French",@"Tech Ed",@"Band",nil];
+        NSArray *array = [NSArray arrayWithObjects:@"Math", @"Science", @"Social Studies", @"Language Arts", @"Spanish", @"German", @"French", @"Tech Ed", @"Band", nil];
         for (NSString *sub in array) {
-            Subject *subj = [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:managedObjectContext];
+            Subject *subj = [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:[[Utils instance] managedObjectContext]];
             subj.name = sub;
         }
     }
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subject" inManagedObjectContext:managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subject" inManagedObjectContext:[[Utils instance] managedObjectContext]];
     [request setEntity:entity];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"(name = %@)", self.subject];
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"name == %@", self.subject];
     [request setPredicate:pred];
     NSError *error2;
-    NSArray *matching_objects = [managedObjectContext executeFetchRequest:request error:&error2];
+    NSArray *matching_objects = [[[Utils instance] managedObjectContext] executeFetchRequest:request error:&error2];
     //NSLog(@"matched: '%@'",matching_objects);
+    
     if ([matching_objects count] == 0) {
         selectedIndex = -1;
     } else {
         Subject *info = [matching_objects objectAtIndex:0];
         selectedIndex = [_fetchedResultsController indexPathForObject:info].row;
     }
-    
-    /* if ([[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] subjectPath]]) {
-        //NSLog(@"File Exists");
-        [self loadSubjects];
-    } else {
-        [self saveSubjects];
-    } */
-    //NSLog(@"selected: '%d'",selectedIndex);
 }
 
 - (void)viewDidUnload
@@ -164,7 +134,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
+    return [[Utils instance] shouldAutorotate:interfaceOrientation];
 }
 
 #pragma mark - Table view data source
@@ -222,8 +192,8 @@
 	if (editingStyle == UITableViewCellEditingStyleDelete)
 	{
 		//[subjects removeObjectAtIndex:indexPath.row];
-        [managedObjectContext deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
-        [[Functions sharedFunctions] saveContext:self.managedObjectContext];
+        [[[Utils instance] managedObjectContext] deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
+        [[Utils instance] saveContext];
 		//[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}   
 }
@@ -234,11 +204,9 @@
 {
     //NSLog(@"New Subject: %@",newSubject);
     //[subjects addObject:newSubject];
-    Subject *addSubject = [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:managedObjectContext];
+    Subject *addSubject = [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:[[Utils instance] managedObjectContext]];
     addSubject.name = newSubject;
-    [[Functions sharedFunctions] saveContext:self.managedObjectContext];
-    //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[subjects count] - 1 inSection:0];
-	//[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [[Utils instance] saveContext];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -250,13 +218,14 @@
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
     [self.tableView beginUpdates];
 }
 
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
     
     UITableView *tableView = self.tableView;
     
@@ -282,7 +251,8 @@
 }
 
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
     
     switch(type) {
             
@@ -297,9 +267,10 @@
 }
 
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
     [self.tableView endUpdates];
+    [[Utils instance] saveContext];
 }
 
 @end

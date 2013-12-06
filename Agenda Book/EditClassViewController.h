@@ -19,8 +19,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *classIDDetail;
 @property (nonatomic, strong) IBOutlet UITextField *teacherField;
 
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @property (nonatomic, strong) Info *classInfo;
 
 - (IBAction)cancel:(id)sender;

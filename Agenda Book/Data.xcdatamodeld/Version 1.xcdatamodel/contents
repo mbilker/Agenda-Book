@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="12F45" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Assignment" representedClassName="Assignment" syncable="YES">
+        <attribute name="assignmentText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="complete" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="teacher" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Info" representedClassName="Info" syncable="YES">
+        <attribute name="classid" optional="YES" attributeType="String" maxValueString="3" defaultValueString="0" syncable="YES"/>
+        <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="teacher" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Subject" representedClassName="Subject" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Assignment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Info" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Subject" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

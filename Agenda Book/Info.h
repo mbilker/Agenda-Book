@@ -8,4 +8,6 @@
 @property (nonatomic, strong) NSString *subject;
 @property (nonatomic, strong) NSString *classid;
 
+@property (nonatomic, strong) NSSet *assignments;
+
 @end

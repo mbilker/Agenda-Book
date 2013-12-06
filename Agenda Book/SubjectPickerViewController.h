@@ -14,7 +14,6 @@
 @property (nonatomic, weak) id <SubjectPickerViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSString *subject;
 
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end

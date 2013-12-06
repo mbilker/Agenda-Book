@@ -7,4 +7,6 @@
 @dynamic subject;
 @dynamic classid;
 
+@dynamic assignments;
+
 @end

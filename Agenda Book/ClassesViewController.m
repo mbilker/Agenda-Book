@@ -1,35 +1,30 @@
 
+#import <Social/Social.h>
+
 #import "ClassesViewController.h"
 #import "AssignmentsViewController.h"
 #import "ClassDetailsViewController.h"
-#import "EditClassViewController.h"
 
 #import "Info.h"
 #import "SubjectCell.h"
-#import "Functions.h"
-#import "CustomAlert.h"
-
-#import <Twitter/Twitter.h>
-
-#define WILL_DISPLAY_ADS
+#import "Utils.h"
 
 @implementation ClassesViewController {
     NSIndexPath *_rowtodelete;
     BOOL _updateAvailable;
     BOOL _updateChecked;
     BOOL _ready;
-    Info *infoForRow;
+    Info *_infoForRow;
     
-    UIView *iAdContainer;
+    UIView *_iAdContainer;
 }
 
 @synthesize editButton;
 @synthesize managedObjectContext;
-//@synthesize classes;
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize iAdBanner;
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	if ((self = [super initWithCoder:aDecoder])) {
 		NSLog(@"init ClassesViewController");
@@ -42,21 +37,8 @@
 	NSLog(@"dealloc ClassesViewController");
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (NSFetchedResultsController *)fetchedResultsController
 {
-    self = [super initWithStyle:style];
-    return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
-
-- (NSFetchedResultsController *)fetchedResultsController {
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
@@ -69,36 +51,16 @@
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     
-    NSFetchedResultsController *theFetchedResultsController =
-    [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
-    self.fetchedResultsController = theFetchedResultsController;
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];;
     _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
 }
 
-- (BOOL)checkIfExists:(NSDictionary *)info
-{
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Info" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    //for (int i = 0; i < [self.classes count]; i++) {
-    for (Info *currentClass in fetchedObjects) {
-        //Info *currentClass = [self.classes objectAtIndex:i];
-        if ([[info valueForKey:@"teacher"] isEqual:currentClass.teacher]) {
-            //NSLog(@"Found %@ already exists",info.teacher);
-            return YES;
-        }
-    }
-    return NO;
-}
-
 - (void)reloadFetchedResults:(NSNotification*)note {
     NSError *error = nil;
     if (![[self fetchedResultsController] performFetch:&error]) {
-        /*
+        /* TODO
          Replace this implementation with code to handle the error appropriately.
          
          abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
@@ -112,80 +74,6 @@
     }
 }
 
-#ifdef WILL_DISPLAY_ADS
-
-- (void)slideDownDidStop
-{
-	// the date picker has finished sliding downwards, so remove it
-	[self.iAdBanner removeFromSuperview];
-}
-
-- (void)hideAd
-{
-    //NSLog(@"superview: '%@'",self.iAdBanner.superview);
-    if (self.iAdBanner.superview != nil) {
-        /* CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-        CGRect endFrame = self.iAdBanner.frame;
-        endFrame.origin.y = screenRect.origin.y + screenRect.size.height;
-    
-        // start the slide down animation
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.2];
-    
-        // we need to perform some post operations after the animation is complete
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(slideDownDidStop)];
-    
-        self.iAdBanner.frame = endFrame;
-        [UIView commitAnimations];
-    
-        // grow the table back again in vertical size to make room for the ad
-        CGRect newFrame = self.tableView.frame;
-        newFrame.size.height += self.iAdBanner.frame.size.height;
-        self.tableView.frame = newFrame; */
-        [self.iAdBanner removeFromSuperview];
-        iAdContainer = nil;
-        self.tableView.tableHeaderView = nil;
-    }
-}
-
-- (void)showAd
-{
-    if (self.iAdBanner.superview == nil) {
-        /* //NSLog(@"iAd is not shown");
-        [self.navigationController.view addSubview:self.iAdBanner];
-        [self.iAdBanner setCurrentContentSizeIdentifier:ADBannerContentSizeIdentifierPortrait];
-        CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-        CGSize adSize = [self.iAdBanner sizeThatFits:CGSizeZero];
-        CGRect startRect = CGRectMake(0.0, screenRect.origin.y + screenRect.size.height, adSize.width, adSize.height);
-        self.iAdBanner.frame = startRect;
-        
-        // compute the end frame
-        CGRect adRect = CGRectMake(0.0, screenRect.origin.y + screenRect.size.height - self.navigationController.toolbar.frame.size.height - adSize.height, adSize.width, adSize.height);
-        // start the slide up animation
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.3];
-        
-        // we need to perform some post operations after the animation is complete
-        [UIView setAnimationDelegate:self];
-        
-        self.iAdBanner.frame = adRect;
-        
-        // shrink the table vertical size to make room for the ad
-        CGRect newFrame = self.tableView.frame;
-        newFrame.size.height -= self.iAdBanner.frame.size.height;
-        self.tableView.frame = newFrame;
-        [UIView commitAnimations]; */
-        iAdContainer = [[UIView alloc] initWithFrame:self.iAdBanner.frame];
-        [iAdContainer addSubview:self.iAdBanner];
-        iAdContainer.layer.shadowColor = [[UIColor blackColor] CGColor];
-        iAdContainer.layer.shadowOffset = CGSizeMake(0.1, 0.1);
-        iAdContainer.layer.shadowOpacity = 0.50;
-        self.tableView.tableHeaderView = iAdContainer;
-    }
-}
-#endif
-
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -195,58 +83,30 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFetchedResults:) name:@"RefetchAllDatabaseData" object:[[UIApplication sharedApplication] delegate]];
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
-		// Update to handle the error appropriately.
+		// TODO Update to handle the error appropriately.
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		//exit(-1);  // Fail
         abort();
 	}
 }
 
 - (void)viewDidUnload
 {
-    self.fetchedResultsController = nil;
     [super viewDidUnload];
+    
+    self.fetchedResultsController = nil;
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    /* if ([[NSFileManager alloc] fileExistsAtPath:[[Functions sharedFunctions] classPath]]) {
-        //NSLog(@"File Exists");
-        [self loadClasses];
-    } */
-    
     [self.tableView reloadData];
     [super viewWillAppear:animated];
-#ifndef WILL_DISPLAY_ADS
-    iAdBanner = nil;
-    //NSLog(@"No ads");
-#endif
-#ifdef WILL_DISPLAY_ADS
-    if (_ready == TRUE) {
-        [self showAd];
-    }
-#endif
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
+    return [[Utils instance] shouldAutorotate:interfaceOrientation];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -256,47 +116,33 @@
 		UINavigationController *navigationController = segue.destinationViewController;
 		NewClassViewController *newClassViewController = [[navigationController viewControllers] objectAtIndex:0];
 		newClassViewController.delegate = self;
-        newClassViewController.managedObjectContext = self.managedObjectContext;
 	} else if ([segue.identifier isEqualToString:@"ShowAssignments"]) {
         //Info *i = [self.classes objectAtIndex:[[self.tableView indexPathForCell:sender] row]];
-        Info *i = [_fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:sender]];
+        Info *i = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:sender]];
         //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",i.teacher,i.subject,i.complete ? @"TRUE" : @"FALSE");
         AssignmentsViewController *assignmentsViewController = segue.destinationViewController;
-        assignmentsViewController.managedObjectContext = self.managedObjectContext;
         assignmentsViewController.info = i;
+        NSLog(@"Teacher Rel: %@", i.assignments);
     }
 }
 
 - (IBAction)tweet:(id)sender
 {
-    if ([TWTweetComposeViewController canSendTweet]) {
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
         int d = 0;
-        NSError *error;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Info" inManagedObjectContext:managedObjectContext];
-        [fetchRequest setEntity:entity];
-        NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        for (Info *i in fetchedObjects) {
-            if ([[Functions sharedFunctions] determineClassComplete:i.teacher context:self.managedObjectContext]) {
+        for (Info *i in self.fetchedResultsController.fetchedObjects) {
+            if ([[Utils instance] determineClassComplete:i]) {
                 d++;
             }
-            NSLog(@"Teacher: '%@', Complete: '%@'",i.teacher,[[Functions sharedFunctions]determineClassComplete:i.teacher context:self.managedObjectContext] ? @"YES" : @"NO");
+            NSLog(@"Teacher: '%@', Complete: '%@'", i.teacher, [[Utils instance] determineClassComplete:i] ? @"YES" : @"NO");
         }
-        NSString *s;
-        if (!([fetchedObjects count] == 1)) {
-            s = @"classes";
-        } else {
-            s = @"class";
-        }
-        NSString *f;
-        if (!(d == 1)) {
-            f = @"classes";
-        } else {
-            f = @"class";
-        }
-        TWTweetComposeViewController *tweetSheet = [[TWTweetComposeViewController alloc] init];
-        [tweetSheet setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %d %@. Homework for %d %@ is complete.",[fetchedObjects count],s,d,f]];
-	    [self presentModalViewController:tweetSheet animated:YES];
+        
+        NSString *s = ([self.fetchedResultsController.fetchedObjects count] != 1) ? @"classes" : @"class";
+        NSString *f = (d != 1) ? @"classes" : @"class";
+        
+        SLComposeViewController *twitter = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [twitter setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %d %@. Homework for %d %@ is complete.", [self.fetchedResultsController.fetchedObjects count], s, d, f]];
+	    [self presentViewController:twitter animated:YES completion:nil];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"No Twitter" message:@"Twitter is not available" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
@@ -325,7 +171,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	//return [self.classes count];
-    id sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+    id sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
     return [sectionInfo numberOfObjects];
 }
 
@@ -333,12 +179,12 @@
 
 - (void)configureCell:(SubjectCell *)cell indexPath:(NSIndexPath *)indexPath
 {
-    Info *info = [_fetchedResultsController objectAtIndexPath:indexPath];
+    Info *info = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	cell.nameLabel.text = info.teacher;
 	cell.gameLabel.text = info.subject;
     
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    backgroundView.backgroundColor = [[Functions sharedFunctions] determineClassCompleteColor:info.teacher context:self.managedObjectContext];
+    backgroundView.backgroundColor = [[Utils instance] determineClassCompleteColor:info];
     cell.backgroundView = backgroundView;
 }
 
@@ -354,21 +200,16 @@
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete)
 	{
-        CustomAlert *alert = [[CustomAlert alloc] initWithTitle:@"Confirm" message:@"Are you sure you want to delete?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete",nil];
-        [alert setBackgroundColor:[UIColor colorWithRed:0.55 green:0.2 blue:0.2 alpha:1.0] withStrokeColor:[UIColor colorWithHue:0.5 saturation:0.0 brightness:0.8 alpha:0.8]];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm" message:@"Are you sure you want to delete?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Delete",nil];
+        //[alert setBackgroundColor:[UIColor colorWithRed:0.55 green:0.2 blue:0.2 alpha:1.0] withStrokeColor:[UIColor colorWithHue:0.5 saturation:0.0 brightness:0.8 alpha:0.8]];
         [alert show];
+        
         _rowtodelete = indexPath;
-
-		//[self.classes removeObjectAtIndex:indexPath.row];
-        //[[Functions sharedFunctions] saveContext:self.managedObjectContext];
-		//[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-	}
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //_transferInfo = [self.classes objectAtIndex:indexPath.row];
-    //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",_transferInfo.teacher,_transferInfo.subject,_transferInfo.complete ? @"TRUE" : @"FALSE");
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -379,11 +220,21 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    //NSLog(@"Accessory tapped");
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Teacher" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Class Details", @"Edit Class", nil];
-    //infoForRow = [self.classes objectAtIndex:indexPath.row];
-    infoForRow = [_fetchedResultsController objectAtIndexPath:indexPath];
-    [actionSheet showInView:self.navigationController.view];
+    _infoForRow = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSError *error;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Assignment"];
+    
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"teacher == %@", _infoForRow]];
+    int i = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] count];
+    
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"teacher == %@ AND complete == 1", _infoForRow]];
+    int c = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] count];
+    int f = i - c;
+    
+    NSString *title = [NSString stringWithFormat:@"Teacher: %@\nSubject: %@\nID: %@\n\nAssignments: %d\nComplete Assignments: %d\nIncomplete Assignments: %d", _infoForRow.teacher, _infoForRow.subject, _infoForRow.classid, i, c, f];
+    
+    [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Class Details", @"Edit Class", nil] showInView:self.navigationController.view];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -393,16 +244,14 @@
     //NSLog(@"Hit Button at: '%d'",buttonIndex);
     //NSLog(@"Button: '%@'",[actionSheet buttonTitleAtIndex:buttonIndex]);
     if (buttonIndex == 0 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqual:@"Class Details"]) {
-        //NSLog(@"Class Details Hit");
         ClassDetailsViewController *details = [self.storyboard instantiateViewControllerWithIdentifier:@"classDetailsView"];
-        details.classInfo = infoForRow;
+        details.classInfo = _infoForRow;
         details.managedObjectContext = self.managedObjectContext;
         [self.navigationController pushViewController:details animated:YES];
     } else if (buttonIndex == 1 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqual:@"Edit Class"]) {
         EditClassViewController *editClass = [self.storyboard instantiateViewControllerWithIdentifier:@"editClass"];
-        editClass.classInfo = infoForRow;
+        editClass.classInfo = _infoForRow;
         editClass.delegate = self;
-        editClass.managedObjectContext = self.managedObjectContext;
         [self.navigationController pushViewController:editClass animated:YES];
     }
 }
@@ -411,11 +260,8 @@
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    //NSLog(@"ButtonIndex: '%d'",buttonIndex);
     if (buttonIndex == 1 && _rowtodelete) {
-        //[self.classes removeObjectAtIndex:_rowtodelete.row];
-        [managedObjectContext deleteObject:[_fetchedResultsController objectAtIndexPath:_rowtodelete]];
-		//[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:_rowtodelete] withRowAnimation:UITableViewRowAnimationFade];
+        [managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:_rowtodelete]];
     } else if (buttonIndex == 1 && _updateAvailable) {
         _updateAvailable = FALSE;
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://classes.mbilker.us"]];
@@ -435,28 +281,29 @@
 {
     NSError *error;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Info" inManagedObjectContext:managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Info" inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"teacher == %@", newClass[@"teacher"]];
+    [fetchRequest setPredicate:predicate];
     NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    //for (int i = 0; i < [self.classes count]; i++) {
-    for (Info *info in fetchedObjects) {
-        //Info *info = [self.classes objectAtIndex:i];
-        if ([info.teacher isEqual:[newClass valueForKey:@"teacher"]]) {
-            NSLog(@"teacher1: '%@', teacher2: '%@'",info.teacher,[newClass valueForKey:@"teacher"]);
-            [[[UIAlertView alloc] initWithTitle:@"Other Teacher Exists" message:@"Another Teacher with that name exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
-            //NSLog(@"FOUND");
-            return;
-        }
+    
+    NSLog(@"fetchedObjects: %@", fetchedObjects);
+    
+    if ([fetchedObjects count] > 0) {
+        //NSLog(@"teacher1: '%@', teacher2: '%@'", info.teacher, newClass[@"teacher"]);
+        [[[UIAlertView alloc] initWithTitle:@"Other Teacher Exists" message:@"Another Teacher with that name exists in the list"delegate:nil cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
+        return;
     }
-    //[self.classes addObject:newClass];
+    
     Info *info = [NSEntityDescription insertNewObjectForEntityForName:@"Info" inManagedObjectContext:self.managedObjectContext];
-    info.teacher = [newClass valueForKey:@"teacher"];
-    info.subject = [newClass valueForKey:@"subject"];
-    info.classid = [newClass valueForKey:@"classid"];
-    [[Functions sharedFunctions] saveContext:self.managedObjectContext];
-	//NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.classes count] - 1 inSection:0];
-	//[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    info.teacher = newClass[@"teacher"];
+    info.subject = newClass[@"subject"];
+    info.classid = newClass[@"classid"];
+    info.assignments = [NSSet set];
+    
+    [[Utils instance] saveContext];
+    
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -469,27 +316,15 @@
 
 - (void)editClassViewController:(EditClassViewController *)controller didChange:(NSDictionary *)info
 {
-    //NSLog(@"Teacher: '%@'",info.teacher);
-    //NSLog(@"Subject: '%@'",info.subject);
-    //NSLog(@"Class ID: '%@'",info.classid);
-    /* NSString *path = [[Functions sharedFunctions] assignmentPath];
-    if ([[NSFileManager alloc] fileExistsAtPath:path]) {
-        //NSLog(@"File Exists");
-        NSMutableDictionary *teachersDict = [NSMutableDictionary dictionaryWithContentsOfFile:path];
-        NSArray *teacherAssignments = [teachersDict objectForKey:infoForRow.teacher];
-        if (teacherAssignments != nil) {
-            [teachersDict removeObjectForKey:infoForRow.teacher];
-            [teachersDict setObject:teacherAssignments forKey:info.teacher];
-            [teachersDict writeToFile:path atomically:YES];
-        }
-    } */
-    //infoForRow.teacher = info.teacher;
-    //infoForRow.subject = info.subject;
-    //infoForRow.classid = info.classid;
-    infoForRow.teacher = [info valueForKey:@"teacher"];
-    infoForRow.subject = [info valueForKey:@"subject"];
-    infoForRow.classid = [info valueForKey:@"classid"];
-    [[Functions sharedFunctions] saveContext:self.managedObjectContext];
+    //NSLog(@"Teacher: '%@'",info[@"teacher"]);
+    //NSLog(@"Subject: '%@'",info[@"subject"]);
+    //NSLog(@"ClassID: '%@'",info[@"classid"]);
+    
+    _infoForRow.teacher = info[@"teacher"];
+    _infoForRow.subject = info[@"subject"];
+    _infoForRow.classid = info[@"classid"];
+    
+    [[Utils instance] saveContext];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -499,7 +334,6 @@
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
     [self.tableView beginUpdates];
 }
-
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
     
@@ -527,7 +361,7 @@
 }
 
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     
     switch(type) {
             
@@ -543,33 +377,58 @@
 
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
     [self.tableView endUpdates];
+    [[Utils instance] saveContext];
 }
 
-#ifdef WILL_DISPLAY_ADS
-#pragma mark ADBannerViewDelegate
+#pragma mark - ADBannerViewDelegate
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
-    //NSLog(@"iAd loaded");
+    NSLog(@"iAd loaded");
     _ready = TRUE;
-    [self showAd];
+    
+    if (_iAdContainer == nil) {
+        _iAdContainer = [[UIView alloc] init];
+    }
+    
+    CGRect frame = banner.frame;
+    frame.origin.x = 0;
+    frame.origin.y = self.tableView.frame.size.height - self.navigationController.navigationBar.frame.size.height - banner.frame.size.height;
+    
+    [_iAdContainer setFrame:frame];
+    [_iAdContainer addSubview:banner];
+    
+    [UIView animateWithDuration:0.5f animations:^(void) {
+        [self.navigationController.view addSubview:_iAdContainer];
+    }];
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
-    //NSLog(@"iAd load error: '%@'",error);
+    NSLog(@"iAd load error: '%@'",error);
     _ready = FALSE;
-    [self hideAd];
-    //NSLog(@"Failed to load: '%@','%@'",error,[error userInfo]);
+    
+    [UIView animateWithDuration:0.5f animations:^(void) {
+        banner.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [banner removeFromSuperview];
+        [_iAdContainer setFrame:CGRectMake(0, 0, 0, 0)];
+    }];
+    
+    NSLog(@"Failed to load: '%@','%@'", error, [error userInfo]);
 }
 
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner
 {
     _ready = FALSE;
-    [self hideAd];
+    
+    [UIView animateWithDuration:0.5f animations:^(void) {
+        banner.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [banner removeFromSuperview];
+        [_iAdContainer setFrame:CGRectMake(0, 0, 0, 0)];
+    }];
 }
-#endif
 
 @end

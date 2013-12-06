@@ -1,10 +1,12 @@
 
 #import "AppDelegate.h"
 #import "ClassesViewController.h"
-#import "Functions.h"
+#import "Utils.h"
 
 #import "Info.h"
 #import "Assignment.h"
+
+#import <PonyDebugger/PonyDebugger.h>
 
 @implementation AppDelegate {
     NSDictionary *_info;
@@ -19,18 +21,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSManagedObjectContext *context = [self managedObjectContext];
-    /* Info *info = [NSEntityDescription
-                                       insertNewObjectForEntityForName:@"Info"
-                                       inManagedObjectContext:context];
-    info.teacher = @"Mrs. Test";
-    info.subject = @"Math";
-    info.classid = @"0";
-    Assignment *assignment = [NSEntityDescription
-                                          insertNewObjectForEntityForName:@"Assignment"
-                                          inManagedObjectContext:context];
-    assignment.assignmentText = @"Test";
-    assignment.complete = YES;
-    assignment.dueDate = [NSDate date]; */
+    
     NSError *error;
     if (![context save:&error]) {
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
@@ -53,16 +44,17 @@
 	UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
 	ClassesViewController *classesViewController = [[navigationController viewControllers] objectAtIndex:0];
     classesViewController.managedObjectContext = self.managedObjectContext;
-    /* NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Info" inManagedObjectContext:context];
-    [fetchRequest setEntity:entity];
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    for (Info *info in fetchedObjects) {
-        NSLog(@"class: '%@'",info.subject);
-        NSLog(@"classid: '%@'",info.classid);
-        NSLog(@"teacher: '%@'",info.teacher);
-    } */
+    
+    PDDebugger *debugger = [PDDebugger defaultInstance];
+    
+    [debugger enableNetworkTrafficDebugging];
+    [debugger enableRemoteLogging];
+    [debugger forwardAllNetworkTraffic];
+    [debugger enableCoreDataDebugging];
+    [debugger addManagedObjectContext:self.managedObjectContext withName:@"Data"];
+    
+    [debugger connectToURL:[NSURL URLWithString:@"ws://mbilkermac.local:9000/device"]];
+    
     return YES;
 }
 
@@ -104,7 +96,7 @@
         [moc performBlockAndWait:^{
             [moc setPersistentStoreCoordinator: coordinator];
             
-            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(mergeChangesFrom_iCloud:) name:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:coordinator];
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChangesFrom_iCloud:) name:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:coordinator];
         }];
         __managedObjectContext = moc;
     }
@@ -148,18 +140,18 @@
             // iCloud is available
         cloudURL = [NSURL fileURLWithPath:coreDataCloudContent];
             
-        options = [NSDictionary dictionaryWithObjectsAndKeys:
-                       [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                       [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
-                       @"Agenda Book.store", NSPersistentStoreUbiquitousContentNameKey,
-                       cloudURL, NSPersistentStoreUbiquitousContentURLKey,
-                       nil];
+        options = @{
+            NSMigratePersistentStoresAutomaticallyOption: @YES,
+            NSInferMappingModelAutomaticallyOption: @YES,
+            NSPersistentStoreUbiquitousContentNameKey: @"Agenda Book.store",
+            NSPersistentStoreUbiquitousContentURLKey: cloudURL
+        };
     } else {
-            // iCloud is not available
-        options = [NSDictionary dictionaryWithObjectsAndKeys:
-                       [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                       [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
-                       nil];
+        // iCloud is not available
+        options = @{
+            NSMigratePersistentStoresAutomaticallyOption: @YES,
+            NSInferMappingModelAutomaticallyOption: @YES
+        };
     }
         
     NSError *error = nil;
@@ -188,6 +180,7 @@
          Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
              
          */
+        
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
@@ -204,7 +197,7 @@
 - (void)mergeiCloudChanges:(NSNotification*)note forContext:(NSManagedObjectContext*)moc {
     [moc mergeChangesFromContextDidSaveNotification:note]; 
     
-    NSNotification* refreshNotification = [NSNotification notificationWithName:@"RefreshAllViews" object:self  userInfo:[note userInfo]];
+    NSNotification* refreshNotification = [NSNotification notificationWithName:@"RefreshAllViews" object:self userInfo:[note userInfo]];
     
     [[NSNotificationCenter defaultCenter] postNotification:refreshNotification];
 }

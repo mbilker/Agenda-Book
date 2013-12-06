@@ -1,6 +1,6 @@
 
 #import "AddSubjectPickerViewController.h"
-#import "Functions.h"
+#import "Utils.h"
 
 @implementation AddSubjectPickerViewController
 
@@ -73,7 +73,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
+    return [[Utils instance] shouldAutorotate:interfaceOrientation];
 }
 
 - (void)checkDone

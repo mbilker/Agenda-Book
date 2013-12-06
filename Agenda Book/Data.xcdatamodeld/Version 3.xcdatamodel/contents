@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="2" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="12F45" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Assignment" representedClassName="Assignment" syncable="YES">
+        <attribute name="assignmentText" attributeType="String" syncable="YES"/>
+        <attribute name="complete" attributeType="Boolean" syncable="YES"/>
+        <attribute name="dueDate" attributeType="Date" syncable="YES"/>
+        <relationship name="teacher" maxCount="1" deletionRule="Nullify" destinationEntity="Info" inverseName="assignments" inverseEntity="Info" syncable="YES"/>
+    </entity>
+    <entity name="Info" representedClassName="Info" syncable="YES">
+        <attribute name="classid" attributeType="String" maxValueString="3" defaultValueString="0" syncable="YES"/>
+        <attribute name="subject" attributeType="String" syncable="YES"/>
+        <attribute name="teacher" attributeType="String" syncable="YES"/>
+        <relationship name="assignments" toMany="YES" deletionRule="Cascade" destinationEntity="Assignment" inverseName="teacher" inverseEntity="Assignment" syncable="YES"/>
+    </entity>
+    <entity name="Subject" representedClassName="Subject" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Assignment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Info" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Subject" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

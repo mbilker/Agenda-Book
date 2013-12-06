@@ -1,6 +1,6 @@
 
 #import "AboutViewController.h"
-#import "Functions.h"
+#import "Utils.h"
 
 @implementation AboutViewController
 
@@ -32,7 +32,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
+    return [[Utils instance] shouldAutorotate:interfaceOrientation];
 }
 
 @end

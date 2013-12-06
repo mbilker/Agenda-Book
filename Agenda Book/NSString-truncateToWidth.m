@@ -4,7 +4,7 @@
 
 @implementation NSString (TruncateToWidth)
 
-- (NSString*)stringByTruncatingToWidth:(CGFloat)width withFont:(UIFont *)font
+- (NSString *)stringByTruncatingToWidth:(CGFloat)width withFont:(UIFont *)font
 {
     // Create copy that will be the returned result
     NSMutableString *truncatedString = [self mutableCopy];

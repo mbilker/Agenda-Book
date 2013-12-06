@@ -1,6 +1,6 @@
 
 #import "ClassDetailsViewController.h"
-#import "Functions.h"
+#import "Utils.h"
 
 @implementation ClassDetailsViewController
 
@@ -40,10 +40,8 @@
     self.subjectName.text = [NSString stringWithFormat:@"Subject: %@",self.classInfo.subject];
     self.classID.text = [NSString stringWithFormat:@"Class ID: %@",self.classInfo.classid];
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(%K == %@)",@"teacher",self.classInfo.teacher];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Assignment"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"teacher == %@", self.classInfo];
     [fetchRequest setPredicate:predicate];
     NSError *error;
     NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -83,7 +81,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
+    return [[Utils instance] shouldAutorotate:interfaceOrientation];
 }
 
 @end

@@ -3,7 +3,7 @@
 #import "SubjectPickerViewController.h"
 #import "ClassIDViewController.h"
 
-#import "Functions.h"
+#import "Utils.h"
 
 @implementation EditClassViewController {
     NSMutableDictionary *tempInfo;
@@ -15,7 +15,6 @@
 @synthesize teacherField;
 
 @synthesize classInfo;
-@synthesize managedObjectContext;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -45,7 +44,6 @@
 		SubjectPickerViewController *subjectPickerViewController = segue.destinationViewController;
 		subjectPickerViewController.delegate = self;
 		subjectPickerViewController.subject = self.classInfo.subject;
-        subjectPickerViewController.managedObjectContext = self.managedObjectContext;
 	}
     if ([segue.identifier isEqualToString:@"changeClassID"])
 	{
@@ -84,7 +82,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
+    return [[Utils instance] shouldAutorotate:interfaceOrientation];
 }
 
 - (IBAction)cancel:(id)sender
@@ -132,7 +130,7 @@
 {
     //tempInfo.subject = theSubject;
     [tempInfo setValue:theSubject forKey:@"subject"];
-	self.subjectDetail.text = [tempInfo valueForKey:@"subject"];
+	self.subjectDetail.text = tempInfo[@"subject"];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -1,6 +1,6 @@
 
 #import "AssignmentDetailsViewController.h"
-#import "Functions.h"
+#import "Utils.h"
 
 @implementation AssignmentDetailsViewController
 
@@ -31,8 +31,8 @@
 
 - (void)viewDidLoad
 {
-    self.assignmentText.text = [NSString stringWithFormat:@"Assignment: %@",assignment.assignmentText];
-    self.complete.text = [NSString stringWithFormat:@"Complete: %@",assignment.complete ? @"YES" : @"NO"];
+    self.assignmentText.text = [NSString stringWithFormat:@"Assignment: %@", assignment.assignmentText];
+    self.complete.text = [NSString stringWithFormat:@"Complete: %@", assignment.complete ? @"YES" : @"NO"];
     
     NSDateFormatter *date = [[NSDateFormatter alloc] init];
     [date setDateStyle:NSDateFormatterShortStyle];
@@ -48,7 +48,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return [[Functions sharedFunctions] shouldAutorotate:interfaceOrientation];
+    return [[Utils instance] shouldAutorotate:interfaceOrientation];
 }
 
 @end

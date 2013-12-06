@@ -7,7 +7,7 @@
 		<string>$(TeamIdentifierPrefix)us.mbilker.agendabook</string>
 	</array>
 	<key>com.apple.developer.ubiquity-kvstore-identifier</key>
-	<string>$(TeamIdentifierPrefix)us.mbilker.agendabook</string>
+	<string>$(TeamIdentifierPrefix)$(CFBundleIdentifier)</string>
 	<key>keychain-access-groups</key>
 	<array>
 		<string>$(AppIdentifierPrefix)us.mbilker.agendabook</string>
