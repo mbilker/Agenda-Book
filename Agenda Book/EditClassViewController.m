@@ -1,7 +1,6 @@
 
 #import "EditClassViewController.h"
 #import "SubjectPickerViewController.h"
-#import "ClassIDViewController.h"
 
 #import "Utils.h"
 
@@ -44,13 +43,6 @@
 		SubjectPickerViewController *subjectPickerViewController = segue.destinationViewController;
 		subjectPickerViewController.delegate = self;
 		subjectPickerViewController.subject = self.classInfo.subject;
-	}
-    if ([segue.identifier isEqualToString:@"changeClassID"])
-	{
-        //NSLog(@"Segue");
-		ClassIDViewController *classIDPickerViewController = segue.destinationViewController;
-		classIDPickerViewController.delegate = self;
-		//classIDPickerViewController.enteredClassID = tableClassID;
 	}
 }
 
@@ -133,20 +125,5 @@
 	self.subjectDetail.text = tempInfo[@"subject"];
 	[self.navigationController popViewControllerAnimated:YES];
 }
-
-#pragma mark - ClassIDViewControllerDelegate
-
-- (void)classIDViewControllerDidCancel:(ClassIDViewController *)controller
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)classIDViewController:(ClassIDViewController *)controller didAddClassID:(NSString *)classID
-{
-    //tempInfo.classid = classID;
-    [tempInfo setValue:classID forKey:@"classid"];
-    self.classIDDetail.text = [tempInfo valueForKey:@"classid"];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
+ 
 @end

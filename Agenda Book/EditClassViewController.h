@@ -1,7 +1,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SubjectPickerViewController.h"
-#import "ClassIDViewController.h"
 
 #import "Info.h"
 
@@ -12,7 +11,7 @@
 - (void)editClassViewController:(EditClassViewController *)controller didChange:(NSDictionary *)info;
 @end
 
-@interface EditClassViewController : UITableViewController <SubjectPickerViewControllerDelegate, ClassIDViewControllerDelegate, UITextFieldDelegate>
+@interface EditClassViewController : UITableViewController <SubjectPickerViewControllerDelegate, UITextFieldDelegate>
 
 @property (nonatomic, weak) id<EditClassViewControllerDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UILabel *subjectDetail;

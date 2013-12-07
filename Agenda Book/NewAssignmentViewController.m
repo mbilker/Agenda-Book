@@ -88,7 +88,7 @@
             return;
         }
         
-        Assignment *assignment = [[Assignment alloc] initUsingDefaultContext];
+        Assignment *assignment = [NSEntityDescription insertNewObjectForEntityForName:@"Assignment" inManagedObjectContext:[[Utils instance] managedObjectContext]];
         assignment.assignmentText = self.assignmentField.text;
         assignment.complete = FALSE;
         assignment.dueDate = [[Utils instance] dateWithOutTime:self.duePicker.date];
@@ -113,12 +113,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == 0) {
-        if (![self.assignmentField isFirstResponder])
-            [self.assignmentField becomeFirstResponder];
+        [self.assignmentField becomeFirstResponder];
     } else if (indexPath.row == 1) {
-        if ([self.assignmentField isFirstResponder]) {
-            [self.assignmentField resignFirstResponder];
-        }
+        [self.assignmentField resignFirstResponder];
+        
         if (self.hiddenView.superview == nil) {
             NSLog(@"duePicker is not shown");
             [self.view.window addSubview:self.hiddenView];
@@ -140,12 +138,6 @@
     }
 }
 
-- (void)slideDownDidStop
-{
-	// the date picker has finished sliding downwards, so remove it
-	[self.hiddenView removeFromSuperview];
-}
-
 - (void)hideDuePicker
 {
     if (self.hiddenView.superview != nil) {
@@ -161,6 +153,8 @@
             CGRect newFrame = self.tableView.frame;
             newFrame.size.height += self.hiddenView.frame.size.height;
             self.tableView.frame = newFrame;
+        } completion:^(BOOL complete) {
+            [self.hiddenView removeFromSuperview];
         }];
     }
 }
@@ -184,7 +178,7 @@
 - (IBAction)done:(id)sender
 {
     //NSLog(@"Date picked: %@",self.duePicker.date);
-    //[self hideDuePicker];
+    [self hideDuePicker];
     [self checkDone];
 }
 

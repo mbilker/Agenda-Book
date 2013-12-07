@@ -8,14 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		61601C5B151BA0C700A81E39 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 61601C5A151BA0C700A81E39 /* Utils.m */; };
-		650329D81549008A00C4D628 /* AssignmentDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 650329D71549008A00C4D628 /* AssignmentDetailsViewController.m */; };
 		650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 650329E41549066000C4D628 /* EditAssignmentViewController.m */; };
 		65199926150D4DE6007FD5A6 /* AssignmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199925150D4DE6007FD5A6 /* AssignmentCell.m */; };
 		6519992A150D4F4B007FD5A6 /* AssignmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */; };
 		6527C31E15071551007B8F26 /* SubjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C31D15071551007B8F26 /* SubjectCell.m */; };
 		6527C322150718FD007B8F26 /* NewClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C321150718FD007B8F26 /* NewClassViewController.m */; };
 		652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 652859F4150ED19900296718 /* NSString-truncateToWidth.m */; };
-		652A6246154785D700FE17E5 /* ClassDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A6245154785D700FE17E5 /* ClassDetailsViewController.m */; };
 		652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652A624815478BAC00FE17E5 /* EditClassViewController.m */; };
 		654168D2184ED8C500AC79A2 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 654168D1184ED8C500AC79A2 /* Social.framework */; };
 		654A84131554D39F00744CB3 /* Subject.m in Sources */ = {isa = PBXBuildFile; fileRef = 654A84121554D39F00744CB3 /* Subject.m */; };
@@ -50,8 +48,6 @@
 /* Begin PBXFileReference section */
 		61601C59151BA0C700A81E39 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		61601C5A151BA0C700A81E39 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
-		650329D61549008A00C4D628 /* AssignmentDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentDetailsViewController.h; sourceTree = "<group>"; };
-		650329D71549008A00C4D628 /* AssignmentDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentDetailsViewController.m; sourceTree = "<group>"; };
 		650329E31549066000C4D628 /* EditAssignmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAssignmentViewController.h; sourceTree = "<group>"; };
 		650329E41549066000C4D628 /* EditAssignmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAssignmentViewController.m; sourceTree = "<group>"; };
 		65199924150D4DE6007FD5A6 /* AssignmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentCell.h; sourceTree = "<group>"; };
@@ -64,8 +60,6 @@
 		6527C321150718FD007B8F26 /* NewClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewClassViewController.m; sourceTree = "<group>"; };
 		652859F4150ED19900296718 /* NSString-truncateToWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-truncateToWidth.m"; sourceTree = "<group>"; };
 		652859F7150ED1B200296718 /* NSString-truncateToWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-truncateToWidth.h"; sourceTree = "<group>"; };
-		652A6244154785D700FE17E5 /* ClassDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassDetailsViewController.h; sourceTree = "<group>"; };
-		652A6245154785D700FE17E5 /* ClassDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassDetailsViewController.m; sourceTree = "<group>"; };
 		652A624715478BAC00FE17E5 /* EditClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditClassViewController.h; sourceTree = "<group>"; };
 		652A624815478BAC00FE17E5 /* EditClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditClassViewController.m; sourceTree = "<group>"; };
 		654168D1184ED8C500AC79A2 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -190,8 +184,6 @@
 				65A841A41506F97F00C6B779 /* ClassesViewController.m */,
 				6527C31C15071551007B8F26 /* SubjectCell.h */,
 				6527C31D15071551007B8F26 /* SubjectCell.m */,
-				652A6244154785D700FE17E5 /* ClassDetailsViewController.h */,
-				652A6245154785D700FE17E5 /* ClassDetailsViewController.m */,
 				652A624715478BAC00FE17E5 /* EditClassViewController.h */,
 				652A624815478BAC00FE17E5 /* EditClassViewController.m */,
 				6527C320150718FD007B8F26 /* NewClassViewController.h */,
@@ -202,8 +194,6 @@
 				65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */,
 				65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */,
 				65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */,
-				650329D61549008A00C4D628 /* AssignmentDetailsViewController.h */,
-				650329D71549008A00C4D628 /* AssignmentDetailsViewController.m */,
 				650329E31549066000C4D628 /* EditAssignmentViewController.h */,
 				650329E41549066000C4D628 /* EditAssignmentViewController.m */,
 				652859F7150ED1B200296718 /* NSString-truncateToWidth.h */,
@@ -245,6 +235,7 @@
 			buildConfigurationList = 65A8416F1506ED9900C6B779 /* Build configuration list for PBXNativeTarget "Agenda Book" */;
 			buildPhases = (
 				2B2E95B38D964AE3AEAA9F31 /* Check Pods Manifest.lock */,
+				653D95861852E4BA0048E229 /* Build Date for Build */,
 				65A8414D1506ED9900C6B779 /* Sources */,
 				65A8414E1506ED9900C6B779 /* Frameworks */,
 				65A8414F1506ED9900C6B779 /* Resources */,
@@ -343,6 +334,20 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		653D95861852E4BA0048E229 /* Build Date for Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build Date for Build";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildPlist=\"$PRODUCT_SETTINGS_PATH\"\nCFBuildDate=$(date)\n/usr/libexec/PlistBuddy -c \"Set :CFBuildDate $CFBuildDate\" \"$buildPlist\"\ntouch \"$buildPlist\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -363,9 +368,7 @@
 				652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */,
 				657AA0F915159E780045148B /* AboutViewController.m in Sources */,
 				61601C5B151BA0C700A81E39 /* Utils.m in Sources */,
-				652A6246154785D700FE17E5 /* ClassDetailsViewController.m in Sources */,
 				652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */,
-				650329D81549008A00C4D628 /* AssignmentDetailsViewController.m in Sources */,
 				650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */,
 				655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */,
 				65A841A81506FE5100C6B779 /* Info.m in Sources */,
@@ -434,6 +437,11 @@
 				CODE_SIGN_ENTITLEMENTS = "Agenda Book/Agenda Book.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"DEBUG=1",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Agenda Book/Agenda Book-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

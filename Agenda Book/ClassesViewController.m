@@ -3,14 +3,13 @@
 
 #import "ClassesViewController.h"
 #import "AssignmentsViewController.h"
-#import "ClassDetailsViewController.h"
 
 #import "Info.h"
 #import "SubjectCell.h"
 #import "Utils.h"
 
 @implementation ClassesViewController {
-    NSIndexPath *_rowtodelete;
+    NSIndexPath *_rowToDelete;
     BOOL _updateAvailable;
     BOOL _updateChecked;
     BOOL _ready;
@@ -20,7 +19,6 @@
 }
 
 @synthesize editButton;
-@synthesize managedObjectContext;
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize iAdBanner;
 
@@ -43,15 +41,13 @@
         return _fetchedResultsController;
     }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Info" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Info"];
     
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"subject" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];;
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[[Utils instance] managedObjectContext] sectionNameKeyPath:nil cacheName:@"Root"];;
     _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
@@ -204,7 +200,7 @@
         //[alert setBackgroundColor:[UIColor colorWithRed:0.55 green:0.2 blue:0.2 alpha:1.0] withStrokeColor:[UIColor colorWithHue:0.5 saturation:0.0 brightness:0.8 alpha:0.8]];
         [alert show];
         
-        _rowtodelete = indexPath;
+        _rowToDelete = indexPath;
     }
 }
 
@@ -226,15 +222,15 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Assignment"];
     
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"teacher == %@", _infoForRow]];
-    int i = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] count];
+    int i = [[[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error] count];
     
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"teacher == %@ AND complete == 1", _infoForRow]];
-    int c = [[managedObjectContext executeFetchRequest:fetchRequest error:&error] count];
+    int c = [[[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error] count];
     int f = i - c;
     
     NSString *title = [NSString stringWithFormat:@"Teacher: %@\nSubject: %@\nID: %@\n\nAssignments: %d\nComplete Assignments: %d\nIncomplete Assignments: %d", _infoForRow.teacher, _infoForRow.subject, _infoForRow.classid, i, c, f];
     
-    [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Class Details", @"Edit Class", nil] showInView:self.navigationController.view];
+    [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit Class", nil] showInView:self.navigationController.view];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -243,12 +239,7 @@
 {
     //NSLog(@"Hit Button at: '%d'",buttonIndex);
     //NSLog(@"Button: '%@'",[actionSheet buttonTitleAtIndex:buttonIndex]);
-    if (buttonIndex == 0 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqual:@"Class Details"]) {
-        ClassDetailsViewController *details = [self.storyboard instantiateViewControllerWithIdentifier:@"classDetailsView"];
-        details.classInfo = _infoForRow;
-        details.managedObjectContext = self.managedObjectContext;
-        [self.navigationController pushViewController:details animated:YES];
-    } else if (buttonIndex == 1 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqual:@"Edit Class"]) {
+    if (buttonIndex == 0 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqual:@"Edit Class"]) {
         EditClassViewController *editClass = [self.storyboard instantiateViewControllerWithIdentifier:@"editClass"];
         editClass.classInfo = _infoForRow;
         editClass.delegate = self;
@@ -260,8 +251,8 @@
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1 && _rowtodelete) {
-        [managedObjectContext deleteObject:[self.fetchedResultsController objectAtIndexPath:_rowtodelete]];
+    if (buttonIndex == 1 && _rowToDelete) {
+        [[[Utils instance] managedObjectContext] deleteObject:[self.fetchedResultsController objectAtIndexPath:_rowToDelete]];
     } else if (buttonIndex == 1 && _updateAvailable) {
         _updateAvailable = FALSE;
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://classes.mbilker.us"]];
@@ -280,12 +271,10 @@
 - (void)newClassViewController:(ClassesViewController *)controller didAddInfo:(NSDictionary *)newClass
 {
     NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Info" inManagedObjectContext:managedObjectContext];
-    [fetchRequest setEntity:entity];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Info"];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"teacher == %@", newClass[@"teacher"]];
     [fetchRequest setPredicate:predicate];
-    NSArray *fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray *fetchedObjects = [[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error];
     
     NSLog(@"fetchedObjects: %@", fetchedObjects);
     
@@ -295,7 +284,7 @@
         return;
     }
     
-    Info *info = [NSEntityDescription insertNewObjectForEntityForName:@"Info" inManagedObjectContext:self.managedObjectContext];
+    Info *info = [NSEntityDescription insertNewObjectForEntityForName:@"Info" inManagedObjectContext:[[Utils instance] managedObjectContext]];
     
     info.teacher = newClass[@"teacher"];
     info.subject = newClass[@"subject"];

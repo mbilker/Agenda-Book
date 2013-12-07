@@ -11,6 +11,4 @@
 
 @property (nonatomic, strong) Info *teacher;
 
-- (instancetype)initUsingDefaultContext;
-
 @end

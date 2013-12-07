@@ -2,12 +2,11 @@
 #import "AssignmentsViewController.h"
 #import "AssignmentCell.h"
 #import "Assignment.h"
-#import "AssignmentDetailsViewController.h"
 #import "NSString-truncateToWidth.h"
 #import "Utils.h"
 
 @implementation AssignmentsViewController {
-    Assignment *assignmentForRow;
+    Assignment *_assignmentForRow;
 }
 
 @synthesize info;
@@ -267,10 +266,13 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    //NSLog(@"Accessory tapped");
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Assignment Details", @"Edit Assignment", nil];
-    //assignmentForRow = [self.assignments objectAtIndex:indexPath.row];
-    assignmentForRow = [_fetchedResultsController objectAtIndexPath:indexPath];
+    _assignmentForRow = [_fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSDateFormatter *date = [[NSDateFormatter alloc] init];
+    [date setDateStyle:NSDateFormatterShortStyle];
+    NSString *line = [NSString stringWithFormat:@"Assignment: %@\nComplete: %@\nDue: %@", _assignmentForRow.assignmentText, _assignmentForRow.complete ? @"YES" : @"NO", [date stringFromDate:_assignmentForRow.dueDate]];
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:line delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit Assignment", nil];
     [actionSheet showInView:self.navigationController.view];
 }
 
@@ -278,16 +280,10 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    //NSLog(@"Hit Button at: '%d'",buttonIndex);
-    //NSLog(@"Button: '%@'",[actionSheet buttonTitleAtIndex:buttonIndex]);
-    if (buttonIndex == 0 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Assignment Details"]) {
-        AssignmentDetailsViewController *details = [self.storyboard instantiateViewControllerWithIdentifier:@"assignmentDetailsView"];
-        details.assignment = assignmentForRow;
-        [self.navigationController pushViewController:details animated:YES];
-    } else if (buttonIndex == 1 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Edit Assignment"]) {
+    if (buttonIndex == 0 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Edit Assignment"]) {
         EditAssignmentViewController *edit = [self.storyboard instantiateViewControllerWithIdentifier:@"editAssignment"];
         edit.delegate = self;
-        edit.assignment = assignmentForRow;
+        edit.assignment = _assignmentForRow;
         [self.navigationController pushViewController:edit animated:YES];
     }
 }
@@ -317,9 +313,9 @@
     //NSLog(@"Assignment: '%@'",assignment.assignmentText);
     //NSLog(@"Complete: '%@'",assignment.complete ? @"YES" : @"NO");
     //NSLog(@"Due Date: '%@'",[assignment.dueDate description]);
-    assignmentForRow.assignmentText = [assignment valueForKey:@"assignmentText"];
-    assignmentForRow.complete = [[assignment valueForKey:@"complete"] boolValue];
-    assignmentForRow.dueDate = [assignment valueForKey:@"dueDate"];
+    _assignmentForRow.assignmentText = [assignment valueForKey:@"assignmentText"];
+    _assignmentForRow.complete = [[assignment valueForKey:@"complete"] boolValue];
+    _assignmentForRow.dueDate = [assignment valueForKey:@"dueDate"];
     [[Utils instance] saveContext];
     [self.navigationController popViewControllerAnimated:YES];
 }

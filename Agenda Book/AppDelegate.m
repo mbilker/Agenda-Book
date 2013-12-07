@@ -6,7 +6,7 @@
 #import "Info.h"
 #import "Assignment.h"
 
-#import <PonyDebugger/PonyDebugger.h>
+//#import <PonyDebugger/PonyDebugger.h>
 
 @implementation AppDelegate {
     NSDictionary *_info;
@@ -41,19 +41,16 @@
         [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"iCloud"];
     }
     
-	UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-	ClassesViewController *classesViewController = [[navigationController viewControllers] objectAtIndex:0];
-    classesViewController.managedObjectContext = self.managedObjectContext;
+    // PonyDebugger
+    //PDDebugger *debugger = [PDDebugger defaultInstance];
     
-    PDDebugger *debugger = [PDDebugger defaultInstance];
+    //[debugger enableNetworkTrafficDebugging];
+    //[debugger enableRemoteLogging];
+    //[debugger forwardAllNetworkTraffic];
+    //[debugger enableCoreDataDebugging];
+    //[debugger addManagedObjectContext:self.managedObjectContext withName:@"Data"];
     
-    [debugger enableNetworkTrafficDebugging];
-    [debugger enableRemoteLogging];
-    [debugger forwardAllNetworkTraffic];
-    [debugger enableCoreDataDebugging];
-    [debugger addManagedObjectContext:self.managedObjectContext withName:@"Data"];
-    
-    [debugger connectToURL:[NSURL URLWithString:@"ws://mbilkermac.local:9000/device"]];
+    //[debugger connectToURL:[NSURL URLWithString:@"ws://mbilkermac.local:9000/device"]];
     
     return YES;
 }
@@ -187,7 +184,6 @@
     [__persistentStoreCoordinator unlock];
         
     dispatch_async(dispatch_get_main_queue(), ^{
-        //NSLog(@"asynchronously added persistent store!");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"RefetchAllDatabaseData" object:self userInfo:nil];
     });
     

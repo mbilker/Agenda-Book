@@ -22,7 +22,23 @@
 
 - (void)viewDidLoad
 {
-    self.version.text = [NSString stringWithFormat:@"Version: b%d",[[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] intValue]];
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
+        UIView *oldView = self.view;
+        
+        self.view = [[UIView alloc] initWithFrame:oldView.frame];
+        self.view.backgroundColor = [UIColor whiteColor];
+        oldView.autoresizingMask = nil;
+        
+        CGRect oldViewFrame = oldView.frame;
+        oldViewFrame.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
+        oldViewFrame.size.height = self.view.frame.size.height - self.navigationController.toolbar.frame.size.height;
+        oldView.frame = oldViewFrame;
+        
+        [self.view addSubview:oldView];
+    }
+    
+    [super viewDidLoad];
+    self.version.text = [NSString stringWithFormat:@"Version: %@\nBuild Date: %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBuildDate"]];
 }
 
 - (void)dealloc

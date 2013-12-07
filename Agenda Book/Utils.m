@@ -3,15 +3,14 @@
 
 @implementation Utils
 
-static Utils *instanceOfFunctions;
+static Utils *_instance;
 
 + (id)alloc
 {
-    @synchronized(self)
-    {
-        NSAssert(instanceOfFunctions == nil, @"Attempted to allocate a second instance of the singleton: Functions");
-        instanceOfFunctions = [super alloc];
-        return instanceOfFunctions;
+    @synchronized(self) {
+        NSAssert(_instance == nil, @"Attempted to allocate a second instance of the singleton: Functions");
+        _instance = [super alloc];
+        return _instance;
     }
     
     return nil;
@@ -19,17 +18,15 @@ static Utils *instanceOfFunctions;
 
 + (Utils *)instance
 {
-    @synchronized(self)
-    {
-        if (instanceOfFunctions == nil)
-        {
-            (void)[[Utils alloc] init];
-        }
-        
-        return instanceOfFunctions;
+    if (_instance != nil) {
+        return _instance;
     }
     
-    return nil;
+    @synchronized(self) {
+        (void)[[Utils alloc] init];
+        
+        return _instance;
+    }
 }
 
 - (id)init
