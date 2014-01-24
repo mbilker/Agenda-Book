@@ -11,6 +11,7 @@
 		650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 650329E41549066000C4D628 /* EditAssignmentViewController.m */; };
 		65199926150D4DE6007FD5A6 /* AssignmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199925150D4DE6007FD5A6 /* AssignmentCell.m */; };
 		6519992A150D4F4B007FD5A6 /* AssignmentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */; };
+		6524C7CD1854D5130064E7B1 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6524C7CC1854D5130064E7B1 /* Constants.m */; };
 		6527C31E15071551007B8F26 /* SubjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C31D15071551007B8F26 /* SubjectCell.m */; };
 		6527C322150718FD007B8F26 /* NewClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6527C321150718FD007B8F26 /* NewClassViewController.m */; };
 		652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 652859F4150ED19900296718 /* NSString-truncateToWidth.m */; };
@@ -54,6 +55,9 @@
 		65199925150D4DE6007FD5A6 /* AssignmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentCell.m; sourceTree = "<group>"; };
 		65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssignmentsViewController.h; sourceTree = "<group>"; };
 		65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentsViewController.m; sourceTree = "<group>"; };
+		6524C7CB1854D0D00064E7B1 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		6524C7CC1854D5130064E7B1 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		6524C7CE1854D6340064E7B1 /* ConstantList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstantList.h; sourceTree = "<group>"; };
 		6527C31C15071551007B8F26 /* SubjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectCell.h; sourceTree = "<group>"; };
 		6527C31D15071551007B8F26 /* SubjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectCell.m; sourceTree = "<group>"; };
 		6527C320150718FD007B8F26 /* NewClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewClassViewController.h; sourceTree = "<group>"; };
@@ -210,6 +214,9 @@
 				654A84121554D39F00744CB3 /* Subject.m */,
 				61601C59151BA0C700A81E39 /* Utils.h */,
 				61601C5A151BA0C700A81E39 /* Utils.m */,
+				6524C7CE1854D6340064E7B1 /* ConstantList.h */,
+				6524C7CB1854D0D00064E7B1 /* Constants.h */,
+				6524C7CC1854D5130064E7B1 /* Constants.m */,
 				65A8415C1506ED9900C6B779 /* Supporting Files */,
 				655413ED15532E2600199B10 /* Data.xcdatamodeld */,
 			);
@@ -370,6 +377,7 @@
 				61601C5B151BA0C700A81E39 /* Utils.m in Sources */,
 				652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */,
 				650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */,
+				6524C7CD1854D5130064E7B1 /* Constants.m in Sources */,
 				655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */,
 				65A841A81506FE5100C6B779 /* Info.m in Sources */,
 				654A84131554D39F00744CB3 /* Subject.m in Sources */,

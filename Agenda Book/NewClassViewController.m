@@ -31,8 +31,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	if ([segue.identifier isEqualToString:@"PickSubject"])
-	{
+	if ([segue.identifier isEqualToString:@"PickSubject"]) {
         //NSLog(@"Segue");
 		SubjectPickerViewController *subjectPickerViewController = segue.destinationViewController;
 		subjectPickerViewController.delegate = self;
@@ -94,7 +93,7 @@
             @"classid": self.classIdField.text
         }];
     } else {
-        NSString *line = [NSString stringWithFormat:@"%@%@", ![self.teacherTextField hasText] ? @"Teacher field empty" : @"", [subject isEqualToString:@"Not Chosen"] ? @"\nSubject not chosen" : @""];
+        NSString *line = [NSString stringWithFormat:@"%@%@", ![self.teacherTextField hasText] ? @"Teacher field empty\n" : @"", [subject isEqualToString:@"Not Chosen"] ? @"Subject not chosen" : @""];
         
         //NSLog(@"Empty and did not choose subject");
         UIView *errorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50.0f)];

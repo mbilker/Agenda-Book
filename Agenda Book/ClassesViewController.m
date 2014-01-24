@@ -50,17 +50,23 @@
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[[Utils instance] managedObjectContext] sectionNameKeyPath:nil cacheName:@"Root"];;
     _fetchedResultsController.delegate = self;
     
-    return _fetchedResultsController;
-}
-
-- (void)reloadFetchedResults:(NSNotification*)note {
-    NSError *error = nil;
-    if (![[self fetchedResultsController] performFetch:&error]) {
+    NSError *error;
+    if (![_fetchedResultsController performFetch:&error]) {
         /* TODO
          Replace this implementation with code to handle the error appropriately.
          
          abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
          */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    return _fetchedResultsController;
+}
+
+- (void)reloadFetchedResults:(NSNotification*)note {
+    NSError *error;
+    if (![[self fetchedResultsController] performFetch:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }             
@@ -76,13 +82,8 @@
 {
     [super viewDidLoad];
     _updateChecked = FALSE;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFetchedResults:) name:@"RefetchAllDatabaseData" object:[[UIApplication sharedApplication] delegate]];
-    NSError *error;
-	if (![[self fetchedResultsController] performFetch:&error]) {
-		// TODO Update to handle the error appropriately.
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-	}
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFetchedResults:) name:kRefetchAllDatabaseData object:[[UIApplication sharedApplication] delegate]];
 }
 
 - (void)viewDidUnload
@@ -107,18 +108,14 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	if ([segue.identifier isEqualToString:@"AddSubject"])
-	{
+	if ([segue.identifier isEqualToString:@"AddSubject"]) {
 		UINavigationController *navigationController = segue.destinationViewController;
 		NewClassViewController *newClassViewController = [[navigationController viewControllers] objectAtIndex:0];
 		newClassViewController.delegate = self;
 	} else if ([segue.identifier isEqualToString:@"ShowAssignments"]) {
-        //Info *i = [self.classes objectAtIndex:[[self.tableView indexPathForCell:sender] row]];
         Info *i = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:sender]];
-        //NSLog(@"Moving Teacher: %@, Subject: %@, Complete: %@",i.teacher,i.subject,i.complete ? @"TRUE" : @"FALSE");
         AssignmentsViewController *assignmentsViewController = segue.destinationViewController;
         assignmentsViewController.info = i;
-        NSLog(@"Teacher Rel: %@", i.assignments);
     }
 }
 
@@ -237,8 +234,6 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    //NSLog(@"Hit Button at: '%d'",buttonIndex);
-    //NSLog(@"Button: '%@'",[actionSheet buttonTitleAtIndex:buttonIndex]);
     if (buttonIndex == 0 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqual:@"Edit Class"]) {
         EditClassViewController *editClass = [self.storyboard instantiateViewControllerWithIdentifier:@"editClass"];
         editClass.classInfo = _infoForRow;
@@ -374,7 +369,6 @@
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
-    NSLog(@"iAd loaded");
     _ready = TRUE;
     
     if (_iAdContainer == nil) {
@@ -395,7 +389,6 @@
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
-    NSLog(@"iAd load error: '%@'",error);
     _ready = FALSE;
     
     [UIView animateWithDuration:0.5f animations:^(void) {

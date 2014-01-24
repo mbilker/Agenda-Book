@@ -1,7 +1,10 @@
+
 #import <iAd/iAd.h>
 
 #import "NewClassViewController.h"
 #import "EditClassViewController.h"
+
+#import "Constants.h"
 
 @interface ClassesViewController : UITableViewController <NewClassViewControllerDelegate, EditClassViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate, NSFetchedResultsControllerDelegate, ADBannerViewDelegate>
 

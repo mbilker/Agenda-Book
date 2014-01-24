@@ -14,9 +14,9 @@
 
 @synthesize window = _window;
 
-@synthesize managedObjectContext = __managedObjectContext;
-@synthesize managedObjectModel = __managedObjectModel;
-@synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize managedObjectContext = _managedObjectContext;
+@synthesize managedObjectModel = _managedObjectModel;
+@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -80,8 +80,8 @@
 // If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
 - (NSManagedObjectContext *)managedObjectContext
 {
-    if (__managedObjectContext != nil) {
-        return __managedObjectContext;
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
     }
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
@@ -95,36 +95,36 @@
             
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChangesFrom_iCloud:) name:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:coordinator];
         }];
-        __managedObjectContext = moc;
+        _managedObjectContext = moc;
     }
-    return __managedObjectContext;
+    return _managedObjectContext;
 }
 
 // Returns the managed object model for the application.
 // If the model doesn't already exist, it is created from the application's model.
 - (NSManagedObjectModel *)managedObjectModel
 {
-    if (__managedObjectModel != nil) {
-        return __managedObjectModel;
+    if (_managedObjectModel != nil) {
+        return _managedObjectModel;
     }
+    
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Data" withExtension:@"momd"];
-    //NSLog(@"url: '%@'",modelURL);
-    __managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    //NSLog(@"model: '%@'",__managedObjectModel);
-    return __managedObjectModel;
+    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    
+    return _managedObjectModel;
 }
 
 // Returns the persistent store coordinator for the application.
 // If the coordinator doesn't already exist, it is created and the application's store added to it.
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
-    if (__persistentStoreCoordinator != nil) {
-        return __persistentStoreCoordinator;
+    if (_persistentStoreCoordinator != nil) {
+        return _persistentStoreCoordinator;
     }
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Data.sqlite"];
     
-    __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     NSFileManager *fileManager = [NSFileManager defaultManager];
         
     // Migrate datamodel
@@ -140,7 +140,7 @@
         options = @{
             NSMigratePersistentStoresAutomaticallyOption: @YES,
             NSInferMappingModelAutomaticallyOption: @YES,
-            NSPersistentStoreUbiquitousContentNameKey: @"Agenda Book.store",
+            NSPersistentStoreUbiquitousContentNameKey: @"Agenda Book",
             NSPersistentStoreUbiquitousContentURLKey: cloudURL
         };
     } else {
@@ -152,8 +152,8 @@
     }
         
     NSError *error = nil;
-    [__persistentStoreCoordinator lock];
-    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+    [_persistentStoreCoordinator lock];
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
              
@@ -181,33 +181,30 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    [__persistentStoreCoordinator unlock];
+    [_persistentStoreCoordinator unlock];
         
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefetchAllDatabaseData" object:self userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kRefetchAllDatabaseData object:self userInfo:nil];
     });
     
-    return __persistentStoreCoordinator;
-}
-
-- (void)mergeiCloudChanges:(NSNotification*)note forContext:(NSManagedObjectContext*)moc {
-    [moc mergeChangesFromContextDidSaveNotification:note]; 
-    
-    NSNotification* refreshNotification = [NSNotification notificationWithName:@"RefreshAllViews" object:self userInfo:[note userInfo]];
-    
-    [[NSNotificationCenter defaultCenter] postNotification:refreshNotification];
+    return _persistentStoreCoordinator;
 }
 
 // NSNotifications are posted synchronously on the caller's thread
 // make sure to vector this back to the thread we want, in this case
 // the main thread for our views & controller
-- (void)mergeChangesFrom_iCloud:(NSNotification *)notification {
+- (void)mergeChangesFromiCloud:(NSNotification *)notification
+{
     NSManagedObjectContext* moc = [self managedObjectContext];
     
     // this only works if you used NSMainQueueConcurrencyType
     // otherwise use a dispatch_async back to the main thread yourself
     [moc performBlock:^{
-        [self mergeiCloudChanges:notification forContext:moc];
+        [moc mergeChangesFromContextDidSaveNotification:notification];
+        
+        NSNotification* refreshNotification = [NSNotification notificationWithName:kRefreshAllViews object:self userInfo:[notification userInfo]];
+        
+        [[NSNotificationCenter defaultCenter] postNotification:refreshNotification];
     }];
 }
 
