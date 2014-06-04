@@ -2,6 +2,9 @@
 #import "Utils.h"
 
 @implementation Utils
+{
+    NSDateFormatter *_GmtDateFormatter;
+}
 
 static Utils *_instance;
 
@@ -123,6 +126,16 @@ static Utils *_instance;
 - (NSManagedObjectContext *)managedObjectContext
 {
     return ((AppDelegate *)[[UIApplication sharedApplication] delegate]).managedObjectContext;
+}
+
+- (NSDateFormatter *)GMTDateFormatter
+{
+    if (_GmtDateFormatter == nil) {
+        _GmtDateFormatter = [[NSDateFormatter alloc] init];
+        [_GmtDateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [_GmtDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    }
+    return _GmtDateFormatter;
 }
 
 @end

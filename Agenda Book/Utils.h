@@ -23,4 +23,6 @@
 
 - (NSManagedObjectContext *)managedObjectContext;
 
+- (NSDateFormatter *)GMTDateFormatter;
+
 @end

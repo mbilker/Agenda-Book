@@ -168,6 +168,9 @@
 				6581F92C193EE4D600D6AD98 /* New Class */,
 				6581F92D193EE4EA00D6AD98 /* Subject Picker */,
 				6581F92E193EE4FE00D6AD98 /* Add Subject Picker */,
+				6581F92F193EE54400D6AD98 /* Assignments List */,
+				6581F930193EE55400D6AD98 /* Edit Assignment */,
+				6581F931193EE56800D6AD98 /* New Assignment */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -226,6 +229,45 @@
 			name = "Add Subject Picker";
 			sourceTree = "<group>";
 		};
+		6581F92F193EE54400D6AD98 /* Assignments List */ = {
+			isa = PBXGroup;
+			children = (
+				65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */,
+				65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */,
+			);
+			name = "Assignments List";
+			sourceTree = "<group>";
+		};
+		6581F930193EE55400D6AD98 /* Edit Assignment */ = {
+			isa = PBXGroup;
+			children = (
+				650329E31549066000C4D628 /* EditAssignmentViewController.h */,
+				650329E41549066000C4D628 /* EditAssignmentViewController.m */,
+			);
+			name = "Edit Assignment";
+			sourceTree = "<group>";
+		};
+		6581F931193EE56800D6AD98 /* New Assignment */ = {
+			isa = PBXGroup;
+			children = (
+				65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */,
+				65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */,
+			);
+			name = "New Assignment";
+			sourceTree = "<group>";
+		};
+		6581F932193EE57B00D6AD98 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				61601C59151BA0C700A81E39 /* Utils.h */,
+				61601C5A151BA0C700A81E39 /* Utils.m */,
+				6524C7CB1854D0D00064E7B1 /* Constants.h */,
+				6524C7CC1854D5130064E7B1 /* Constants.m */,
+				6581F924193EC61200D6AD98 /* Defines.h */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		65A841461506ED9900C6B779 = {
 			isa = PBXGroup;
 			children = (
@@ -276,19 +318,9 @@
 				6581F925193EE41A00D6AD98 /* Cells */,
 				6581F926193EE43700D6AD98 /* Models */,
 				6581F927193EE46300D6AD98 /* View Controllers */,
-				65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */,
-				65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */,
-				650329E31549066000C4D628 /* EditAssignmentViewController.h */,
-				650329E41549066000C4D628 /* EditAssignmentViewController.m */,
+				6581F932193EE57B00D6AD98 /* Utils */,
 				652859F7150ED1B200296718 /* NSString-truncateToWidth.h */,
 				652859F4150ED19900296718 /* NSString-truncateToWidth.m */,
-				65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */,
-				65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */,
-				61601C59151BA0C700A81E39 /* Utils.h */,
-				61601C5A151BA0C700A81E39 /* Utils.m */,
-				6524C7CB1854D0D00064E7B1 /* Constants.h */,
-				6524C7CC1854D5130064E7B1 /* Constants.m */,
-				6581F924193EC61200D6AD98 /* Defines.h */,
 				65A8415C1506ED9900C6B779 /* Supporting Files */,
 				655413ED15532E2600199B10 /* Data.xcdatamodeld */,
 			);

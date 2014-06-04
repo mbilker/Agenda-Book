@@ -232,10 +232,7 @@
     cell.backgroundView = backgroundView;
     
     cell.assignment.text = newString;
-    NSDateFormatter *date = [[NSDateFormatter alloc] init];
-    [date setDateStyle:NSDateFormatterShortStyle];
-    [date setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    cell.due.text = [NSString stringWithFormat:@"Due: %@",[date stringFromDate:assignment.dueDate]];
+    cell.due.text = [NSString stringWithFormat:@"Due: %@",[[[Utils instance] GMTDateFormatter] stringFromDate:assignment.dueDate]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -339,7 +336,6 @@
     UITableView *tableView = self.tableView;
     
     switch(type) {
-            
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -363,7 +359,6 @@
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     
     switch(type) {
-            
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
