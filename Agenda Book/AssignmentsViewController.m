@@ -209,7 +209,13 @@
     Assignment *assignment = [_fetchedResultsController objectAtIndexPath:indexPath];
     
     CGSize maximumSize = CGSizeMake(280, 43);
-    CGSize stringSize = [assignment.assignmentText sizeWithFont:cell.assignment.font constrainedToSize:maximumSize lineBreakMode:cell.assignment.lineBreakMode];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = cell.assignment.lineBreakMode;
+    NSDictionary *attributes = @{
+        NSFontAttributeName: cell.assignment.font,
+        NSParagraphStyleAttributeName: paragraphStyle
+    };
+    CGSize stringSize = [assignment.assignmentText boundingRectWithSize:cell.assignment.frame.size options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
     CGRect cellFrame = CGRectMake(10, 10, 280, stringSize.height);
     cell.assignment.frame = cellFrame;
     

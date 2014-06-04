@@ -57,7 +57,6 @@
 		65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssignmentsViewController.m; sourceTree = "<group>"; };
 		6524C7CB1854D0D00064E7B1 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6524C7CC1854D5130064E7B1 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		6524C7CE1854D6340064E7B1 /* ConstantList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConstantList.h; sourceTree = "<group>"; };
 		6527C31C15071551007B8F26 /* SubjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubjectCell.h; sourceTree = "<group>"; };
 		6527C31D15071551007B8F26 /* SubjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubjectCell.m; sourceTree = "<group>"; };
 		6527C320150718FD007B8F26 /* NewClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewClassViewController.h; sourceTree = "<group>"; };
@@ -81,6 +80,7 @@
 		657AA0F815159E780045148B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		657EF1AB184F0796006144D3 /* Version 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Version 2.xcdatamodel"; sourceTree = "<group>"; };
 		657EF1AC184F09B3006144D3 /* Version 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Version 3.xcdatamodel"; sourceTree = "<group>"; };
+		6581F924193EC61200D6AD98 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		658FF58D154895A400D72959 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		65924875184EF43700845C38 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = SOURCE_ROOT; };
 		65924877184EF44600845C38 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -135,6 +135,97 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6581F925193EE41A00D6AD98 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6527C31C15071551007B8F26 /* SubjectCell.h */,
+				6527C31D15071551007B8F26 /* SubjectCell.m */,
+				65199924150D4DE6007FD5A6 /* AssignmentCell.h */,
+				65199925150D4DE6007FD5A6 /* AssignmentCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		6581F926193EE43700D6AD98 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				65637C7F184FEE67008E8F19 /* Assignment.h */,
+				65637C80184FEE67008E8F19 /* Assignment.m */,
+				65A841A61506FE5100C6B779 /* Info.h */,
+				65A841A71506FE5100C6B779 /* Info.m */,
+				654A84111554D39E00744CB3 /* Subject.h */,
+				654A84121554D39F00744CB3 /* Subject.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		6581F927193EE46300D6AD98 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6581F928193EE47100D6AD98 /* About */,
+				6581F92A193EE4A700D6AD98 /* Class List */,
+				6581F92B193EE4B800D6AD98 /* Edit Class */,
+				6581F92C193EE4D600D6AD98 /* New Class */,
+				6581F92D193EE4EA00D6AD98 /* Subject Picker */,
+				6581F92E193EE4FE00D6AD98 /* Add Subject Picker */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		6581F928193EE47100D6AD98 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				657AA0F715159E780045148B /* AboutViewController.h */,
+				657AA0F815159E780045148B /* AboutViewController.m */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
+		6581F92A193EE4A700D6AD98 /* Class List */ = {
+			isa = PBXGroup;
+			children = (
+				65A841A31506F97F00C6B779 /* ClassesViewController.h */,
+				65A841A41506F97F00C6B779 /* ClassesViewController.m */,
+			);
+			name = "Class List";
+			sourceTree = "<group>";
+		};
+		6581F92B193EE4B800D6AD98 /* Edit Class */ = {
+			isa = PBXGroup;
+			children = (
+				652A624715478BAC00FE17E5 /* EditClassViewController.h */,
+				652A624815478BAC00FE17E5 /* EditClassViewController.m */,
+			);
+			name = "Edit Class";
+			sourceTree = "<group>";
+		};
+		6581F92C193EE4D600D6AD98 /* New Class */ = {
+			isa = PBXGroup;
+			children = (
+				6527C320150718FD007B8F26 /* NewClassViewController.h */,
+				6527C321150718FD007B8F26 /* NewClassViewController.m */,
+			);
+			name = "New Class";
+			sourceTree = "<group>";
+		};
+		6581F92D193EE4EA00D6AD98 /* Subject Picker */ = {
+			isa = PBXGroup;
+			children = (
+				6567C2451508054C00859E02 /* SubjectPickerViewController.h */,
+				6567C2461508054C00859E02 /* SubjectPickerViewController.m */,
+			);
+			name = "Subject Picker";
+			sourceTree = "<group>";
+		};
+		6581F92E193EE4FE00D6AD98 /* Add Subject Picker */ = {
+			isa = PBXGroup;
+			children = (
+				65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */,
+				65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */,
+			);
+			name = "Add Subject Picker";
+			sourceTree = "<group>";
+		};
 		65A841461506ED9900C6B779 = {
 			isa = PBXGroup;
 			children = (
@@ -175,27 +266,16 @@
 		65A8415B1506ED9900C6B779 /* Agenda Book */ = {
 			isa = PBXGroup;
 			children = (
+				65D95DCA153670C400EB7208 /* Agenda Book.entitlements */,
 				65924877184EF44600845C38 /* Images.xcassets */,
 				65924875184EF43700845C38 /* Images */,
-				65D95DCA153670C400EB7208 /* Agenda Book.entitlements */,
-				65A841641506ED9900C6B779 /* AppDelegate.h */,
-				65A841651506ED9900C6B779 /* AppDelegate.m */,
 				65A841671506ED9900C6B779 /* MainStoryboard.storyboard */,
 				6550B51615815EB600FBAD16 /* MainStoryboard-iPad.storyboard */,
-				657AA0F715159E780045148B /* AboutViewController.h */,
-				657AA0F815159E780045148B /* AboutViewController.m */,
-				65A841A31506F97F00C6B779 /* ClassesViewController.h */,
-				65A841A41506F97F00C6B779 /* ClassesViewController.m */,
-				6527C31C15071551007B8F26 /* SubjectCell.h */,
-				6527C31D15071551007B8F26 /* SubjectCell.m */,
-				652A624715478BAC00FE17E5 /* EditClassViewController.h */,
-				652A624815478BAC00FE17E5 /* EditClassViewController.m */,
-				6527C320150718FD007B8F26 /* NewClassViewController.h */,
-				6527C321150718FD007B8F26 /* NewClassViewController.m */,
-				6567C2451508054C00859E02 /* SubjectPickerViewController.h */,
-				6567C2461508054C00859E02 /* SubjectPickerViewController.m */,
-				65507DD31509885500BA6D5E /* AddSubjectPickerViewController.h */,
-				65507DD41509885500BA6D5E /* AddSubjectPickerViewController.m */,
+				65A841641506ED9900C6B779 /* AppDelegate.h */,
+				65A841651506ED9900C6B779 /* AppDelegate.m */,
+				6581F925193EE41A00D6AD98 /* Cells */,
+				6581F926193EE43700D6AD98 /* Models */,
+				6581F927193EE46300D6AD98 /* View Controllers */,
 				65199928150D4F4B007FD5A6 /* AssignmentsViewController.h */,
 				65199929150D4F4B007FD5A6 /* AssignmentsViewController.m */,
 				650329E31549066000C4D628 /* EditAssignmentViewController.h */,
@@ -204,19 +284,11 @@
 				652859F4150ED19900296718 /* NSString-truncateToWidth.m */,
 				65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */,
 				65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */,
-				65199924150D4DE6007FD5A6 /* AssignmentCell.h */,
-				65199925150D4DE6007FD5A6 /* AssignmentCell.m */,
-				65637C7F184FEE67008E8F19 /* Assignment.h */,
-				65637C80184FEE67008E8F19 /* Assignment.m */,
-				65A841A61506FE5100C6B779 /* Info.h */,
-				65A841A71506FE5100C6B779 /* Info.m */,
-				654A84111554D39E00744CB3 /* Subject.h */,
-				654A84121554D39F00744CB3 /* Subject.m */,
 				61601C59151BA0C700A81E39 /* Utils.h */,
 				61601C5A151BA0C700A81E39 /* Utils.m */,
-				6524C7CE1854D6340064E7B1 /* ConstantList.h */,
 				6524C7CB1854D0D00064E7B1 /* Constants.h */,
 				6524C7CC1854D5130064E7B1 /* Constants.m */,
+				6581F924193EC61200D6AD98 /* Defines.h */,
 				65A8415C1506ED9900C6B779 /* Supporting Files */,
 				655413ED15532E2600199B10 /* Data.xcdatamodeld */,
 			);
@@ -414,7 +486,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "A7938730-B069-4350-B7BE-31D13CA099FC";
 				SDKROOT = iphoneos;
@@ -429,7 +501,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PROVISIONING_PROFILE = "A7938730-B069-4350-B7BE-31D13CA099FC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -451,6 +523,7 @@
 					"DEBUG=1",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Agenda Book/Agenda Book-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -466,6 +539,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/Agenda Book/Agenda Book-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

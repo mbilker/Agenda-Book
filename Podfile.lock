@@ -1,10 +1,10 @@
 PODS:
-  - TestFlightSDK (2.1.3-noadid-beta)
+  - pop (1.0.5)
 
 DEPENDENCIES:
-  - TestFlightSDK (= 2.1.3-noadid-beta)
+  - pop
 
 SPEC CHECKSUMS:
-  TestFlightSDK: 8f8941d0dd990508e127480b06cc6c36379c1b49
+  pop: 75fa2b33934200a8a68abb449ac1726fcf7e43b9
 
-COCOAPODS: 0.28.0
+COCOAPODS: 0.33.1

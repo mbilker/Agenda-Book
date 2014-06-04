@@ -1,0 +1,1 @@
+#define kBarTintColor [UIColor colorWithRed:255.0 green:255.0 blue:0.6 alpha:1];

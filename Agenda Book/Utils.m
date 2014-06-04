@@ -48,6 +48,23 @@ static Utils *_instance;
     return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
 }
 
+- (void)initializeNavigationController:(UINavigationController *)navigationController
+{
+    navigationController.navigationBar.translucent = NO;
+    navigationController.toolbar.translucent = NO;
+    if ([navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
+        navigationController.navigationBar.barTintColor = kBarTintColor;
+    } else {
+        navigationController.navigationBar.tintColor = kBarTintColor;
+    }
+    
+    if ([navigationController.toolbar respondsToSelector:@selector(setBarTintColor:)]) {
+        navigationController.toolbar.barTintColor = kBarTintColor;
+    } else {
+        navigationController.toolbar.tintColor = kBarTintColor;
+    }
+}
+
 - (NSDate *)dateWithOutTime:(NSDate *)datDate
 {
     if (datDate == nil) {
@@ -62,11 +79,11 @@ static Utils *_instance;
 - (UIColor *)colorForComplete:(BOOL)complete
 {
     //NSLog(@"Selection: %@", (complete ? @"TRUE" : @"FALSE"));
-	switch (complete)
-	{
-        case FALSE: return [UIColor colorWithRed:1 green:.5 blue:0.5 alpha:0.5];
-        case TRUE: return [UIColor colorWithRed:.5 green:1 blue:.5 alpha:0.5];
-	}
+	if (complete == TRUE) {
+        return [UIColor colorWithRed:.5 green:1 blue:.5 alpha:0.5];
+    } else if (complete == FALSE) {
+        return [UIColor colorWithRed:1 green:.5 blue:0.5 alpha:0.5];
+    }
 	return nil;
 }
 

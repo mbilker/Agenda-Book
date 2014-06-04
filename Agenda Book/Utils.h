@@ -13,6 +13,7 @@
 + (Utils *) instance;
 
 - (BOOL)shouldAutorotate:(UIInterfaceOrientation)interfaceOrientation;
+- (void)initializeNavigationController:(UINavigationController *)navigationController;
 - (NSDate *)dateWithOutTime:(NSDate *)datDate;- (UIColor *)colorForComplete:(BOOL)complete;
 - (BOOL)determineClassComplete:(Info *)string;
 - (UIColor *)determineClassCompleteColor:(Info *)string;

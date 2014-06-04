@@ -1,6 +1,8 @@
 
 #import <Social/Social.h>
 
+#import <POP/POP.h>
+
 #import "ClassesViewController.h"
 #import "AssignmentsViewController.h"
 
@@ -97,8 +99,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.tableView reloadData];
     [super viewWillAppear:animated];
+    [[Utils instance] initializeNavigationController:self.navigationController];
+    [self.tableView reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -110,6 +113,7 @@
 {
 	if ([segue.identifier isEqualToString:@"AddSubject"]) {
 		UINavigationController *navigationController = segue.destinationViewController;
+        [[Utils instance] initializeNavigationController:navigationController];
 		NewClassViewController *newClassViewController = [[navigationController viewControllers] objectAtIndex:0];
 		newClassViewController.delegate = self;
 	} else if ([segue.identifier isEqualToString:@"ShowAssignments"]) {
@@ -132,9 +136,10 @@
         
         NSString *s = ([self.fetchedResultsController.fetchedObjects count] != 1) ? @"classes" : @"class";
         NSString *f = (d != 1) ? @"classes" : @"class";
+        unsigned long length = [self.fetchedResultsController.fetchedObjects count];
         
         SLComposeViewController *twitter = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [twitter setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %d %@. Homework for %d %@ is complete.", [self.fetchedResultsController.fetchedObjects count], s, d, f]];
+        [twitter setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %lu %@. Homework for %d %@ is complete.", length, s, d, f]];
 	    [self presentViewController:twitter animated:YES completion:nil];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"No Twitter" message:@"Twitter is not available" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
@@ -219,13 +224,13 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Assignment"];
     
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"teacher == %@", _infoForRow]];
-    int i = [[[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error] count];
+    unsigned long i = [[[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error] count];
     
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"teacher == %@ AND complete == 1", _infoForRow]];
-    int c = [[[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error] count];
-    int f = i - c;
+    unsigned long c = [[[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error] count];
+    unsigned long f = i - c;
     
-    NSString *title = [NSString stringWithFormat:@"Teacher: %@\nSubject: %@\nID: %@\n\nAssignments: %d\nComplete Assignments: %d\nIncomplete Assignments: %d", _infoForRow.teacher, _infoForRow.subject, _infoForRow.classid, i, c, f];
+    NSString *title = [NSString stringWithFormat:@"Teacher: %@\nSubject: %@\nID: %@\n\nAssignments: %lu\nComplete Assignments: %lu\nIncomplete Assignments: %lu", _infoForRow.teacher, _infoForRow.subject, _infoForRow.classid, i, c, f];
     
     [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit Class", nil] showInView:self.navigationController.view];
 }
@@ -324,7 +329,6 @@
     UITableView *tableView = self.tableView;
     
     switch(type) {
-            
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -344,11 +348,9 @@
     }
 }
 
-
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     
     switch(type) {
-            
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -377,10 +379,13 @@
     
     CGRect frame = banner.frame;
     frame.origin.x = 0;
-    frame.origin.y = self.tableView.frame.size.height - self.navigationController.navigationBar.frame.size.height - banner.frame.size.height;
+    frame.origin.y = self.navigationController.toolbar.frame.origin.y - banner.frame.size.height;
     
     [_iAdContainer setFrame:frame];
     [_iAdContainer addSubview:banner];
+    
+    _iAdContainer.layer.borderColor = [UIColor blackColor].CGColor;
+    _iAdContainer.layer.borderWidth = 0.5f;
     
     [UIView animateWithDuration:0.5f animations:^(void) {
         [self.navigationController.view addSubview:_iAdContainer];
@@ -405,12 +410,15 @@
 {
     _ready = FALSE;
     
-    [UIView animateWithDuration:0.5f animations:^(void) {
-        banner.alpha = 0.0f;
-    } completion:^(BOOL finished) {
+    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerTranslationY];
+    anim.fromValue = @(banner.layer.position.y);
+    anim.toValue = @([UIScreen mainScreen].bounds.origin.y + [UIScreen mainScreen].bounds.size.height + banner.frame.size.height + 5);
+    anim.springBounciness = 50.f;
+    anim.springSpeed = 5.f;
+    anim.completionBlock = ^(POPAnimation *anim, BOOL finished) {
         [banner removeFromSuperview];
-        [_iAdContainer setFrame:CGRectMake(0, 0, 0, 0)];
-    }];
+    };
+    [_iAdContainer.layer pop_addAnimation:anim forKey:@"finishedTranslateOffscreen"];
 }
 
 @end

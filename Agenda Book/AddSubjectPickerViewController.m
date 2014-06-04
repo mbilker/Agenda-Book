@@ -7,7 +7,7 @@
 @synthesize delegate;
 @synthesize subjectTextField;
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	if ((self = [super initWithCoder:aDecoder]))
 	{
@@ -16,15 +16,15 @@
 	return self;
 }
 
-- (void)dealloc
-{
-	NSLog(@"dealloc AddSubjectPickerViewController");
-}
-
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     return self;
+}
+
+- (void)dealloc
+{
+	NSLog(@"dealloc AddSubjectPickerViewController");
 }
 
 - (void)didReceiveMemoryWarning

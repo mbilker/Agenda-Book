@@ -6,8 +6,6 @@
 #import "Info.h"
 #import "Assignment.h"
 
-//#import <PonyDebugger/PonyDebugger.h>
-
 @implementation AppDelegate {
     NSDictionary *_info;
 }
@@ -27,30 +25,7 @@
         NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
     }
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *iCloudURL = [fileManager URLForUbiquityContainerIdentifier:@"DXD4278H9V.us.mbilker.agendabook"];
-    //NSLog(@"iCloudURL: '%@'", [iCloudURL absoluteString]);
-    
-    if(iCloudURL) {
-        NSUbiquitousKeyValueStore *iCloudStore = [NSUbiquitousKeyValueStore defaultStore];
-        [iCloudStore setString:@"Success" forKey:@"iCloudStatus"];
-        [iCloudStore synchronize]; // For Synchronizing with iCloud Server
-        NSLog(@"iCloudStatus: '%@'", [iCloudStore stringForKey:@"iCloudStatus"]);
-        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"iCloud"];
-    } else {
-        [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"iCloud"];
-    }
-    
-    // PonyDebugger
-    //PDDebugger *debugger = [PDDebugger defaultInstance];
-    
-    //[debugger enableNetworkTrafficDebugging];
-    //[debugger enableRemoteLogging];
-    //[debugger forwardAllNetworkTraffic];
-    //[debugger enableCoreDataDebugging];
-    //[debugger addManagedObjectContext:self.managedObjectContext withName:@"Data"];
-    
-    //[debugger connectToURL:[NSURL URLWithString:@"ws://mbilkermac.local:9000/device"]];
+    [self registerForiCloudNotifications];
     
     return YES;
 }
@@ -74,6 +49,71 @@
     }
 }
 
+#pragma mark - Notification Observers
+- (void)registerForiCloudNotifications {
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	
+    [notificationCenter addObserver:self
+                           selector:@selector(storesWillChange:)
+                               name:NSPersistentStoreCoordinatorStoresWillChangeNotification
+                             object:self.persistentStoreCoordinator];
+    
+    [notificationCenter addObserver:self
+                           selector:@selector(storesDidChange:)
+                               name:NSPersistentStoreCoordinatorStoresDidChangeNotification
+                             object:self.persistentStoreCoordinator];
+    
+    [notificationCenter addObserver:self
+                           selector:@selector(persistentStoreDidImportUbiquitousContentChanges:)
+                               name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+                             object:self.persistentStoreCoordinator];
+}
+
+# pragma mark - iCloud Support
+
+- (void)storesWillChange:(NSNotification *)notification
+{
+    NSManagedObjectContext *context = self.managedObjectContext;
+	
+    [context performBlockAndWait:^{
+        NSError *error;
+		
+        if ([context hasChanges]) {
+            BOOL success = [context save:&error];
+            
+            if (!success && error) {
+                // perform error handling
+                NSLog(@"%@",[error localizedDescription]);
+            }
+        }
+        
+        [context reset];
+    }];
+}
+
+- (void)storesDidChange:(NSNotification *)notification
+{
+    NSManagedObjectContext* moc = [self managedObjectContext];
+    
+    // this only works if you used NSMainQueueConcurrencyType
+    // otherwise use a dispatch_async back to the main thread yourself
+    [moc performBlock:^{
+        [moc mergeChangesFromContextDidSaveNotification:notification];
+        
+        NSNotification* refreshNotification = [NSNotification notificationWithName:kRefreshAllViews object:self userInfo:[notification userInfo]];
+        
+        [[NSNotificationCenter defaultCenter] postNotification:refreshNotification];
+    }];
+}
+
+- (void)persistentStoreDidImportUbiquitousContentChanges:(NSNotification *)changeNotification {
+    NSManagedObjectContext *context = self.managedObjectContext;
+    
+    [context performBlock:^{
+        [context mergeChangesFromContextDidSaveNotification:changeNotification];
+    }];
+}
+
 #pragma mark - Core Data stack
 
 // Returns the managed object context for the application.
@@ -91,9 +131,7 @@
         NSManagedObjectContext* moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
             
         [moc performBlockAndWait:^{
-            [moc setPersistentStoreCoordinator: coordinator];
-            
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mergeChangesFrom_iCloud:) name:NSPersistentStoreDidImportUbiquitousContentChangesNotification object:coordinator];
+            [moc setPersistentStoreCoordinator:coordinator];
         }];
         _managedObjectContext = moc;
     }
@@ -131,7 +169,8 @@
     NSDictionary *options = nil;
         
     // this needs to match the entitlements and provisioning profile
-    NSURL *cloudURL = [fileManager URLForUbiquityContainerIdentifier:@"DXD4278H9V.us.mbilker.agendabook"];
+    NSURL *cloudURL = [fileManager URLForUbiquityContainerIdentifier:kUbiquityContainerIdentifier];
+    NSLog(@"iCloud URL: %@", cloudURL);
     NSString* coreDataCloudContent = [[cloudURL path] stringByAppendingPathComponent:@"data"];
     if ([coreDataCloudContent length] != 0) {
             // iCloud is available
@@ -188,24 +227,6 @@
     });
     
     return _persistentStoreCoordinator;
-}
-
-// NSNotifications are posted synchronously on the caller's thread
-// make sure to vector this back to the thread we want, in this case
-// the main thread for our views & controller
-- (void)mergeChangesFromiCloud:(NSNotification *)notification
-{
-    NSManagedObjectContext* moc = [self managedObjectContext];
-    
-    // this only works if you used NSMainQueueConcurrencyType
-    // otherwise use a dispatch_async back to the main thread yourself
-    [moc performBlock:^{
-        [moc mergeChangesFromContextDidSaveNotification:notification];
-        
-        NSNotification* refreshNotification = [NSNotification notificationWithName:kRefreshAllViews object:self userInfo:[notification userInfo]];
-        
-        [[NSNotificationCenter defaultCenter] postNotification:refreshNotification];
-    }];
 }
 
 #pragma mark - Application's Documents directory

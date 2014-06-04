@@ -5,7 +5,10 @@
 
 @implementation NewClassViewController
 {
-	NSString *subject;
+	NSString *_subject;
+    UIView *_errorView;
+    UIView *_contentView;
+    UILabel *_errorLabel;
 }
 
 @synthesize delegate;
@@ -13,20 +16,30 @@
 @synthesize detailLabel;
 @synthesize classIdField;
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	if ((self = [super initWithCoder:aDecoder]))
 	{
 		NSLog(@"init NewClassViewController");
         
-		subject = @"Not Chosen";
+		_subject = @"Not Chosen";
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
 	}
 	return self;
+}
+
+- (instancetype)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    return self;
 }
 
 - (void)dealloc
 {
 	NSLog(@"dealloc NewClassViewController");
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -35,14 +48,8 @@
         //NSLog(@"Segue");
 		SubjectPickerViewController *subjectPickerViewController = segue.destinationViewController;
 		subjectPickerViewController.delegate = self;
-		subjectPickerViewController.subject = subject;
+		subjectPickerViewController.subject = _subject;
 	}
-}
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    return self;
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,21 +64,24 @@
 
 - (void)viewDidLoad
 {
-	self.detailLabel.text = subject;
     [super viewDidLoad];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
+    
+	self.detailLabel.text = _subject;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     self.teacherTextField.delegate = self;
     [self.teacherTextField becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
     
-    [super viewWillAppear:animated];
+    [self.teacherTextField resignFirstResponder];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -84,64 +94,66 @@
 	[self.delegate newClassViewControllerDidCancel:self];
 }
 
-- (void)checkDone
+- (BOOL)checkDone
 {
-    if ([self.teacherTextField hasText] && ![subject isEqualToString:@"Not Chosen"]) {
-        [self.delegate newClassViewController:self didAddInfo:@{
-            @"teacher": self.teacherTextField.text,
-            @"subject": subject,
-            @"classid": self.classIdField.text
-        }];
+    if ([self.teacherTextField hasText] && ![_subject isEqualToString:@"Not Chosen"]) {
+        [self dismissHeaderView];
+        return TRUE;
     } else {
-        NSString *line = [NSString stringWithFormat:@"%@%@", ![self.teacherTextField hasText] ? @"Teacher field empty\n" : @"", [subject isEqualToString:@"Not Chosen"] ? @"Subject not chosen" : @""];
+        NSString *line = [NSString stringWithFormat:@"%@%@", ![self.teacherTextField hasText] ? @"Teacher field empty\n" : @"", [_subject isEqualToString:@"Not Chosen"] ? @"Subject not chosen" : @""];
         
         //NSLog(@"Empty and did not choose subject");
-        UIView *errorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50.0f)];
-        UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, errorView.frame.size.width, 0)];
-        //contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        if (_errorView == nil) {
+            _errorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50.0f)];
+        }
+        if (_contentView == nil) {
+            _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _errorView.frame.size.width, 0)];
+            _contentView.backgroundColor = [UIColor redColor];
+            [_errorView addSubview:_contentView];
+        }
         
-        CGRect contentViewFrame = contentView.frame;
-        contentViewFrame.size.height = errorView.frame.size.height;
+        if (_errorLabel == nil) {
+            _errorLabel = [[UILabel alloc] init];
+            [_errorLabel setTextAlignment:NSTextAlignmentCenter];
+            _errorLabel.numberOfLines = 0;
+            _errorLabel.opaque = TRUE;
+            _errorLabel.frame = _contentView.frame;
+            [_contentView addSubview:_errorLabel];
+        }
         
-        contentView.backgroundColor = [UIColor redColor];
-        [errorView addSubview:contentView];
+        _errorLabel.text = line;
         
-        UILabel *label = [[UILabel alloc] init];
-        [label setTextAlignment:NSTextAlignmentCenter];
-        label.numberOfLines = 0;
-        label.opaque = TRUE;
-        label.text = line;
-        label.frame = contentView.frame;
-        [contentView addSubview:label];
-        
-        [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:500.0f initialSpringVelocity:0.0f options:UIViewAnimationOptionCurveLinear animations:^(void) {
-            self.tableView.tableHeaderView = errorView;
-            contentView.frame = contentViewFrame;
-            label.frame = errorView.frame;
-        } completion:nil];
-        //[[[UIAlertView alloc] initWithTitle:@"Selection not complete" message:@"You did not fill in the teacher or select a subject" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
+        if (self.tableView.tableHeaderView.superview == nil) {
+            CGRect contentViewFrame = _contentView.frame;
+            contentViewFrame.size.height = _errorView.frame.size.height;
+            [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:500.0f initialSpringVelocity:0.0f options:UIViewAnimationOptionCurveLinear animations:^(void) {
+                self.tableView.tableHeaderView = _errorView;
+                _contentView.frame = contentViewFrame;
+                _errorLabel.frame = _errorView.frame;
+            } completion:nil];
+        }
     }
+    return FALSE;
 }
 
 - (void)dismissHeaderView
 {
     [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:500.0f initialSpringVelocity:0.0f options:UIViewAnimationOptionCurveLinear animations:^(void) {
-        self.tableView.tableHeaderView.frame = CGRectMake(0, 0, self.tableView.tableHeaderView.frame.size.width, 0);
+        _contentView.frame = _errorView.frame = CGRectMake(0, 0, _errorView.frame.size.width, 0);
     } completion:^(BOOL complete) {
-        [self.tableView.tableHeaderView removeFromSuperview];
+        [_errorView removeFromSuperview];
     }];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField
-{
-    //NSLog(@"Done button hit");
-    [self checkDone];
-    return NO;
 }
 
 - (IBAction)done:(id)sender
 {
-    [self checkDone];
+    if ([self checkDone]) {
+        [self.delegate newClassViewController:self didAddInfo:@{
+            @"teacher": self.teacherTextField.text,
+            @"subject": _subject,
+            @"classid": self.classIdField.text
+        }];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -154,10 +166,22 @@
     }
 }
 
+- (void)textFieldDidChange:(NSNotification *)notification
+{
+    [self checkDone];
+}
+
 #pragma mark - UITextFieldDelegate
 
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField
+{
+    //NSLog(@"Done button hit");
+    [self checkDone];
+    return NO;
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (self.classIdField != textField) return;
+    if (self.classIdField != textField) return TRUE;
     
     NSString *test = [string stringByTrimmingCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]];
     //NSLog(@"Other trimmed: %@, length: %d", test, test.length);
@@ -179,8 +203,9 @@
 
 - (void)subjectPickerViewController:(SubjectPickerViewController *)controller didSelectSubject:(NSString *)theSubject
 {
-	self.detailLabel.text = subject = theSubject;
+	self.detailLabel.text = _subject = theSubject;
 	[self.navigationController popViewControllerAnimated:YES];
+    [self checkDone];
 }
 
 @end
