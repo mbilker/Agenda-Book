@@ -16,7 +16,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [MagicalRecord setupCoreDataStackWithiCloudContainer:kUbiquityContainerIdentifier contentNameKey:@"Agenda Book" localStoreNamed:@"Data" cloudStorePathComponent:@"data"];
+    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelVerbose];
+    [MagicalRecord setupCoreDataStackWithiCloudContainer:kUbiquityContainerIdentifier contentNameKey:@"Agenda Book" localStoreNamed:@"Data" cloudStorePathComponent:@"data" completion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kRefreshAllViews object:nil];
+    }];
     
     return YES;
 }

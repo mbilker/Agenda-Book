@@ -2,10 +2,12 @@ PODS:
   - MagicalRecord (2.3.0-beta.2):
     - MagicalRecord/Core
   - MagicalRecord/Core (2.3.0-beta.2)
+  - MSDynamicsDrawerViewController (1.5.1)
   - pop (1.0.5)
 
 DEPENDENCIES:
   - MagicalRecord (from `https://github.com/magicalpanda/MagicalRecord`)
+  - MSDynamicsDrawerViewController
   - pop (~> 1.0.0)
 
 EXTERNAL SOURCES:
@@ -14,6 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   MagicalRecord: b7d8943e180dbd5c1dd48a807885e0059ce0bc82
+  MSDynamicsDrawerViewController: 0002059480a4b5ddde7eafbafb958a79a9b0ffaf
   pop: 75fa2b33934200a8a68abb449ac1726fcf7e43b9
 
 COCOAPODS: 0.33.1

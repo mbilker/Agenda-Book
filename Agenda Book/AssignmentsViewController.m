@@ -125,17 +125,6 @@
     [[Utils instance] saveContext];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    //[self loadFromPlist];
-    [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -146,14 +135,6 @@
 		//exit(-1);  // Fail
         abort();
 	}
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -327,7 +308,7 @@
 }
 
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id )sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
     
     switch(type) {
         case NSFetchedResultsChangeInsert:

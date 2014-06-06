@@ -38,6 +38,8 @@
 - (void)dealloc
 {
 	NSLog(@"dealloc ClassesViewController");
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (NSFetchedResultsController *)fetchedResultsController
@@ -75,6 +77,8 @@
 {
     [super viewDidLoad];
     _updateChecked = FALSE;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFetchedResults:) name:kRefreshAllViews object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -83,11 +87,7 @@
     
     [[Utils instance] initializeNavigationController:self.navigationController];
     
-    NSError *error;
-    if ([self.fetchedResultsController performFetch:&error]) {
-        [MagicalRecord handleErrors:error];
-    }
-    
+    [self reloadFetchedResults:nil];
     [self.tableView reloadData];
 }
 
@@ -114,6 +114,8 @@
 - (IBAction)tweet:(id)sender
 {
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        SLComposeViewController *twitter = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
         int d = 0;
         for (Info *i in self.fetchedResultsController.fetchedObjects) {
             if ([[Utils instance] determineClassComplete:i]) {
@@ -126,7 +128,6 @@
         NSString *f = (d != 1) ? @"classes" : @"class";
         unsigned long length = [self.fetchedResultsController.fetchedObjects count];
         
-        SLComposeViewController *twitter = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
         [twitter setInitialText:[NSString stringWithFormat:@"I'm using @mbilker's agenda book app for @TheQuenz. I have %lu %@. Homework for %d %@ is complete.", length, s, d, f]];
 	    [self presentViewController:twitter animated:YES completion:nil];
     } else {
@@ -180,6 +181,8 @@
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     backgroundView.backgroundColor = [[Utils instance] determineClassCompleteColor:info];
     cell.backgroundView = backgroundView;
+    
+    NSLog(@"Configured cell: %@", cell);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
