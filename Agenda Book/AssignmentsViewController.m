@@ -1,4 +1,6 @@
 
+#import <MagicalRecord/CoreData+MagicalRecord.h>
+
 #import "AssignmentsViewController.h"
 #import "AssignmentCell.h"
 #import "Assignment.h"
@@ -38,17 +40,11 @@
         return _fetchedResultsController;
     }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:[[Utils instance] managedObjectContext]];
-    [fetchRequest setEntity:entity];
+    NSFetchRequest *fetchRequest = [Assignment MR_requestAllSortedBy:@"dueDate" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"teacher == %@", info]];
     
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"dueDate" ascending:YES];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"teacher == %@", info];
-    [fetchRequest setPredicate:predicate];
     
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[[Utils instance] managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[NSManagedObjectContext MR_defaultContext] sectionNameKeyPath:nil cacheName:@"AgendaCache_Assignments"];
     _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
@@ -72,14 +68,8 @@
 
 - (BOOL)checkIfExists:(NSString *)adding
 {
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Assignment" inManagedObjectContext:[[Utils instance] managedObjectContext]];
-    [fetchRequest setEntity:entity];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"assignmentText == %@", adding];
-    [fetchRequest setPredicate:predicate];
-    NSArray *fetchedObjects = [[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error];
-    if ([fetchedObjects count] > 0) return YES;
+    NSUInteger count = [Assignment MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"assignmentText == %@", adding]];
+    if (count > 0) return YES;
     return NO;
 }
 
@@ -105,7 +95,7 @@
                 //[self.assignments addObject:adding];
                 //NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.assignments count] - 1 inSection:0];
                 //[self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                Assignment *assignment = [NSEntityDescription insertNewObjectForEntityForName:@"Assignment" inManagedObjectContext:[[Utils instance] managedObjectContext]];
+                Assignment *assignment = [Assignment MR_createEntity];
                 assignment.assignmentText = string;
                 assignment.complete = FALSE;
                 assignment.dueDate = date;
@@ -208,30 +198,11 @@
 {
     Assignment *assignment = [_fetchedResultsController objectAtIndexPath:indexPath];
     
-    CGSize maximumSize = CGSizeMake(280, 43);
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineBreakMode = cell.assignment.lineBreakMode;
-    NSDictionary *attributes = @{
-        NSFontAttributeName: cell.assignment.font,
-        NSParagraphStyleAttributeName: paragraphStyle
-    };
-    CGSize stringSize = [assignment.assignmentText boundingRectWithSize:cell.assignment.frame.size options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
-    CGRect cellFrame = CGRectMake(10, 10, 280, stringSize.height);
-    cell.assignment.frame = cellFrame;
-    
-    NSArray *tokens = [assignment.assignmentText componentsSeparatedByString:@"\n"];
-    //NSLog(@"Tokens: %@",tokens);
-    NSMutableString *newString = [[NSMutableString alloc] init];
-    for (NSString *token in tokens) {
-        //NSLog(@"Trucated: %@",[token stringByTruncatingToWidth:self.tableView.frame.size.width withFont:cell.assignment.font]);
-        [newString appendString:[token stringByTruncatingToWidth:cell.assignment.bounds.size.width withFont:cell.assignment.font]];
-    }
-    
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     backgroundView.backgroundColor = [[Utils instance] colorForComplete:assignment.complete];
     cell.backgroundView = backgroundView;
     
-    cell.assignment.text = newString;
+    cell.assignment.text = assignment.assignmentText;
     cell.due.text = [NSString stringWithFormat:@"Due: %@",[[[Utils instance] GMTDateFormatter] stringFromDate:assignment.dueDate]];
 }
 
@@ -257,7 +228,7 @@
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete)
 	{
-        [[[Utils instance] managedObjectContext] deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
+        [[NSManagedObjectContext MR_defaultContext] deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
         [[Utils instance] saveContext];
 	}
 }

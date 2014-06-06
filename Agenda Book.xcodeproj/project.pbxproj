@@ -25,6 +25,7 @@
 		65637C82185003AE008E8F19 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B56156CAA61001DE5DD /* StoreKit.framework */; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
 		657AA0F915159E780045148B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657AA0F815159E780045148B /* AboutViewController.m */; };
+		6581F964193FC58B00D6AD98 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581F963193FC58B00D6AD98 /* HeaderCell.m */; };
 		658FF58E154895A400D72959 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF58D154895A400D72959 /* QuartzCore.framework */; };
 		65924876184EF43700845C38 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 65924875184EF43700845C38 /* Images */; };
 		65924878184EF44600845C38 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65924877184EF44600845C38 /* Images.xcassets */; };
@@ -81,6 +82,8 @@
 		657EF1AB184F0796006144D3 /* Version 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Version 2.xcdatamodel"; sourceTree = "<group>"; };
 		657EF1AC184F09B3006144D3 /* Version 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Version 3.xcdatamodel"; sourceTree = "<group>"; };
 		6581F924193EC61200D6AD98 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
+		6581F962193FC58B00D6AD98 /* HeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCell.h; sourceTree = "<group>"; };
+		6581F963193FC58B00D6AD98 /* HeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCell.m; sourceTree = "<group>"; };
 		658FF58D154895A400D72959 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		65924875184EF43700845C38 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = SOURCE_ROOT; };
 		65924877184EF44600845C38 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -323,6 +326,8 @@
 				652859F4150ED19900296718 /* NSString-truncateToWidth.m */,
 				65A8415C1506ED9900C6B779 /* Supporting Files */,
 				655413ED15532E2600199B10 /* Data.xcdatamodeld */,
+				6581F962193FC58B00D6AD98 /* HeaderCell.h */,
+				6581F963193FC58B00D6AD98 /* HeaderCell.m */,
 			);
 			path = "Agenda Book";
 			sourceTree = "<group>";
@@ -473,6 +478,7 @@
 				6527C322150718FD007B8F26 /* NewClassViewController.m in Sources */,
 				6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */,
 				65507DD51509885500BA6D5E /* AddSubjectPickerViewController.m in Sources */,
+				6581F964193FC58B00D6AD98 /* HeaderCell.m in Sources */,
 				65199926150D4DE6007FD5A6 /* AssignmentCell.m in Sources */,
 				6519992A150D4F4B007FD5A6 /* AssignmentsViewController.m in Sources */,
 				65D57172150EAE4C00B9F47E /* NewAssignmentViewController.m in Sources */,
@@ -520,6 +526,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PROVISIONING_PROFILE = "A7938730-B069-4350-B7BE-31D13CA099FC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -534,6 +541,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PROVISIONING_PROFILE = "A7938730-B069-4350-B7BE-31D13CA099FC";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

@@ -37,7 +37,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	if ([segue.identifier isEqualToString:@"changeSubject"])
+	if ([segue.identifier isEqualToString:@"ChangeSubject"])
 	{
         //NSLog(@"Segue");
 		SubjectPickerViewController *subjectPickerViewController = segue.destinationViewController;

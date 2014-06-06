@@ -1,4 +1,6 @@
 
+#import <MagicalRecord/CoreData+MagicalRecord.h>
+
 #import "NewAssignmentViewController.h"
 #import "Assignment.h"
 #import "Utils.h"
@@ -35,19 +37,12 @@
 	NSLog(@"dealloc NewAssignmentViewController");
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [[Utils instance] initializeNavigationController:self.navigationController];
+    
     _dateFormatter = [[NSDateFormatter alloc] init];
     [_dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [_dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
@@ -69,6 +64,14 @@
     [self.assignmentField becomeFirstResponder];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.assignmentField resignFirstResponder];
+    [self.duePicker resignFirstResponder];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return [[Utils instance] shouldAutorotate:interfaceOrientation];
@@ -77,18 +80,14 @@
 - (void)checkDone
 {
     if (self.assignmentField.text.length != 0) {
-        NSError *error;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Assignment"];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(teacher == %@) AND (assignmentText == %@)", info, self.assignmentField.text];
-        [fetchRequest setPredicate:predicate];
-        NSArray *fetchedObjects = [[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error];
-        if ([fetchedObjects count] > 0) {
+        NSUInteger count = [Assignment MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"(teacher == %@) AND (assignmentText == %@)", info, self.assignmentField.text]];
+        if (count > 0) {
             [[[UIAlertView alloc] initWithTitle:@"Other Assignment Exists" message:@"Another Assignment with that text exists in the list" delegate:self cancelButtonTitle:@"Rename" otherButtonTitles:nil] show];
             //NSLog(@"FOUND");
             return;
         }
         
-        Assignment *assignment = [NSEntityDescription insertNewObjectForEntityForName:@"Assignment" inManagedObjectContext:[[Utils instance] managedObjectContext]];
+        Assignment *assignment = [Assignment MR_createEntity];
         assignment.assignmentText = self.assignmentField.text;
         assignment.complete = FALSE;
         assignment.dueDate = [[Utils instance] dateWithOutTime:self.duePicker.date];

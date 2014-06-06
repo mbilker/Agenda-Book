@@ -1,10 +1,19 @@
 PODS:
+  - MagicalRecord (2.3.0-beta.2):
+    - MagicalRecord/Core
+  - MagicalRecord/Core (2.3.0-beta.2)
   - pop (1.0.5)
 
 DEPENDENCIES:
-  - pop
+  - MagicalRecord (from `https://github.com/magicalpanda/MagicalRecord`)
+  - pop (~> 1.0.0)
+
+EXTERNAL SOURCES:
+  MagicalRecord:
+    :git: https://github.com/magicalpanda/MagicalRecord
 
 SPEC CHECKSUMS:
+  MagicalRecord: b7d8943e180dbd5c1dd48a807885e0059ce0bc82
   pop: 75fa2b33934200a8a68abb449ac1726fcf7e43b9
 
 COCOAPODS: 0.33.1

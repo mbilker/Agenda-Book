@@ -2,6 +2,7 @@
 #import <Social/Social.h>
 
 #import <POP/POP.h>
+#import <MagicalRecord/CoreData+MagicalRecord.h>
 
 #import "ClassesViewController.h"
 #import "AssignmentsViewController.h"
@@ -12,9 +13,11 @@
 
 @implementation ClassesViewController {
     NSIndexPath *_rowToDelete;
+    
     BOOL _updateAvailable;
     BOOL _updateChecked;
     BOOL _ready;
+    
     Info *_infoForRow;
     
     UIView *_iAdContainer;
@@ -43,25 +46,13 @@
         return _fetchedResultsController;
     }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Info"];
+    NSFetchRequest *fetchRequest = [Info MR_requestAllSortedBy:@"subject" ascending:NO];
     
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"subject" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[[Utils instance] managedObjectContext] sectionNameKeyPath:nil cacheName:@"Root"];;
+    NSFetchedResultsController *theFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[NSManagedObjectContext MR_defaultContext] sectionNameKeyPath:nil cacheName:@"AgendaCache_Classes"];
+    _fetchedResultsController = theFetchedResultsController;
     _fetchedResultsController.delegate = self;
-    
-    NSError *error;
-    if (![_fetchedResultsController performFetch:&error]) {
-        /* TODO
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
     
     return _fetchedResultsController;
 }
@@ -84,23 +75,19 @@
 {
     [super viewDidLoad];
     _updateChecked = FALSE;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadFetchedResults:) name:kRefetchAllDatabaseData object:[[UIApplication sharedApplication] delegate]];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    
-    self.fetchedResultsController = nil;
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [[Utils instance] initializeNavigationController:self.navigationController];
+    
+    NSError *error;
+    if ([self.fetchedResultsController performFetch:&error]) {
+        [MagicalRecord handleErrors:error];
+    }
+    
     [self.tableView reloadData];
 }
 
@@ -116,6 +103,7 @@
         [[Utils instance] initializeNavigationController:navigationController];
 		NewClassViewController *newClassViewController = [[navigationController viewControllers] objectAtIndex:0];
 		newClassViewController.delegate = self;
+        NSLog(@"viewController: %@",newClassViewController);
 	} else if ([segue.identifier isEqualToString:@"ShowAssignments"]) {
         Info *i = [self.fetchedResultsController objectAtIndexPath:[self.tableView indexPathForCell:sender]];
         AssignmentsViewController *assignmentsViewController = segue.destinationViewController;
@@ -159,6 +147,10 @@
     }
 }
 
+- (IBAction)menuButtonPressed:(id)sender
+{
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -169,8 +161,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	//return [self.classes count];
-    id sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    if ([self.fetchedResultsController.sections count] == 0) {
+        return 0;
+    } else {
+        id sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        return [sectionInfo numberOfObjects];
+    }
 }
 
 #pragma mark - Table view delegate
@@ -220,17 +216,11 @@
 {
     _infoForRow = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Assignment"];
+    unsigned long completed = [Assignment MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"teacher == %@ AND complete == 1", _infoForRow]];
+    unsigned long all = [Assignment MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"teacher == %@", _infoForRow]];
+    unsigned long incomplete = all - completed;
     
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"teacher == %@", _infoForRow]];
-    unsigned long i = [[[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error] count];
-    
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"teacher == %@ AND complete == 1", _infoForRow]];
-    unsigned long c = [[[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error] count];
-    unsigned long f = i - c;
-    
-    NSString *title = [NSString stringWithFormat:@"Teacher: %@\nSubject: %@\nID: %@\n\nAssignments: %lu\nComplete Assignments: %lu\nIncomplete Assignments: %lu", _infoForRow.teacher, _infoForRow.subject, _infoForRow.classid, i, c, f];
+    NSString *title = [NSString stringWithFormat:@"Teacher: %@\nSubject: %@\nID: %@\n\nAssignments: %lu\nComplete Assignments: %lu\nIncomplete Assignments: %lu", _infoForRow.teacher, _infoForRow.subject, _infoForRow.classid, all, completed, incomplete];
     
     [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit Class", nil] showInView:self.navigationController.view];
 }
@@ -252,7 +242,7 @@
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1 && _rowToDelete) {
-        [[[Utils instance] managedObjectContext] deleteObject:[self.fetchedResultsController objectAtIndexPath:_rowToDelete]];
+        [[NSManagedObjectContext MR_defaultContext] deleteObject:[self.fetchedResultsController objectAtIndexPath:_rowToDelete]];
     } else if (buttonIndex == 1 && _updateAvailable) {
         _updateAvailable = FALSE;
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://classes.mbilker.us"]];
@@ -260,21 +250,16 @@
     }
 }
 
-#pragma mark - PlayerDetailsViewControllerDelegate
+#pragma mark - NewClassViewControllerDelegate
 
-- (void)newClassViewControllerDidCancel:(ClassesViewController *)controller
+- (void)newClassViewControllerDidCancel:(NewClassViewController *)controller
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
-    
 }
 
-- (void)newClassViewController:(ClassesViewController *)controller didAddInfo:(NSDictionary *)newClass
+- (void)newClassViewController:(NewClassViewController *)controller didAddInfo:(NSDictionary *)newClass
 {
-    NSError *error;
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Info"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"teacher == %@", newClass[@"teacher"]];
-    [fetchRequest setPredicate:predicate];
-    NSArray *fetchedObjects = [[[Utils instance] managedObjectContext] executeFetchRequest:fetchRequest error:&error];
+    NSArray *fetchedObjects = [Info MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"teacher == %@", newClass[@"teacher"]]];
     
     NSLog(@"fetchedObjects: %@", fetchedObjects);
     
@@ -284,7 +269,7 @@
         return;
     }
     
-    Info *info = [NSEntityDescription insertNewObjectForEntityForName:@"Info" inManagedObjectContext:[[Utils instance] managedObjectContext]];
+    Info *info = [Info MR_createEntity];
     
     info.teacher = newClass[@"teacher"];
     info.subject = newClass[@"subject"];
@@ -410,11 +395,10 @@
 {
     _ready = FALSE;
     
-    POPSpringAnimation *anim = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerTranslationY];
-    anim.fromValue = @(banner.layer.position.y);
-    anim.toValue = @([UIScreen mainScreen].bounds.origin.y + [UIScreen mainScreen].bounds.size.height + banner.frame.size.height + 5);
-    anim.springBounciness = 50.f;
-    anim.springSpeed = 5.f;
+    POPDecayAnimation *anim = [POPDecayAnimation animationWithPropertyNamed:kPOPLayerTranslationY];
+    //anim.fromValue = @(banner.layer.position.y);
+    //anim.toValue = @([UIScreen mainScreen].bounds.origin.y + [UIScreen mainScreen].bounds.size.height + banner.frame.size.height + 5);
+    anim.velocity = @(750.0f);
     anim.completionBlock = ^(POPAnimation *anim, BOOL finished) {
         [banner removeFromSuperview];
     };

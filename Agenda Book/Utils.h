@@ -1,6 +1,6 @@
 
-#import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIKit.h>
+
 #import "Info.h"
 #import "Assignment.h"
 #import "AppDelegate.h"
@@ -19,9 +19,6 @@
 - (UIColor *)determineClassCompleteColor:(Info *)string;
 
 - (void)saveContext;
-- (void)saveContext:(NSManagedObjectContext *)context;
-
-- (NSManagedObjectContext *)managedObjectContext;
 
 - (NSDateFormatter *)GMTDateFormatter;
 

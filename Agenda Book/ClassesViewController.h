@@ -1,10 +1,9 @@
 
+#import <UIKit/UIKit.h>
 #import <iAd/iAd.h>
 
 #import "NewClassViewController.h"
 #import "EditClassViewController.h"
-
-#import "Constants.h"
 
 @interface ClassesViewController : UITableViewController <NewClassViewControllerDelegate, EditClassViewControllerDelegate, UIAlertViewDelegate, UIActionSheetDelegate, NSFetchedResultsControllerDelegate, ADBannerViewDelegate>
 
@@ -14,5 +13,6 @@
 
 - (IBAction)editNavButtonPressed:(id)sender;
 - (IBAction)tweet:(id)sender;
+- (IBAction)menuButtonPressed:(id)sender;
 
 @end

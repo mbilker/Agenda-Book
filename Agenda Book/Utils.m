@@ -1,4 +1,9 @@
 
+#import <QuartzCore/QuartzCore.h>
+
+#import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <POP/POP.h>
+
 #import "Utils.h"
 
 @implementation Utils
@@ -11,7 +16,7 @@ static Utils *_instance;
 + (id)alloc
 {
     @synchronized(self) {
-        NSAssert(_instance == nil, @"Attempted to allocate a second instance of the singleton: Functions");
+        NSAssert(_instance == nil, @"Attempted to allocate a second instance of the singleton: Utils");
         _instance = [super alloc];
         return _instance;
     }
@@ -36,14 +41,14 @@ static Utils *_instance;
 {
     if ((self = [super init]))
     {
-        NSLog(@"init Functions");
+        NSLog(@"init Utils");
     }
     return self;
 }
 
 - (void)dealloc
 {
-    NSLog(@"dealloc Functions");
+    NSLog(@"dealloc Utils");
 }
 
 - (BOOL)shouldAutorotate:(UIInterfaceOrientation)interfaceOrientation
@@ -55,17 +60,26 @@ static Utils *_instance;
 {
     navigationController.navigationBar.translucent = NO;
     navigationController.toolbar.translucent = NO;
-    if ([navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
+    
+    if (navigationController.navigationBar.barTintColor == nil) {
         navigationController.navigationBar.barTintColor = kBarTintColor;
-    } else {
-        navigationController.navigationBar.tintColor = kBarTintColor;
     }
     
-    if ([navigationController.toolbar respondsToSelector:@selector(setBarTintColor:)]) {
+    if (navigationController.toolbar.barTintColor == nil) {
         navigationController.toolbar.barTintColor = kBarTintColor;
-    } else {
-        navigationController.toolbar.tintColor = kBarTintColor;
     }
+    
+    POPBasicAnimation *anim1 = [POPBasicAnimation animationWithPropertyNamed:kPOPNavigationBarBarTintColor];
+    anim1.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+    anim1.fromValue = navigationController.navigationBar.barTintColor;
+    anim1.toValue = kBarTintColor;
+    [navigationController.navigationBar pop_addAnimation:anim1 forKey:@"navBarBarTintColor"];
+    
+    POPBasicAnimation *anim2 = [POPBasicAnimation animationWithPropertyNamed:kPOPToolbarBarTintColor];
+    anim2.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+    anim2.fromValue = navigationController.toolbar.barTintColor;
+    anim2.toValue = kBarTintColor;
+    [navigationController.toolbar pop_addAnimation:anim2 forKey:@"toolbarBarTintColor"];
 }
 
 - (NSDate *)dateWithOutTime:(NSDate *)datDate
@@ -106,26 +120,13 @@ static Utils *_instance;
 
 - (void)saveContext
 {
-    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [delegate saveContext];
-}
-
-- (void)saveContext:(NSManagedObjectContext *)context
-{
-    NSError *error = nil;
-    if (context != nil) {
-        if ([context hasChanges] && ![context save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } 
-    }
-}
-
-- (NSManagedObjectContext *)managedObjectContext
-{
-    return ((AppDelegate *)[[UIApplication sharedApplication] delegate]).managedObjectContext;
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
+        if (success) {
+            NSLog(@"You successfully saved your context.");
+        } else if (error) {
+            NSLog(@"Error saving context: %@", error.description);
+        }
+    }];
 }
 
 - (NSDateFormatter *)GMTDateFormatter

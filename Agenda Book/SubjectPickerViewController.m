@@ -1,4 +1,6 @@
 
+#import <MagicalRecord/CoreData+MagicalRecord.h>
+
 #import "SubjectPickerViewController.h"
 #import "Utils.h"
 
@@ -55,15 +57,11 @@
         return _fetchedResultsController;
     }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subject" inManagedObjectContext:[[Utils instance] managedObjectContext]];
-    [fetchRequest setEntity:entity];
+    NSFetchRequest *fetchRequest = [Subject MR_requestAllSortedBy:@"name" ascending:YES];
     
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(compare:)];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[[Utils instance] managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[NSManagedObjectContext MR_defaultContext] sectionNameKeyPath:nil cacheName:nil];
     _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
@@ -85,24 +83,18 @@
     if ([sectionInfo numberOfObjects] <= 0) {
         NSArray *array = [NSArray arrayWithObjects:@"Math", @"Science", @"Social Studies", @"Language Arts", @"Spanish", @"German", @"French", @"Tech Ed", @"Band", nil];
         for (NSString *sub in array) {
-            Subject *subj = [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:[[Utils instance] managedObjectContext]];
+            Subject *subj = [Subject MR_createEntity];
             subj.name = sub;
         }
     }
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Subject" inManagedObjectContext:[[Utils instance] managedObjectContext]];
-    [request setEntity:entity];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"name == %@", self.subject];
-    [request setPredicate:pred];
-    NSError *error2;
-    NSArray *matching_objects = [[[Utils instance] managedObjectContext] executeFetchRequest:request error:&error2];
-    //NSLog(@"matched: '%@'",matching_objects);
+    Subject *info = [Subject MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"name == %@", self.subject]];
     
-    if ([matching_objects count] == 0) {
+    //NSLog(@"matched: '%@'",info);
+    
+    if (info == nil) {
         selectedIndex = -1;
     } else {
-        Subject *info = [matching_objects objectAtIndex:0];
         selectedIndex = [_fetchedResultsController indexPathForObject:info].row;
     }
 }
@@ -192,7 +184,7 @@
 	if (editingStyle == UITableViewCellEditingStyleDelete)
 	{
 		//[subjects removeObjectAtIndex:indexPath.row];
-        [[[Utils instance] managedObjectContext] deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
+        [[NSManagedObjectContext MR_defaultContext] deleteObject:[_fetchedResultsController objectAtIndexPath:indexPath]];
         [[Utils instance] saveContext];
 		//[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}   
@@ -204,7 +196,7 @@
 {
     //NSLog(@"New Subject: %@",newSubject);
     //[subjects addObject:newSubject];
-    Subject *addSubject = [NSEntityDescription insertNewObjectForEntityForName:@"Subject" inManagedObjectContext:[[Utils instance] managedObjectContext]];
+    Subject *addSubject = [Subject MR_createEntity];
     addSubject.name = newSubject;
     [[Utils instance] saveContext];
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -222,7 +214,6 @@
 {
     [self.tableView beginUpdates];
 }
-
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
@@ -255,7 +246,6 @@
 {
     
     switch(type) {
-            
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;

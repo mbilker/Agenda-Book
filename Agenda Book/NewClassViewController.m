@@ -1,14 +1,24 @@
 
+#import <POP/POP.h>
+
 #import "NewClassViewController.h"
 #import "Info.h"
 #import "Utils.h"
 
+#define ERROR_BACKGROUND_COLOR [UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:0.5f]
+
 @implementation NewClassViewController
 {
 	NSString *_subject;
+    
+    CGFloat _originalTopContentInset;
+    
     UIView *_errorView;
     UIView *_contentView;
     UILabel *_errorLabel;
+    
+    bool _errorViewLayoutDone;
+    bool _errorViewDisplayed;
 }
 
 @synthesize delegate;
@@ -27,12 +37,6 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
 	}
 	return self;
-}
-
-- (instancetype)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    return self;
 }
 
 - (void)dealloc
@@ -73,8 +77,35 @@
 {
     [super viewWillAppear:animated];
     
+    [[Utils instance] initializeNavigationController:self.navigationController];
+    
     self.teacherTextField.delegate = self;
     [self.teacherTextField becomeFirstResponder];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    if (!_errorViewLayoutDone) {
+        _errorViewLayoutDone = true;
+        
+        _originalTopContentInset = self.tableView.contentInset.top;
+        
+        _errorView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.tableView.frame.size.width, 0.0f)];
+        _errorView.clipsToBounds = YES;
+        
+        _contentView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, _errorView.frame.size.width, 50.0f)];
+        _contentView.backgroundColor = ERROR_BACKGROUND_COLOR;
+        [_errorView addSubview:_contentView];
+        
+        _errorLabel = [[UILabel alloc] init];
+        _errorLabel.textAlignment = NSTextAlignmentCenter;
+        _errorLabel.numberOfLines = 0;
+        _errorLabel.opaque = TRUE;
+        _errorLabel.frame = _contentView.frame;
+        [_contentView addSubview:_errorLabel];
+        
+        [self.tableView addSubview:_errorView];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -103,34 +134,32 @@
         NSString *line = [NSString stringWithFormat:@"%@%@", ![self.teacherTextField hasText] ? @"Teacher field empty\n" : @"", [_subject isEqualToString:@"Not Chosen"] ? @"Subject not chosen" : @""];
         
         //NSLog(@"Empty and did not choose subject");
-        if (_errorView == nil) {
-            _errorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 50.0f)];
-        }
-        if (_contentView == nil) {
-            _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _errorView.frame.size.width, 0)];
-            _contentView.backgroundColor = [UIColor redColor];
-            [_errorView addSubview:_contentView];
-        }
-        
-        if (_errorLabel == nil) {
-            _errorLabel = [[UILabel alloc] init];
-            [_errorLabel setTextAlignment:NSTextAlignmentCenter];
-            _errorLabel.numberOfLines = 0;
-            _errorLabel.opaque = TRUE;
-            _errorLabel.frame = _contentView.frame;
-            [_contentView addSubview:_errorLabel];
-        }
+        NSLog(@"Line: %@",line);
         
         _errorLabel.text = line;
         
-        if (self.tableView.tableHeaderView.superview == nil) {
-            CGRect contentViewFrame = _contentView.frame;
-            contentViewFrame.size.height = _errorView.frame.size.height;
-            [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:500.0f initialSpringVelocity:0.0f options:UIViewAnimationOptionCurveLinear animations:^(void) {
-                self.tableView.tableHeaderView = _errorView;
-                _contentView.frame = contentViewFrame;
-                _errorLabel.frame = _errorView.frame;
+        if (!_errorViewDisplayed) {
+            _errorViewDisplayed = true;
+            [UIView animateWithDuration:0.2f delay:0.0f usingSpringWithDamping:500.0f initialSpringVelocity:0.0f options:UIViewAnimationOptionCurveLinear animations:^(void) {
+                CGRect newFrame = _errorView.frame;
+                newFrame.size.height = 50.0f;
+                newFrame.origin.y = -50.0f;
+                _errorView.frame = newFrame;
+                
+                UIEdgeInsets newInsets = self.tableView.contentInset;
+                newInsets.top = _originalTopContentInset + 50.0f;
+                self.tableView.contentInset = newInsets;
+                
+                self.tableView.contentOffset = CGPointMake(0.0f, -50.0f);
             } completion:nil];
+        } else {
+            [_contentView pop_removeAnimationForKey:@"flash"];
+            
+            POPBasicAnimation *anim = [POPBasicAnimation animationWithPropertyNamed:kPOPViewBackgroundColor];
+            anim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+            anim.fromValue = [UIColor colorWithRed:1.0f green:0.7f blue:0.5f alpha:1.0f];
+            anim.toValue = ERROR_BACKGROUND_COLOR;
+            [_contentView pop_addAnimation:anim forKey:@"flash"];
         }
     }
     return FALSE;
@@ -138,11 +167,17 @@
 
 - (void)dismissHeaderView
 {
-    [UIView animateWithDuration:0.5f delay:0.0f usingSpringWithDamping:500.0f initialSpringVelocity:0.0f options:UIViewAnimationOptionCurveLinear animations:^(void) {
-        _contentView.frame = _errorView.frame = CGRectMake(0, 0, _errorView.frame.size.width, 0);
-    } completion:^(BOOL complete) {
-        [_errorView removeFromSuperview];
-    }];
+    _errorViewDisplayed = false;
+    [UIView animateWithDuration:0.2f delay:0.0f usingSpringWithDamping:500.0f initialSpringVelocity:0.0f options:UIViewAnimationOptionCurveLinear animations:^(void) {
+        UIEdgeInsets newInsets = self.tableView.contentInset;
+        newInsets.top = _originalTopContentInset;
+        self.tableView.contentInset = newInsets;
+        
+        CGRect newFrame = _errorView.frame;
+        newFrame.size.height = 0.0f;
+        newFrame.origin.y = 0.0f;
+        _errorView.frame = newFrame;
+    } completion:nil];
 }
 
 - (IBAction)done:(id)sender
