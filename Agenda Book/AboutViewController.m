@@ -6,20 +6,17 @@
 
 @implementation AboutViewController
 
-@synthesize version;
-
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    return [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-}
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-	if ((self = [super initWithCoder:aDecoder]))
-	{
-		NSLog(@"init AboutViewController");
-	}
-	return self;
+    if ((self = [super initWithCoder:aDecoder])) {
+        NSLog(@"init %@", [self class]);
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    NSLog(@"dealloc %@", [self class]);
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -41,11 +38,6 @@
     [self.navigationController.toolbar pop_addAnimation:anim2 forKey:@"toolbarTintChange"];
     
     self.version.text = [NSString stringWithFormat:@"Version: %@\nBuild Date: %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"], [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBuildDate"]];
-}
-
-- (void)dealloc
-{
-	NSLog(@"dealloc AboutViewController");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

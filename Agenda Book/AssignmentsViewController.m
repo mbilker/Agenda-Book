@@ -2,17 +2,23 @@
 #import <MagicalRecord/CoreData+MagicalRecord.h>
 
 #import "AssignmentsViewController.h"
+#import "NewAssignmentViewController.h"
+#import "EditAssignmentViewController.h"
 #import "AssignmentCell.h"
 #import "Assignment.h"
+#import "Info.h"
+
 #import "NSString-truncateToWidth.h"
 #import "Utils.h"
 
-@implementation AssignmentsViewController {
-    Assignment *_assignmentForRow;
-}
+@interface AssignmentsViewController () <NewAssignmentViewControllerDelegate, EditAssignmentViewControllerDelegate, UIActionSheetDelegate, NSFetchedResultsControllerDelegate>
 
-@synthesize info;
-@synthesize fetchedResultsController = _fetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) Assignment *assignmentForRow;
+
+@end
+
+@implementation AssignmentsViewController
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -40,7 +46,7 @@
         return _fetchedResultsController;
     }
     
-    NSFetchRequest *fetchRequest = [Assignment MR_requestAllSortedBy:@"dueDate" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"teacher == %@", info]];
+    NSFetchRequest *fetchRequest = [Assignment MR_requestAllSortedBy:@"dueDate" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"teacher == %@", self.info]];
     
     [fetchRequest setFetchBatchSize:20];
     
@@ -99,7 +105,7 @@
                 assignment.assignmentText = string;
                 assignment.complete = FALSE;
                 assignment.dueDate = date;
-                assignment.teacher = info;
+                assignment.teacher = self.info;
             }
         }
         [[Utils instance] saveContext];
@@ -144,7 +150,7 @@
 		UINavigationController *navigationController = segue.destinationViewController;
 		NewAssignmentViewController *newAssignmnetViewController = [[navigationController viewControllers] objectAtIndex:0];
 		newAssignmnetViewController.delegate = self;
-        newAssignmnetViewController.info = info;
+        newAssignmnetViewController.info = self.info;
 	}
 }
 
@@ -155,8 +161,8 @@
 
 - (IBAction)loadRemote:(id)sender
 {
-    if (![info.classid isEqualToString:@"0"]) {
-        [self loadJSONRemote:info.classid];
+    if (![self.info.classid isEqualToString:@"0"]) {
+        [self loadJSONRemote:self.info.classid];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"No Class ID" message:@"Class not linked to an online list" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil] show];
     }

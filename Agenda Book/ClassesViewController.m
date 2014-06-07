@@ -3,13 +3,18 @@
 
 #import <POP/POP.h>
 #import <MagicalRecord/CoreData+MagicalRecord.h>
+#import <MSDynamicsDrawerViewController/MSDynamicsDrawerViewController.h>
 
 #import "ClassesViewController.h"
 #import "AssignmentsViewController.h"
-
-#import "Info.h"
 #import "SubjectCell.h"
+
+#import "Assignment.h"
+#import "Info.h"
+
 #import "Utils.h"
+
+#import "Constants.h"
 
 @implementation ClassesViewController {
     NSIndexPath *_rowToDelete;
@@ -23,21 +28,17 @@
     UIView *_iAdContainer;
 }
 
-@synthesize editButton;
-@synthesize fetchedResultsController = _fetchedResultsController;
-@synthesize iAdBanner;
-
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-	if ((self = [super initWithCoder:aDecoder])) {
-		NSLog(@"init ClassesViewController");
-	}
-	return self;
+    if ((self = [super initWithCoder:aDecoder])) {
+        NSLog(@"init %@", [self class]);
+    }
+    return self;
 }
 
 - (void)dealloc
 {
-	NSLog(@"dealloc ClassesViewController");
+    NSLog(@"dealloc %@", [self class]);
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -62,8 +63,7 @@
 - (void)reloadFetchedResults:(NSNotification*)note {
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        [MagicalRecord handleErrors:error];
     }             
     
     if (note) {
@@ -135,21 +135,10 @@
     }
 }
 
-- (IBAction)editNavButtonPressed:(id)sender
-{
-    BOOL isEditing = !self.tableView.editing;
-    [self.tableView setEditing:isEditing animated:YES];
-    if (self.tableView.editing) {
-        [self.editButton setTitle:@"Done"];
-        self.editButton.style = UIBarButtonItemStyleDone;
-    } else {
-        [self.editButton setTitle:@"Edit"];
-        self.editButton.style = UIBarButtonItemStyleBordered;
-    }
-}
-
 - (IBAction)menuButtonPressed:(id)sender
 {
+    MSDynamicsDrawerViewController *dynamicsDrawerViewController = (MSDynamicsDrawerViewController *)self.navigationController.parentViewController;
+    [dynamicsDrawerViewController setPaneState:MSDynamicsDrawerPaneStateOpen inDirection:MSDynamicsDrawerDirectionLeft animated:YES allowUserInterruption:YES completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -181,8 +170,6 @@
     UIView* backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     backgroundView.backgroundColor = [[Utils instance] determineClassCompleteColor:info];
     cell.backgroundView = backgroundView;
-    
-    NSLog(@"Configured cell: %@", cell);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

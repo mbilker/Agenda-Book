@@ -22,9 +22,11 @@
 		6550B51715815EB600FBAD16 /* MainStoryboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6550B51615815EB600FBAD16 /* MainStoryboard-iPad.storyboard */; };
 		655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 655413ED15532E2600199B10 /* Data.xcdatamodeld */; };
 		65637C81184FEE67008E8F19 /* Assignment.m in Sources */ = {isa = PBXBuildFile; fileRef = 65637C80184FEE67008E8F19 /* Assignment.m */; };
-		65637C82185003AE008E8F19 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65C22B56156CAA61001DE5DD /* StoreKit.framework */; };
 		6567C2471508054C00859E02 /* SubjectPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6567C2461508054C00859E02 /* SubjectPickerViewController.m */; };
 		657AA0F915159E780045148B /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 657AA0F815159E780045148B /* AboutViewController.m */; };
+		6581F3F11942D21F002705B1 /* MenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581F3F01942D21F002705B1 /* MenuTableViewController.m */; };
+		6581F3F41942DF05002705B1 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581F3F31942DF05002705B1 /* MenuCell.m */; };
+		6581F3F71942E65F002705B1 /* MenuTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581F3F61942E65F002705B1 /* MenuTableViewHeader.m */; };
 		6581F964193FC58B00D6AD98 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6581F963193FC58B00D6AD98 /* HeaderCell.m */; };
 		658FF58E154895A400D72959 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658FF58D154895A400D72959 /* QuartzCore.framework */; };
 		65924876184EF43700845C38 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 65924875184EF43700845C38 /* Images */; };
@@ -81,6 +83,12 @@
 		657AA0F815159E780045148B /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		657EF1AB184F0796006144D3 /* Version 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Version 2.xcdatamodel"; sourceTree = "<group>"; };
 		657EF1AC184F09B3006144D3 /* Version 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Version 3.xcdatamodel"; sourceTree = "<group>"; };
+		6581F3EF1942D21F002705B1 /* MenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewController.h; sourceTree = "<group>"; };
+		6581F3F01942D21F002705B1 /* MenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewController.m; sourceTree = "<group>"; };
+		6581F3F21942DF05002705B1 /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = "<group>"; };
+		6581F3F31942DF05002705B1 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = "<group>"; };
+		6581F3F51942E65F002705B1 /* MenuTableViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuTableViewHeader.h; sourceTree = "<group>"; };
+		6581F3F61942E65F002705B1 /* MenuTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableViewHeader.m; sourceTree = "<group>"; };
 		6581F924193EC61200D6AD98 /* Defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
 		6581F962193FC58B00D6AD98 /* HeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderCell.h; sourceTree = "<group>"; };
 		6581F963193FC58B00D6AD98 /* HeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderCell.m; sourceTree = "<group>"; };
@@ -106,7 +114,6 @@
 		65C22B48156CA9E7001DE5DD /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		65C22B50156CAA34001DE5DD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		65C22B52156CAA47001DE5DD /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		65C22B56156CAA61001DE5DD /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		65D57170150EAE4C00B9F47E /* NewAssignmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAssignmentViewController.h; sourceTree = "<group>"; };
 		65D57171150EAE4C00B9F47E /* NewAssignmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAssignmentViewController.m; sourceTree = "<group>"; };
 		65D95DCA153670C400EB7208 /* Agenda Book.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Agenda Book.entitlements"; sourceTree = "<group>"; };
@@ -130,7 +137,6 @@
 				65C22B49156CA9E7001DE5DD /* MobileCoreServices.framework in Frameworks */,
 				65A891A0184BDBE900B2D266 /* iAd.framework in Frameworks */,
 				654168D2184ED8C500AC79A2 /* Social.framework in Frameworks */,
-				65637C82185003AE008E8F19 /* StoreKit.framework in Frameworks */,
 				D86F571A62044791BA454588 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +144,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6581F3EE1942CF6B002705B1 /* Drawer */ = {
+			isa = PBXGroup;
+			children = (
+				6581F3EF1942D21F002705B1 /* MenuTableViewController.h */,
+				6581F3F01942D21F002705B1 /* MenuTableViewController.m */,
+			);
+			name = Drawer;
+			sourceTree = "<group>";
+		};
 		6581F925193EE41A00D6AD98 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +160,10 @@
 				6527C31D15071551007B8F26 /* SubjectCell.m */,
 				65199924150D4DE6007FD5A6 /* AssignmentCell.h */,
 				65199925150D4DE6007FD5A6 /* AssignmentCell.m */,
+				6581F3F21942DF05002705B1 /* MenuCell.h */,
+				6581F3F31942DF05002705B1 /* MenuCell.m */,
+				6581F3F51942E65F002705B1 /* MenuTableViewHeader.h */,
+				6581F3F61942E65F002705B1 /* MenuTableViewHeader.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -165,6 +184,7 @@
 		6581F927193EE46300D6AD98 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6581F3EE1942CF6B002705B1 /* Drawer */,
 				6581F928193EE47100D6AD98 /* About */,
 				6581F92A193EE4A700D6AD98 /* Class List */,
 				6581F92B193EE4B800D6AD98 /* Edit Class */,
@@ -267,6 +287,8 @@
 				6524C7CB1854D0D00064E7B1 /* Constants.h */,
 				6524C7CC1854D5130064E7B1 /* Constants.m */,
 				6581F924193EC61200D6AD98 /* Defines.h */,
+				652859F7150ED1B200296718 /* NSString-truncateToWidth.h */,
+				652859F4150ED19900296718 /* NSString-truncateToWidth.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -302,7 +324,6 @@
 				65C22B48156CA9E7001DE5DD /* MobileCoreServices.framework */,
 				65B71B19155865390032C1E7 /* iAd.framework */,
 				654168D1184ED8C500AC79A2 /* Social.framework */,
-				65C22B56156CAA61001DE5DD /* StoreKit.framework */,
 				777FA57A2622488D9C30D8BB /* libPods.a */,
 			);
 			name = Frameworks;
@@ -322,8 +343,6 @@
 				6581F926193EE43700D6AD98 /* Models */,
 				6581F927193EE46300D6AD98 /* View Controllers */,
 				6581F932193EE57B00D6AD98 /* Utils */,
-				652859F7150ED1B200296718 /* NSString-truncateToWidth.h */,
-				652859F4150ED19900296718 /* NSString-truncateToWidth.m */,
 				65A8415C1506ED9900C6B779 /* Supporting Files */,
 				655413ED15532E2600199B10 /* Data.xcdatamodeld */,
 				6581F962193FC58B00D6AD98 /* HeaderCell.h */,
@@ -377,8 +396,11 @@
 					65A841501506ED9900C6B779 = {
 						DevelopmentTeam = DXD4278H9V;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
 							com.apple.Keychain = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.iCloud = {
 								enabled = 1;
@@ -481,17 +503,20 @@
 				6581F964193FC58B00D6AD98 /* HeaderCell.m in Sources */,
 				65199926150D4DE6007FD5A6 /* AssignmentCell.m in Sources */,
 				6519992A150D4F4B007FD5A6 /* AssignmentsViewController.m in Sources */,
+				6581F3F11942D21F002705B1 /* MenuTableViewController.m in Sources */,
 				65D57172150EAE4C00B9F47E /* NewAssignmentViewController.m in Sources */,
 				652859F5150ED19900296718 /* NSString-truncateToWidth.m in Sources */,
 				657AA0F915159E780045148B /* AboutViewController.m in Sources */,
 				61601C5B151BA0C700A81E39 /* Utils.m in Sources */,
 				652A624915478BAC00FE17E5 /* EditClassViewController.m in Sources */,
 				650329E51549066000C4D628 /* EditAssignmentViewController.m in Sources */,
+				6581F3F71942E65F002705B1 /* MenuTableViewHeader.m in Sources */,
 				6524C7CD1854D5130064E7B1 /* Constants.m in Sources */,
 				655413EF15532E2600199B10 /* Data.xcdatamodeld in Sources */,
 				65A841A81506FE5100C6B779 /* Info.m in Sources */,
 				654A84131554D39F00744CB3 /* Subject.m in Sources */,
 				65637C81184FEE67008E8F19 /* Assignment.m in Sources */,
+				6581F3F41942DF05002705B1 /* MenuCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +547,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -538,6 +564,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

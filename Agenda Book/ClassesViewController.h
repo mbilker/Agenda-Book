@@ -11,7 +11,6 @@
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *editButton;
 @property (nonatomic, strong) IBOutlet ADBannerView *iAdBanner;
 
-- (IBAction)editNavButtonPressed:(id)sender;
 - (IBAction)tweet:(id)sender;
 - (IBAction)menuButtonPressed:(id)sender;
 

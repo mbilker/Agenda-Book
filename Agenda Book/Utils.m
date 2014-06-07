@@ -6,6 +6,11 @@
 
 #import "Utils.h"
 
+#import "Assignment.h"
+#import "Info.h"
+
+#import "Constants.h"
+
 @implementation Utils
 {
     NSDateFormatter *_GmtDateFormatter;

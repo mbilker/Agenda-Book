@@ -1,12 +1,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Info.h"
-#import "Assignment.h"
-#import "AppDelegate.h"
-
 //#define classServer @"localhost:8080"
 #define classServer @"classes.mbilker.us"
+
+@class Info;
 
 @interface Utils : NSObject
 

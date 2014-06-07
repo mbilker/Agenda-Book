@@ -1,10 +1,13 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Constants.h"
+@class ClassesViewController;
+@class MSDynamicsDrawerViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) MSDynamicsDrawerViewController *dynamicsDrawerViewController;
+@property (strong, nonatomic) ClassesViewController *classesViewController;
 
 @end

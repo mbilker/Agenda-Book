@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Z7m-U9-URt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="TaL-Xr-dPD">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
@@ -64,28 +64,21 @@
                                 <segue destination="EMp-qE-bFn" kind="push" id="aah-w3-SFP"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="LRP-6Y-qtS"/>
-                        <barButtonItem systemItem="add" id="Or8-VH-eIt">
-                            <connections>
-                                <segue destination="Kpq-CE-chA" kind="modal" identifier="AddSubject" id="UBy-bG-WyW"/>
-                            </connections>
-                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Classes" id="1TW-F7-esk">
-                        <barButtonItem key="leftBarButtonItem" tag="500" title="Edit" id="3Ak-As-bvu">
-                            <connections>
-                                <action selector="editNavButtonPressed:" destination="Sz0-VT-ff9" id="k2c-9T-DbR"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="List" id="1UV-dg-86L">
+                        <barButtonItem key="leftBarButtonItem" image="List" id="1UV-dg-86L">
                             <connections>
                                 <action selector="menuButtonPressed:" destination="Sz0-VT-ff9" id="eNX-fJ-Ttb"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Or8-VH-eIt">
+                            <connections>
+                                <segue destination="Kpq-CE-chA" kind="modal" identifier="AddSubject" id="UBy-bG-WyW"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="editButton" destination="3Ak-As-bvu" id="oFm-Yw-W2d"/>
                         <outlet property="iAdBanner" destination="h4g-Tf-2DR" id="6qO-7l-XPc"/>
                     </connections>
                 </tableViewController>
@@ -508,7 +501,7 @@ Build Date: 0000-00-00 00:00:00 GMT</string>
         <!--Navigation Controller-->
         <scene sceneID="w1B-H0-act">
             <objects>
-                <navigationController toolbarHidden="NO" id="Z7m-U9-URt" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Main" toolbarHidden="NO" id="Z7m-U9-URt" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Ekf-yV-QvU">
@@ -527,6 +520,37 @@ Build Date: 0000-00-00 00:00:00 GMT</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MM1-hA-4hT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="958" y="-1208"/>
+        </scene>
+        <!--Dynamics Drawer View Controller-->
+        <scene sceneID="jrW-kX-b8T">
+            <objects>
+                <viewController id="TaL-Xr-dPD" customClass="MSDynamicsDrawerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DiA-4b-gwC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y4k-yl-Nhb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="958" y="-610"/>
+        </scene>
+        <!--Menu Table View Controller-->
+        <scene sceneID="ORd-J4-ZcG">
+            <objects>
+                <tableViewController storyboardIdentifier="Menu" id="Yw6-C0-NQs" customClass="MenuTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="n6W-5g-vBm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Yw6-C0-NQs" id="Rax-H7-yEp"/>
+                            <outlet property="delegate" destination="Yw6-C0-NQs" id="rdM-22-D6b"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TFf-fa-prm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1484" y="-610"/>
         </scene>
         <!--Assignments View Controller - Assignments-->
         <scene sceneID="Gme-qj-f8a">
