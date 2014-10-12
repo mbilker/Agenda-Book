@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="TaL-Xr-dPD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="TaL-Xr-dPD">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
     </dependencies>
     <scenes>
-        <!--Classes View Controller - Classes-->
+        <!--Classes-->
         <scene sceneID="4hu-r8-Pc4">
             <objects>
                 <tableViewController id="Sz0-VT-ff9" customClass="ClassesViewController" sceneMemberID="viewController">
@@ -93,7 +93,7 @@
             </objects>
             <point key="canvasLocation" x="1484" y="-1208"/>
         </scene>
-        <!--New Class View Controller - Add Class-->
+        <!--Add Class-->
         <scene sceneID="R00-SH-ESx">
             <objects>
                 <tableViewController id="ukj-8y-kyg" customClass="NewClassViewController" sceneMemberID="viewController">
@@ -211,7 +211,7 @@
             </objects>
             <point key="canvasLocation" x="2487" y="-1208"/>
         </scene>
-        <!--Subject Picker View Controller - Subject-->
+        <!--Subject-->
         <scene sceneID="esE-FE-4qw">
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="QwF-3Y-072" customClass="SubjectPickerViewController" sceneMemberID="viewController">
@@ -256,7 +256,7 @@
             </objects>
             <point key="canvasLocation" x="2976" y="-1208"/>
         </scene>
-        <!--Edit Class View Controller - Edit Class-->
+        <!--Edit Class-->
         <scene sceneID="HDC-lc-C7Q">
             <objects>
                 <tableViewController storyboardIdentifier="editClass" id="Scc-v8-zeu" customClass="EditClassViewController" sceneMemberID="viewController">
@@ -370,7 +370,7 @@
             </objects>
             <point key="canvasLocation" x="2487" y="-588"/>
         </scene>
-        <!--Add Subject Picker View Controller - Add Subject-->
+        <!--Add Subject-->
         <scene sceneID="CmK-YY-DTB">
             <objects>
                 <tableViewController id="Lwi-zA-QbU" customClass="AddSubjectPickerViewController" sceneMemberID="viewController">
@@ -426,7 +426,7 @@
             </objects>
             <point key="canvasLocation" x="4016" y="-1208"/>
         </scene>
-        <!--About View Controller - About-->
+        <!--About-->
         <scene sceneID="qMp-Vr-K4v">
             <objects>
                 <viewController id="EMp-qE-bFn" customClass="AboutViewController" sceneMemberID="viewController">
@@ -552,7 +552,7 @@ Build Date: 0000-00-00 00:00:00 GMT</string>
             </objects>
             <point key="canvasLocation" x="1484" y="-610"/>
         </scene>
-        <!--Assignments View Controller - Assignments-->
+        <!--Assignments-->
         <scene sceneID="Gme-qj-f8a">
             <objects>
                 <tableViewController id="Fv7-CW-pO6" customClass="AssignmentsViewController" sceneMemberID="viewController">
@@ -609,7 +609,7 @@ Build Date: 0000-00-00 00:00:00 GMT</string>
             </objects>
             <point key="canvasLocation" x="1992" y="-1814"/>
         </scene>
-        <!--New Assignment View Controller - Add Assignment-->
+        <!--Add Assignment-->
         <scene sceneID="ZOe-Z4-3ii">
             <objects>
                 <tableViewController id="xMz-Jo-cSN" customClass="NewAssignmentViewController" sceneMemberID="viewController">
@@ -697,7 +697,7 @@ Build Date: 0000-00-00 00:00:00 GMT</string>
                             <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <date key="date" timeIntervalSinceReferenceDate="357012132.858706">
-                                <!--<__NSDate Class=2012-04-25 02:02:12 +0000 timeInterval=357012132.858706 ISO8601=2012-04-24T22:02:12.859-0400>-->
+                                <!--2012-04-25 02:02:12 +0000-->
                             </date>
                             <locale key="locale" localeIdentifier="en_US"/>
                             <connections>
@@ -747,7 +747,7 @@ Build Date: 0000-00-00 00:00:00 GMT</string>
             </objects>
             <point key="canvasLocation" x="3480" y="-1208"/>
         </scene>
-        <!--Edit Assignment View Controller - Edit Assignment-->
+        <!--Edit Assignment-->
         <scene sceneID="F2l-NT-KFw">
             <objects>
                 <tableViewController storyboardIdentifier="editAssignment" hidesBottomBarWhenPushed="YES" id="vrT-WG-bWf" customClass="EditAssignmentViewController" sceneMemberID="viewController">
@@ -832,7 +832,7 @@ Build Date: 0000-00-00 00:00:00 GMT</string>
                     <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <date key="date" timeIntervalSinceReferenceDate="357012132.858706">
-                        <!--<__NSDate Class=2012-04-25 02:02:12 +0000 timeInterval=357012132.858706 ISO8601=2012-04-24T22:02:12.859-0400>-->
+                        <!--2012-04-25 02:02:12 +0000-->
                     </date>
                     <locale key="locale" localeIdentifier="en_US"/>
                     <connections>

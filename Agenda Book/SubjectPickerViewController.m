@@ -27,7 +27,7 @@
 	NSLog(@"dealloc SubjectPickerViewController");
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     return self;
@@ -47,7 +47,7 @@
 	{
         //NSLog(@"Segue");
 		UINavigationController *navigationController = segue.destinationViewController;
-		AddSubjectPickerViewController *addSubjectPickerViewController = [[navigationController viewControllers] objectAtIndex:0];
+		AddSubjectPickerViewController *addSubjectPickerViewController = [navigationController viewControllers][0];
 		addSubjectPickerViewController.delegate = self;
 	}
 }
@@ -79,9 +79,9 @@
 		//exit(-1);  // Fail
         abort();
 	}
-    id sectionInfo = [[_fetchedResultsController sections] objectAtIndex:0];
+    id sectionInfo = [_fetchedResultsController sections][0];
     if ([sectionInfo numberOfObjects] <= 0) {
-        NSArray *array = [NSArray arrayWithObjects:@"Math", @"Science", @"Social Studies", @"Language Arts", @"Spanish", @"German", @"French", @"Tech Ed", @"Band", nil];
+        NSArray *array = @[@"Math", @"Science", @"Social Studies", @"Language Arts", @"Spanish", @"German", @"French", @"Tech Ed", @"Band"];
         for (NSString *sub in array) {
             Subject *subj = [Subject MR_createEntity];
             subj.name = sub;
@@ -138,7 +138,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //return [subjects count];
-    id sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+    id sectionInfo = [_fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
 }
 
@@ -223,11 +223,11 @@
     switch(type) {
             
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeUpdate:
@@ -235,8 +235,8 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }

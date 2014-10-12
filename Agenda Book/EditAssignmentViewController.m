@@ -13,7 +13,7 @@
 @synthesize dateFormatter;
 @synthesize assignment;
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
 	if ((self = [super initWithCoder:aDecoder]))
 	{
@@ -27,7 +27,7 @@
 	NSLog(@"dealloc EditAssignmentViewController");
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     return self;
@@ -58,7 +58,7 @@
     //tempAssignment.dueDate = self.assignment.dueDate;
     tempAssignment = [NSMutableDictionary dictionary];
     [tempAssignment setValue:self.assignment.assignmentText forKey:@"assignmentText"];
-    [tempAssignment setValue:[NSNumber numberWithBool:self.assignment.complete] forKey:@"complete"];
+    [tempAssignment setValue:@(self.assignment.complete) forKey:@"complete"];
     [tempAssignment setValue:[[Utils instance] dateWithOutTime:self.assignment.dueDate] forKey:@"dueDate"];
     
     

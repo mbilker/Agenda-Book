@@ -101,7 +101,7 @@
 	if ([segue.identifier isEqualToString:@"AddSubject"]) {
 		UINavigationController *navigationController = segue.destinationViewController;
         [[Utils instance] initializeNavigationController:navigationController];
-		NewClassViewController *newClassViewController = [[navigationController viewControllers] objectAtIndex:0];
+		NewClassViewController *newClassViewController = [navigationController viewControllers][0];
 		newClassViewController.delegate = self;
         NSLog(@"viewController: %@",newClassViewController);
 	} else if ([segue.identifier isEqualToString:@"ShowAssignments"]) {
@@ -154,7 +154,7 @@
     if ([self.fetchedResultsController.sections count] == 0) {
         return 0;
     } else {
-        id sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        id sectionInfo = [self.fetchedResultsController sections][section];
         return [sectionInfo numberOfObjects];
     }
 }
@@ -305,11 +305,11 @@
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeUpdate:
@@ -317,8 +317,8 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }

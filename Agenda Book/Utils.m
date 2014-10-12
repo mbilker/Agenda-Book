@@ -13,7 +13,7 @@
 
 @implementation Utils
 {
-    NSDateFormatter *_GmtDateFormatter;
+    NSDateFormatter *_GMTDateFormatter;
 }
 
 static Utils *_instance;
@@ -42,7 +42,7 @@ static Utils *_instance;
     }
 }
 
-- (id)init
+- (instancetype)init
 {
     if ((self = [super init]))
     {
@@ -136,12 +136,12 @@ static Utils *_instance;
 
 - (NSDateFormatter *)GMTDateFormatter
 {
-    if (_GmtDateFormatter == nil) {
-        _GmtDateFormatter = [[NSDateFormatter alloc] init];
-        [_GmtDateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [_GmtDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    if (_GMTDateFormatter == nil) {
+        _GMTDateFormatter = [[NSDateFormatter alloc] init];
+        [_GMTDateFormatter setDateStyle:NSDateFormatterShortStyle];
+        [_GMTDateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
     }
-    return _GmtDateFormatter;
+    return _GMTDateFormatter;
 }
 
 @end

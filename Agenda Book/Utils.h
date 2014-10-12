@@ -8,6 +8,8 @@
 
 @interface Utils : NSObject
 
+@property (nonatomic, readonly, copy) NSDateFormatter *GMTDateFormatter;
+
 + (Utils *) instance;
 
 - (BOOL)shouldAutorotate:(UIInterfaceOrientation)interfaceOrientation;
@@ -17,7 +19,5 @@
 - (UIColor *)determineClassCompleteColor:(Info *)string;
 
 - (void)saveContext;
-
-- (NSDateFormatter *)GMTDateFormatter;
 
 @end
