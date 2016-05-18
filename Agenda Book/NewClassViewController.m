@@ -1,5 +1,6 @@
 
 #import <POP/POP.h>
+#import <RWBlurPopover/RWBlurPopover.h>
 
 #import "NewClassViewController.h"
 #import "Info.h"
@@ -23,6 +24,7 @@
 
 @synthesize delegate;
 @synthesize teacherTextField;
+@synthesize detailCell;
 @synthesize detailLabel;
 @synthesize classIdField;
 
@@ -81,6 +83,9 @@
     
     self.teacherTextField.delegate = self;
     [self.teacherTextField becomeFirstResponder];
+    
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickSubjectDetail:)];
+    [self.detailCell addGestureRecognizer:tapRecognizer];
 }
 
 - (void)viewDidLayoutSubviews
@@ -123,6 +128,17 @@
 - (IBAction)cancel:(id)sender
 {
 	[self.delegate newClassViewControllerDidCancel:self];
+}
+
+- (void)clickSubjectDetail:(id)sender
+{
+    SubjectPickerViewController *subjectPickerViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SubjectPickerViewController"];
+    subjectPickerViewController.delegate = self;
+    subjectPickerViewController.subject = _subject;
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:subjectPickerViewController];
+    
+    [RWBlurPopover showContentViewController:navigationController insideViewController:self];
 }
 
 - (BOOL)checkDone

@@ -149,9 +149,6 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <segue destination="QwF-3Y-072" kind="push" identifier="PickSubject" id="TCr-ql-MeA"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" id="PIm-Nh-mLI">
                                         <rect key="frame" x="0.0" y="255" width="320" height="44"/>
@@ -203,6 +200,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="classIdField" destination="KC2-ki-czT" id="Yff-sn-nXi"/>
+                        <outlet property="detailCell" destination="iBj-gK-Jaf" id="az0-zv-zqJ"/>
                         <outlet property="detailLabel" destination="9Br-rn-nbt" id="bsY-ao-Idm"/>
                         <outlet property="teacherTextField" destination="qQE-pT-x6K" id="beS-NV-5xp"/>
                     </connections>
@@ -214,7 +212,7 @@
         <!--Subject-->
         <scene sceneID="esE-FE-4qw">
             <objects>
-                <tableViewController hidesBottomBarWhenPushed="YES" id="QwF-3Y-072" customClass="SubjectPickerViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SubjectPickerViewController" hidesBottomBarWhenPushed="YES" id="QwF-3Y-072" customClass="SubjectPickerViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="r5h-E3-13a">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -871,7 +869,4 @@ Build Date: 0000-00-00 00:00:00 GMT</string>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="nyu-XG-3bE"/>
-    </inferredMetricsTieBreakers>
 </document>

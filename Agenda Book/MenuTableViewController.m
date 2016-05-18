@@ -26,15 +26,6 @@ NSString * const MenuHeaderReuseIdentifier = @"MenuTableViewHeader";
     NSLog(@"dealloc %@", [self class]);
 }
 
-- (instancetype)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -60,7 +51,7 @@ NSString * const MenuHeaderReuseIdentifier = @"MenuTableViewHeader";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

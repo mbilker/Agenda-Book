@@ -206,25 +206,10 @@
 {
     _infoForRow = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    unsigned long completed = [Assignment MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"teacher == %@ AND complete == 1", _infoForRow]];
-    unsigned long all = [Assignment MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"teacher == %@", _infoForRow]];
-    unsigned long incomplete = all - completed;
-    
-    NSString *title = [NSString stringWithFormat:@"Teacher: %@\nSubject: %@\nID: %@\n\nAssignments: %lu\nComplete Assignments: %lu\nIncomplete Assignments: %lu", _infoForRow.teacher, _infoForRow.subject, _infoForRow.classid, all, completed, incomplete];
-    
-    [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit Class", nil] showInView:self.navigationController.view];
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqual:@"Edit Class"]) {
-        EditClassViewController *editClass = [self.storyboard instantiateViewControllerWithIdentifier:@"editClass"];
-        editClass.classInfo = _infoForRow;
-        editClass.delegate = self;
-        [self.navigationController pushViewController:editClass animated:YES];
-    }
+    EditClassViewController *editClass = [self.storyboard instantiateViewControllerWithIdentifier:@"editClass"];
+    editClass.classInfo = _infoForRow;
+    editClass.delegate = self;
+    [self.navigationController pushViewController:editClass animated:YES];
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -332,6 +317,12 @@
             
         case NSFetchedResultsChangeDelete:
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+
+        case NSFetchedResultsChangeUpdate:
+            break;
+
+        case NSFetchedResultsChangeMove:
             break;
     }
 }

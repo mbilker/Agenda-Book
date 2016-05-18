@@ -11,7 +11,7 @@
 #import "NSString-truncateToWidth.h"
 #import "Utils.h"
 
-@interface AssignmentsViewController () <NewAssignmentViewControllerDelegate, EditAssignmentViewControllerDelegate, UIActionSheetDelegate, NSFetchedResultsControllerDelegate>
+@interface AssignmentsViewController () <NewAssignmentViewControllerDelegate, EditAssignmentViewControllerDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) Assignment *assignmentForRow;
@@ -56,26 +56,27 @@
     return _fetchedResultsController;
 }
 
-- (BOOL)checkIfOnline:(NSURL *)url
-{
-    NSError *error;
-    NSURLResponse *response;
-	NSData *dataReply;
-	NSString *stringReply;
-	
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/check",classServer]]];
-	[request setHTTPMethod: @"GET"];
-	dataReply = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-	stringReply = [[NSString alloc] initWithData:dataReply encoding:NSUTF8StringEncoding];
-	
-	if([stringReply isEqualToString:@"ok"]) return YES;
-    return NO;
-}
-
 - (BOOL)checkIfExists:(NSString *)adding
 {
     NSUInteger count = [Assignment MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"assignmentText == %@", adding]];
     if (count > 0) return YES;
+    return NO;
+}
+
+/*
+- (BOOL)checkIfOnline:(NSURL *)url
+{
+    NSError *error;
+    NSURLResponse *response;
+    NSData *dataReply;
+    NSString *stringReply;
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://%@/check",classServer]]];
+    [request setHTTPMethod: @"GET"];
+    dataReply = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    stringReply = [[NSString alloc] initWithData:dataReply encoding:NSUTF8StringEncoding];
+    
+    if([stringReply isEqualToString:@"ok"]) return YES;
     return NO;
 }
 
@@ -115,6 +116,7 @@
         [[[UIAlertView alloc] initWithTitle:@"Class not available" message:@"Either the server is not working properly or there is some other problem" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil] show];
     }
 }
+*/
 
 - (void)changeComplete:(NSIndexPath *)indexPath
 {
@@ -161,12 +163,15 @@
 
 - (IBAction)loadRemote:(id)sender
 {
-    if (![self.info.classid isEqualToString:@"0"]) {
-        [self loadJSONRemote:self.info.classid];
-    } else {
-        [[[UIAlertView alloc] initWithTitle:@"No Class ID" message:@"Class not linked to an online list" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil] show];
-    }
-    [self.tableView reloadData];
+    [[[UIAlertView alloc] initWithTitle:@"Remote Disabled" message:@"Due to not having enough time to maintain the database, I have disabled this feature" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Close", nil] show];
+    return;
+    
+    //if (![self.info.classid isEqualToString:@"0"]) {
+    //    [self loadJSONRemote:self.info.classid];
+    //} else {
+    //    [[[UIAlertView alloc] initWithTitle:@"No Class ID" message:@"Class not linked to an online list" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil] show];
+    //}
+    //[self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -229,24 +234,10 @@
 {
     _assignmentForRow = [_fetchedResultsController objectAtIndexPath:indexPath];
     
-    NSDateFormatter *date = [[NSDateFormatter alloc] init];
-    [date setDateStyle:NSDateFormatterShortStyle];
-    NSString *line = [NSString stringWithFormat:@"Assignment: %@\nComplete: %@\nDue: %@", _assignmentForRow.assignmentText, _assignmentForRow.complete ? @"YES" : @"NO", [date stringFromDate:_assignmentForRow.dueDate]];
-    
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:line delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit Assignment", nil];
-    [actionSheet showInView:self.navigationController.view];
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0 && [[actionSheet buttonTitleAtIndex:buttonIndex] isEqualToString:@"Edit Assignment"]) {
-        EditAssignmentViewController *edit = [self.storyboard instantiateViewControllerWithIdentifier:@"editAssignment"];
-        edit.delegate = self;
-        edit.assignment = _assignmentForRow;
-        [self.navigationController pushViewController:edit animated:YES];
-    }
+    EditAssignmentViewController *edit = [self.storyboard instantiateViewControllerWithIdentifier:@"editAssignment"];
+    edit.delegate = self;
+    edit.assignment = _assignmentForRow;
+    [self.navigationController pushViewController:edit animated:YES];
 }
 
 #pragma mark - AddAssignmentViewControllerDelegate
@@ -320,9 +311,15 @@
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
-            
+
         case NSFetchedResultsChangeDelete:
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+
+        case NSFetchedResultsChangeMove:
+            break;
+
+        case NSFetchedResultsChangeUpdate:
             break;
     }
 }

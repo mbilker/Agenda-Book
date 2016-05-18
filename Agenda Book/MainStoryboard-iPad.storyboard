@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6154.17" systemVersion="14A238x" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="ZHC-0D-L1q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="14A388a" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="ZHC-0D-L1q">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6153.11"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
     </dependencies>
     <scenes>
-        <!--Classes View Controller - Classes-->
+        <!--Classes-->
         <scene sceneID="gmY-08-DSw">
             <objects>
                 <tableViewController id="dNU-Ep-SuH" customClass="ClassesViewController" sceneMemberID="viewController">
@@ -84,7 +85,7 @@
             </objects>
             <point key="canvasLocation" x="392" y="-642"/>
         </scene>
-        <!--New Class View Controller - Add Class-->
+        <!--Add Class-->
         <scene sceneID="B7m-MH-T9T">
             <objects>
                 <tableViewController id="3qO-q9-Mu6" customClass="NewClassViewController" sceneMemberID="viewController">
@@ -190,7 +191,7 @@
             </objects>
             <point key="canvasLocation" x="2272" y="-642"/>
         </scene>
-        <!--Edit Class View Controller - Edit Class-->
+        <!--Edit Class-->
         <scene sceneID="Jyw-eh-Pyp">
             <objects>
                 <tableViewController storyboardIdentifier="editClass" id="MSF-BS-5aZ" customClass="EditClassViewController" sceneMemberID="viewController">

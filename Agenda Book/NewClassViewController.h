@@ -12,6 +12,7 @@
 
 @property (nonatomic, weak) id <NewClassViewControllerDelegate> delegate;
 @property (nonatomic, strong) IBOutlet UITextField *teacherTextField;
+@property (nonatomic, strong) IBOutlet UITableViewCell *detailCell;
 @property (nonatomic, strong) IBOutlet UILabel *detailLabel;
 @property (nonatomic, strong) IBOutlet UITextField *classIdField;
 

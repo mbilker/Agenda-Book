@@ -4,11 +4,13 @@ PODS:
   - MagicalRecord/Core (2.3.0-beta.4)
   - MSDynamicsDrawerViewController (1.5.1)
   - pop (1.0.7)
+  - RWBlurPopover (3.0.1)
 
 DEPENDENCIES:
   - MagicalRecord (from `https://github.com/magicalpanda/MagicalRecord`)
   - MSDynamicsDrawerViewController
-  - pop (~> 1.0.0)
+  - pop
+  - RWBlurPopover
 
 EXTERNAL SOURCES:
   MagicalRecord:
@@ -18,5 +20,6 @@ SPEC CHECKSUMS:
   MagicalRecord: 59e5cec04ba1f9c9d4b70c2ec0a3ea8dceeb352e
   MSDynamicsDrawerViewController: 0002059480a4b5ddde7eafbafb958a79a9b0ffaf
   pop: 2f14a1ea61339767af9e66741b418c831b3844df
+  RWBlurPopover: 4abc071d7f171db621591d450958de46a8e3f839
 
-COCOAPODS: 0.34.2
+COCOAPODS: 0.34.4
